@@ -38,9 +38,10 @@ class RobotHandler:
 
     def close(self):
         # Run this when ending the main python script
+        print("Robot| Closing Thread")
         self.stopThread = True
-
-
+        success = self.mainThread.join(2)
+        print("Success?: " + success)
 class Encoder:
     def __init__(self, pin1, pin2):
         pass
