@@ -22,13 +22,13 @@ class RobotHandler:
         # Threading globals
         self.stopThread = False
         self.mainThread = Thread(target=self.mainLoop)
-
+        self.mainThread.start()
 
 
 
     def mainLoop(self):
 
-        while self.stopThread:
+        while not self.stopThread:
             sleep(1)
             print("RobotHandler Running")
 
@@ -42,6 +42,7 @@ class RobotHandler:
         self.stopThread = True
         success = self.mainThread.join(2)
         print("Success?: " + success)
+
 class Encoder:
     def __init__(self, pin1, pin2):
         pass
