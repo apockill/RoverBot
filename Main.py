@@ -12,3 +12,7 @@ Goals:
         - Computer Vision
         -
 """
+
+from Robot import RobotHandler
+
+RobotHandler()
