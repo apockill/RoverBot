@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # servoTest.py
 
-import robohat
+import RoboHat
 
 # Define pins for Pan/Tilt
 pan = 0
@@ -42,12 +42,12 @@ def readkey(getchar_fn=None):
 #======================================================================
 
 
-robohat.init()
+RoboHat.init()
 #print "Robohat version: ", robohat.version()
 
 def doServos():
-    robohat.setServo(pan, pVal)
-    robohat.setServo(tilt, tVal)
+    RoboHat.setServo(pan, pVal)
+    RoboHat.setServo(tilt, tVal)
 
 print "Use Arrows or W-Up, Z-Down, A-Left, S-Right Space=Centre, ^C=Exit:"
 
@@ -94,7 +94,7 @@ try:
             print "Down", pVal
 
         elif key == 'g':
-            robohat.startServos()
+            RoboHat.startServos()
             print "Down"
         elif ord(key) == 3:
             break
@@ -103,4 +103,4 @@ except KeyboardInterrupt:
     print
 
 finally:
-    robohat.cleanup()
+    RoboHat.cleanup()

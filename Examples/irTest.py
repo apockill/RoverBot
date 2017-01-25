@@ -1,22 +1,22 @@
 import sys, time
-import robohat
+import RoboHat
 
-robohat.init()
+RoboHat.init()
 
 
 
 try:
-    lastL = robohat.irLeft()
-    lastR = robohat.irRight()
-    lastLineL = robohat.irLeftLine()
-    lastLineR = robohat.irRightLine()
+    lastL = RoboHat.irLeft()
+    lastR = RoboHat.irRight()
+    lastLineL = RoboHat.irLeftLine()
+    lastLineR = RoboHat.irRightLine()
     print 'Left, Right, LeftLine, RightLine:', lastL, lastR, lastLineL, lastLineR
     print
     while True:
-        newL = robohat.irLeft()
-        newR = robohat.irRight()
-        newLineL = robohat.irLeftLine()
-        newLineR = robohat.irRightLine()
+        newL = RoboHat.irLeft()
+        newR = RoboHat.irRight()
+        newLineL = RoboHat.irLeftLine()
+        newLineR = RoboHat.irRightLine()
         if (newL != lastL) or (newR != lastR) or (newLineL != lastLineL) or (newLineR != lastLineR):
             print 'Left, Right, LeftLine, RightLine:', newL, newR, newLineL, newLineR
             print
@@ -30,4 +30,4 @@ except KeyboardInterrupt:
     print
 
 finally:
-    robohat.cleanup()
+    RoboHat.cleanup()

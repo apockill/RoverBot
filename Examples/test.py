@@ -1,15 +1,15 @@
 import time, sys
 import RPi.GPIO as GPIO
-import robohat
+import RoboHat
 
 wheelEnc  = 15
 wheelEnc2 = 16
-robohat.init()
+RoboHat.init()
 GPIO.setup( wheelEnc, GPIO.IN)
 GPIO.setup(wheelEnc2, GPIO.IN)
 speed = 10
 
-robohat.forward(speed)
+RoboHat.forward(speed)
 try:
     while True:
         print('Reading ' + str(GPIO.input(wheelEnc)) + ' ' + str(GPIO.input(wheelEnc2)))
@@ -19,4 +19,4 @@ try:
 except KeyboardInterrupt:
         print('Shutting Down')
     
-robohat.cleanup()
+RoboHat.cleanup()

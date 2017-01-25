@@ -8,7 +8,7 @@
 # Run using: sudo python motorTest.py
 
 
-import robohat, time
+import RoboHat, time
 
 speed = 80
 print "Tests the motors at speed = 80%"
@@ -16,24 +16,24 @@ print "Forward, Reverse, Spin Right, Spin Left, Stop, then repeat"
 print "Press Ctrl-C to stop"
 print
 
-robohat.init()
+RoboHat.init()
 
 # main loop
 try:
     while True:
-        robohat.forward(speed)
+        RoboHat.forward(speed)
         print 'Forward'
         time.sleep(3)
-        robohat.reverse(speed)
+        RoboHat.reverse(speed)
         print 'Reverse'
         time.sleep(3)
-        robohat.spinRight(speed)
+        RoboHat.spinRight(speed)
         print 'Spin Right'
         time.sleep(3)
-        robohat.spinLeft(speed)
+        RoboHat.spinLeft(speed)
         print 'Spin Left'
         time.sleep(3)
-        robohat.stop()
+        RoboHat.stop()
         print 'Stop'
         time.sleep(3)
 
@@ -41,5 +41,5 @@ except KeyboardInterrupt:
     print
 
 finally:
-    robohat.cleanup()
+    RoboHat.cleanup()
     
