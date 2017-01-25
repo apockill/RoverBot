@@ -14,5 +14,10 @@ Goals:
 """
 
 from Robot import RobotHandler
+from time import sleep
 
-RobotHandler()
+if __name__ == "__main__":
+    handler = RobotHandler()
+
+    sleep(10)
+    handler.close()
