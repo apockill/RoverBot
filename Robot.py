@@ -25,23 +25,33 @@ class RobotHandler:
         self.mainThread.start()
 
 
-
     def mainLoop(self):
 
         while not self.stopThread:
             sleep(1)
             print("RobotHandler Running")
 
+    def setSpeed(self, speed):
+        """
+        Sets both wheels
+        :param speed: Positive means forward, negative means backwards, 0 means stop
+        """
+        if speed > 0:
+            RoboHat.forward(abs(speed))
+        if speed < 0:
+            RoboHat.reverse(abs(speed))
+        if speed == 0:
+            RoboHat.stop()
 
-        # Close everything
-        RoboHat.cleanup()
 
     def close(self):
         # Run this when ending the main python script
         print("Robot| Closing Thread")
         self.stopThread = True
-        success = self.mainThread.join(2)
-        print("Success?: " + success)
+        self.mainThread.join(2)
+        RoboHat.cleanup()
+
+
 
 class Encoder:
     def __init__(self, pin1, pin2):

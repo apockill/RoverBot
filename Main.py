@@ -17,7 +17,13 @@ from Robot import RobotHandler
 from time import sleep
 
 if __name__ == "__main__":
-    handler = RobotHandler()
+    robot = RobotHandler()
 
-    sleep(10)
-    handler.close()
+    for i in range(0,100):
+        sleep(.1)
+        robot.setSpeed(i)
+
+    for i in range(0, 100, -1):
+        sleep(.1)
+        robot.setSpeed(i)
+    robot.close()
