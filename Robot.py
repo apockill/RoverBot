@@ -30,7 +30,7 @@ class RobotHandler:
     def mainLoop(self):
 
         while not self.stopThread:
-            sleep(.01)
+            sleep(.05)
 
             with self.actionLock:
                 self.leftWheel.update()
