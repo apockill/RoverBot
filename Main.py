@@ -26,4 +26,5 @@ if __name__ == "__main__":
     for i in range(0, 100, -1):
         sleep(.1)
         robot.setSpeed(i)
+
     robot.close()
