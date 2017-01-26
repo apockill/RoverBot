@@ -30,10 +30,8 @@ class RobotHandler:
     def mainLoop(self):
 
         while not self.stopThread:
-            sleep(.05)
 
-            with self.actionLock:
-                self.leftWheel.update()
+            self.leftWheel.update()
 
             print("RobotHandler Running")
 
@@ -76,7 +74,9 @@ class Encoder:
         GPIO.setup(self.pin2, GPIO.IN)
 
     def update(self):
+        sleep(.01)
         pin1 = GPIO.input(self.pin1)
+        sleep(.01)
         pin2 = GPIO.input(self.pin2)
 
         if pin1 != self.pin1Last and pin2 != self.pin2Last:
