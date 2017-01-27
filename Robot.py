@@ -30,10 +30,9 @@ class RobotHandler:
     def mainLoop(self):
 
         while not self.stopThread:
+            sleep(.1)
+            # self.leftWheel.update()
 
-            self.leftWheel.update()
-
-            print("RobotHandler Running")
 
     def setSpeed(self, speed):
         """
@@ -58,6 +57,8 @@ class RobotHandler:
         # In case the thread didn't close, use the lock when closing up
         with self.actionLock:
             RoboHat.cleanup()
+            
+        print("Total errors: " + str(self.leftWheel.errors))
 
 
 
@@ -67,11 +68,38 @@ class Encoder:
         self.pin2  = pin2
         self.count = 0  # Turn counts
 
-        self.pin1Last = -1
-        self.pin2Last = -1
-
+        self.last   = 1  # Which pin triggered last
+        self.errors = 0
+        
         GPIO.setup(self.pin1, GPIO.IN)
         GPIO.setup(self.pin2, GPIO.IN)
+        
+        self.pin1Last = GPIO.input(self.pin1)
+        self.pin2Last = GPIO.input(self.pin2)
+         
+        GPIO.add_event_detect(pin1, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
+        GPIO.add_event_detect(pin2, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
+        
+    def pinChangeEvent(self, pin):
+        if pin == self.pin1:
+            self.pin1Last = int(not self.pin1Last)
+            if self.last == 1:
+                print ("ERROR 1")
+                self.errors += 1
+            self.last = 1
+            
+            print("A: " + str(self.pin1Last) + " " + str(self.pin2Last))
+            
+        elif pin == self.pin2:
+            self.pin2Last = int(not self.pin2Last)
+            if self.last == 2:
+                print("ERROR 2")
+                self.errors += 1
+                
+            self.last = 2
+            
+            print("B: " + str(self.pin1Last) + " " + str(self.pin2Last))
+
 
     def update(self):
         sleep(.01)
@@ -83,4 +111,6 @@ class Encoder:
             self.pin1Last = pin1
             self.pin2Last = pin2
             print("Next: " + str(pin1) + " " + str(pin2))
+
+    
 

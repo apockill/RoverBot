@@ -19,10 +19,12 @@ from time import sleep
 if __name__ == "__main__":
     robot = RobotHandler()
 
-
-    robot.setSpeed(100)
-
-    sleep(5)
+    for i in range(0, 100):
+        
+        robot.setSpeed(i)
+        sleep(.1)
+        
+    sleep(1)
 
 
     robot.close()
