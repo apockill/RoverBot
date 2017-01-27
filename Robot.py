@@ -11,7 +11,7 @@ from collections import namedtuple
 
 global startTime
 startTime = time()
-
+currentTime = lambda: time() - startTime
 
 class RobotHandler:
     """
@@ -125,6 +125,6 @@ class Encoder:
         """
         newEntry = self.LogEntry(A = newPinA,
                                  B = newPinB,
-                                 time = time())
+                                 time = currentTime())
         self.log.append(newEntry)
 
