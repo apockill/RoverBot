@@ -5,8 +5,9 @@
 """
 import RoboHat
 import RPi.GPIO as GPIO
-from threading import Thread, RLock
-from time      import sleep
+from threading   import Thread, RLock
+from time        import sleep
+from collections import namedtuple
 
 
 
@@ -22,7 +23,7 @@ class RobotHandler:
 
         self.leftWheel = Encoder(15, 16)
 
-        # Threading globals
+        # Threading
         self.stopThread = False
         self.mainThread = Thread(target=self.mainLoop)
         self.mainThread.start()
@@ -32,7 +33,6 @@ class RobotHandler:
         while not self.stopThread:
             sleep(.1)
             # self.leftWheel.update()
-
 
     def setSpeed(self, speed):
         """
@@ -57,60 +57,65 @@ class RobotHandler:
         # In case the thread didn't close, use the lock when closing up
         with self.actionLock:
             RoboHat.cleanup()
-            
-        print("Total errors: " + str(self.leftWheel.errors))
+
 
 
 
 class Encoder:
-    def __init__(self, pin1, pin2):
-        self.pin1  = pin1
-        self.pin2  = pin2
-        self.count = 0  # Turn counts
+    """
+    When Speed is:
+        Positive
+        11
+        10
+        00
+        01
+        11
 
-        self.last   = 1  # Which pin triggered last
-        self.errors = 0
-        
-        GPIO.setup(self.pin1, GPIO.IN)
-        GPIO.setup(self.pin2, GPIO.IN)
-        
-        self.pin1Last = GPIO.input(self.pin1)
-        self.pin2Last = GPIO.input(self.pin2)
-         
-        GPIO.add_event_detect(pin1, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
-        GPIO.add_event_detect(pin2, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
-        
+        Negative
+        11
+        01
+        00
+        10
+        11
+    """
+    LogEntry = namedtuple("LogEntry", ["A", "B"])
+
+    def __init__(self, pinA, pinB):
+        self.pinA  = pinA
+        self.pinB  = pinB
+
+
+        # Set up GPIO Pins
+        GPIO.setup(self.pinA, GPIO.IN)
+        GPIO.setup(self.pinB, GPIO.IN)
+
+        # Get current GPIO Values
+        self.log = []  # [(pA, pB), (pA, pB)]
+        firstEntry = self.LogEntry(GPIO.input(self.pinA),
+                                   GPIO.input(self.pinB))
+        self.log.append(firstEntry)
+
+        # Set up GPIO Events (after having gotten the values!)
+        GPIO.add_event_detect(pinA, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
+        GPIO.add_event_detect(pinB, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
+
+
+
     def pinChangeEvent(self, pin):
-        if pin == self.pin1:
-            self.pin1Last = int(not self.pin1Last)
-            if self.last == 1:
-                print ("ERROR 1")
-                self.errors += 1
-            self.last = 1
-            
-            print("A: " + str(self.pin1Last) + " " + str(self.pin2Last))
-            
-        elif pin == self.pin2:
-            self.pin2Last = int(not self.pin2Last)
-            if self.last == 2:
-                print("ERROR 2")
-                self.errors += 1
-                
-            self.last = 2
-            
-            print("B: " + str(self.pin1Last) + " " + str(self.pin2Last))
+        # Find the pin that has been flipped, then act accordingly
+        newPinA = self.log[-1].A
+        newPinB = self.log[-1].B
 
+        if pin == self.pinA:
+            newPinA = int(not newPinA)
+            print("A: " + str(newPinA) + " " + str(newPinB))
+            
+        elif pin == self.pinB:
+            newPinB = int(not newPinB)
+            print("B: " + str(newPinA) + " " + str(newPinB))
 
-    def update(self):
-        sleep(.01)
-        pin1 = GPIO.input(self.pin1)
-        sleep(.01)
-        pin2 = GPIO.input(self.pin2)
-
-        if pin1 != self.pin1Last and pin2 != self.pin2Last:
-            self.pin1Last = pin1
-            self.pin2Last = pin2
-            print("Next: " + str(pin1) + " " + str(pin2))
+        newEntry = self.LogEntry(newPinA, newPinB)
+        self.log.append(newEntry)
 
     
 
