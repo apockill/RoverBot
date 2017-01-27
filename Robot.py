@@ -80,12 +80,22 @@ class Encoder:
         10
         11
     """
-    LogEntry = namedtuple("LogEntry", ["A", "B", "time"])
-
+    LogEntry = namedtuple("LogEntry", ["A", "B", "time", "count"])
+    order = {()}
     def __init__(self, pinA, pinB):
         self.pinA  = pinA
         self.pinB  = pinB
 
+        # This lookup table returns 1 if the motor is moving forward, 0 if backward, depending on pin logs
+        #  (prev A, prev B, curr A, curc B)
+        self.getDir = {(1, 1, 1, 0):  1,  # Forward
+                       (1, 0, 0, 0):  1,
+                       (0, 0, 0, 1):  1,
+                       (0, 1, 1, 1):  1,
+                       (1, 1, 0, 1): -1,  # Backward
+                       (0, 1, 0, 0): -1,
+                       (0, 0, 1, 0): -1,
+                       (1, 0, 1, 1): -1}
 
         # Set up GPIO Pins
         GPIO.setup(self.pinA, GPIO.IN)
@@ -95,7 +105,8 @@ class Encoder:
         self.log = []  # [(pA, pB), (pA, pB)]
         firstEntry = self.LogEntry(A = GPIO.input(self.pinA),
                                    B = GPIO.input(self.pinB),
-                                   time = 0)
+                                   time = 0,
+                                   count = 0)
         self.log.append(firstEntry)
 
         # Set up GPIO Events (after having gotten the values!)
@@ -123,8 +134,20 @@ class Encoder:
         :param newPinB: The new value of pin B
         :return: True if the operation was successful. False if there was an error (aka, encoder skipped a beat)
         """
+        lookup = (self.log[-1].A, self.log[-1].B, newPinA, newPinB)
+
+        # Get direction of turn
+
+        try:
+            direction = self.getDir[lookup]
+        except KeyError:
+            print("Error: " + str(lookup))
+            direction = 0
+
+
         newEntry = self.LogEntry(A = newPinA,
                                  B = newPinB,
-                                 time = currentTime())
+                                 time = currentTime(),
+                                 count = self.log[-1].count + direction)
         self.log.append(newEntry)
 
