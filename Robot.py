@@ -6,9 +6,11 @@
 import RoboHat
 import RPi.GPIO as GPIO
 from threading   import Thread, RLock
-from time        import sleep
+from time        import sleep, time
 from collections import namedtuple
 
+global startTime
+startTime = time()
 
 
 class RobotHandler:
@@ -78,7 +80,7 @@ class Encoder:
         10
         11
     """
-    LogEntry = namedtuple("LogEntry", ["A", "B"])
+    LogEntry = namedtuple("LogEntry", ["A", "B", "time"])
 
     def __init__(self, pinA, pinB):
         self.pinA  = pinA
@@ -91,8 +93,9 @@ class Encoder:
 
         # Get current GPIO Values
         self.log = []  # [(pA, pB), (pA, pB)]
-        firstEntry = self.LogEntry(GPIO.input(self.pinA),
-                                   GPIO.input(self.pinB))
+        firstEntry = self.LogEntry(A = GPIO.input(self.pinA),
+                                   B = GPIO.input(self.pinB),
+                                   time = 0)
         self.log.append(firstEntry)
 
         # Set up GPIO Events (after having gotten the values!)
@@ -106,16 +109,25 @@ class Encoder:
         newPinA = self.log[-1].A
         newPinB = self.log[-1].B
 
-        if pin == self.pinA:
-            newPinA = int(not newPinA)
-            print("A: " + str(newPinA) + " " + str(newPinB))
+        if pin == self.pinA: newPinA = int(not newPinA)
             
-        elif pin == self.pinB:
-            newPinB = int(not newPinB)
-            print("B: " + str(newPinA) + " " + str(newPinB))
+        if pin == self.pinB: newPinB = int(not newPinB)
+
+        print(str(newPinA) + " " + str(newPinB))
 
         newEntry = self.LogEntry(newPinA, newPinB)
         self.log.append(newEntry)
+        print(self.log[-1])
 
-    
+    def addLogEntry(self, newPinA, newPinB):
+        """
+        Generates a log entry
+        :param newPinA: The  new value of pin A
+        :param newPinB: The new value of pin B
+        :return: True if the operation was successful. False if there was an error (aka, encoder skipped a beat)
+        """
+        newEntry = self.LogEntry(A = newPinA,
+                                 B = newPinB,
+                                 time = time())
+        self.log.append(newEntry)
 
