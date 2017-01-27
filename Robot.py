@@ -113,10 +113,7 @@ class Encoder:
             
         if pin == self.pinB: newPinB = int(not newPinB)
 
-        print(str(newPinA) + " " + str(newPinB))
-
-        newEntry = self.LogEntry(newPinA, newPinB)
-        self.log.append(newEntry)
+        self.addLogEntry(newPinA, newPinB)
         print(self.log[-1])
 
     def addLogEntry(self, newPinA, newPinB):
