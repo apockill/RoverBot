@@ -10,8 +10,8 @@ from time        import sleep, time
 from collections import namedtuple
 
 global startTime
-startTime = time()
-currentTime = lambda: time() - startTime
+startTime  = time()
+getRunTime = lambda: time() - startTime
 
 class RobotHandler:
     """
@@ -80,22 +80,23 @@ class Encoder:
         10
         11
     """
-    LogEntry = namedtuple("LogEntry", ["A", "B", "time", "count"])
-    order = {()}
+    LogEntry = namedtuple("LogEntry", ["A", "B", "time", "count", "vel", "acc"])
+
     def __init__(self, pinA, pinB):
         self.pinA  = pinA
         self.pinB  = pinB
 
         # This lookup table returns 1 if the motor is moving forward, 0 if backward, depending on pin logs
         #  (prev A, prev B, curr A, curc B)
-        self.getDir = {(1, 1, 1, 0):  1,  # Forward
+        self.getDir = {(1, 1, 1, 0):  1,  # Forward direction
                        (1, 0, 0, 0):  1,
                        (0, 0, 0, 1):  1,
                        (0, 1, 1, 1):  1,
-                       (1, 1, 0, 1): -1,  # Backward
+                       (1, 1, 0, 1): -1,  # Backward direction
                        (0, 1, 0, 0): -1,
                        (0, 0, 1, 0): -1,
                        (1, 0, 1, 1): -1}
+        self.distancePerTick = .1  # CM
 
         # Set up GPIO Pins
         GPIO.setup(self.pinA, GPIO.IN)
@@ -112,8 +113,6 @@ class Encoder:
         # Set up GPIO Events (after having gotten the values!)
         GPIO.add_event_detect(pinA, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
         GPIO.add_event_detect(pinB, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
-
-
 
     def pinChangeEvent(self, pin):
         # Find the pin that has been flipped, then act accordingly
@@ -144,10 +143,17 @@ class Encoder:
             print("Error: " + str(lookup))
             direction = 0
 
+        currentTime = getRunTime()
 
-        newEntry = self.LogEntry(A = newPinA,
-                                 B = newPinB,
-                                 time = currentTime(),
-                                 count = self.log[-1].count + direction)
+        # Get the instantaneous velocity of the motor
+        elapsedTime     = self.log[-1].time - currentTime
+        instantVelocity = self.distancePerTick / elapsedTime
+
+        newEntry = self.LogEntry(A     = newPinA,
+                                 B     = newPinB,
+                                 time  = currentTime,
+                                 count = self.log[-1].count + direction,
+                                 vel   = instantVelocity,
+                                 acc   = 0)
         self.log.append(newEntry)
 
