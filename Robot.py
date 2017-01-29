@@ -126,7 +126,7 @@ class Encoder:
         if pin == self.pinB: newPinB = int(not newPinB)
 
         self.addLogEntry(newPinA, newPinB)
-        print(self.log[-1])
+        print(self.log[-1].vel)
 
     def addLogEntry(self, newPinA, newPinB):
         """
