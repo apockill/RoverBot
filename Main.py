@@ -19,9 +19,11 @@ from time import sleep
 if __name__ == "__main__":
     robot = RobotHandler()
 
-    robot.setSpeed(5)
+    robot.setSpeed(10)
     sleep(1)
-    robot.setSpeed(-5)
+    robot.setSpeed(0)
+    sleep(.25)
+    robot.setSpeed(-10)
     sleep(1)
 
 
