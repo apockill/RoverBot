@@ -104,10 +104,12 @@ class Encoder:
 
         # Get current GPIO Values
         self.log = []  # [(pA, pB), (pA, pB)]
-        firstEntry = self.LogEntry(A = GPIO.input(self.pinA),
-                                   B = GPIO.input(self.pinB),
-                                   time = 0,
-                                   count = 0)
+        firstEntry = self.LogEntry(A     = GPIO.input(self.pinA),
+                                   B     = GPIO.input(self.pinB),
+                                   time  = getRunTime(),
+                                   count = 0,
+                                   vel   = 0,
+                                   acc   = 0)
         self.log.append(firstEntry)
 
         # Set up GPIO Events (after having gotten the values!)
