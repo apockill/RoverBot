@@ -159,4 +159,4 @@ class Encoder:
                                  acc   = 0)
         self.log.append(newEntry)
 
-        print(str(newEntry.A) + str(newEntry.B) + " " + str(newEntry.vel) + " \t" + elapsedTime)
+        print(str(newEntry.A) + str(newEntry.B) + " " + str(newEntry.vel) + " \t" + str(round(elapsedTime, 3)))
