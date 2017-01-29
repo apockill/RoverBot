@@ -148,7 +148,7 @@ class Encoder:
         currentTime = getRunTime()
 
         # Get the instantaneous velocity of the motor
-        elapsedTime     = self.log[-1].time - currentTime
+        elapsedTime     = currentTime - self.log[-1].time
         instantVelocity = self.distancePerTick / elapsedTime
 
         newEntry = self.LogEntry(A     = newPinA,
