@@ -126,7 +126,7 @@ class Encoder:
         if pin == self.pinB: newPinB = int(not newPinB)
 
         self.addLogEntry(newPinA, newPinB)
-        print(self.log[-1].vel)
+        print(str(self.log[-1].A) + str(self.log[-1].B) + " " + str(self.log[-1].vel) + " \t" + str(round(self.log[-1].time, 3)) )
 
     def addLogEntry(self, newPinA, newPinB):
         """
@@ -155,7 +155,7 @@ class Encoder:
                                  B     = newPinB,
                                  time  = currentTime,
                                  count = self.log[-1].count + direction,
-                                 vel   = instantVelocity,
+                                 vel   = round(instantVelocity, 5),
                                  acc   = 0)
         self.log.append(newEntry)
 
