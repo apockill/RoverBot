@@ -87,8 +87,7 @@ class Encoder:
     B     = 0
     time  = getRunTime()
     count = 0
-    vel   = 0
-    acc   = 0
+
 
     def __init__(self, pinA, pinB):
         self.pinA  = pinA
@@ -111,14 +110,12 @@ class Encoder:
         GPIO.setup(self.pinB, GPIO.IN)
 
         # Get current GPIO Values
-        # self.log = []  # [(pA, pB), (pA, pB)]
-        # firstEntry = self.LogEntry(A     = GPIO.input(self.pinA),
-        #                            B     = GPIO.input(self.pinB),
-        #                            time  = getRunTime(),
-        #                            count = 0,
-        #                            vel   = 0,
-        #                            acc   = 0)
-        # self.log.append(firstEntry)
+        self.log = []  # [(pA, pB), (pA, pB)]
+        firstEntry = self.LogEntry(A     = GPIO.input(self.pinA),
+                                   B     = GPIO.input(self.pinB),
+                                   time  = getRunTime(),
+                                   count = 0)
+        self.log.append(firstEntry)
 
         # Set up GPIO Events (after having gotten the values!)
         GPIO.add_event_detect(pinA, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
@@ -146,7 +143,7 @@ class Encoder:
 
 
         # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
-        if newPinA == 0 or newPinB == 0:
+        if not newPinA == newPinB:
             self.A = newPinA
             self.B = newPinB
             return
@@ -162,25 +159,30 @@ class Encoder:
 
         currentTime = getRunTime()
 
-        # Get the instantaneous velocity of the motor
-        elapsedTime     = currentTime - self.time
-        instantVelocity = self.distancePerTick / elapsedTime
 
         # Update State Values
         self.A      = newPinA
         self.B      = newPinB
         self.time   = currentTime
         self.count += direction
-        self.vel    = instantVelocity
-        self.acc    = 0
 
-        # # Log the current State Values
-        # newEntry = self.LogEntry(A     = self.A,
-        #                          B     = self.B,
-        #                          time  = self.time,
-        #                          count = self.count,
-        #                          vel   = self.velocity,
-        #                          acc   = self.acc)
-        # self.log.append(newEntry)
 
-        print(str(self.A) + str(self.B) + " " + str(self .vel) + " \t" + str(round(elapsedTime, 3)))
+        # Log the current State Values
+        newEntry = self.LogEntry(A     = self.A,
+                                 B     = self.B,
+                                 time  = self.time,
+                                 count = self.count)
+        self.log.append(newEntry)
+
+        print(str(self.A) + str(self.B) + " " + str(self.getVelocity()) + " \t")
+
+    def getVelocity(self):
+        if len(self.log) < 5: return 0
+
+
+        old = self.log[-5]
+
+
+        elapsedTime = getRunTime() - old.time
+        instantVelocity = self.distancePerTick / elapsedTime
+        return instantVelocity
