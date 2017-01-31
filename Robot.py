@@ -177,7 +177,7 @@ class Encoder:
         print(str(self.A) + str(self.B) + " " + str(self.getVelocity()) + " \t")
 
     def getVelocity(self):
-        sampleSize = 5
+        sampleSize = 10
         if len(self.log) < sampleSize: return 0
 
         old         = self.log[-sampleSize]
