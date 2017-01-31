@@ -83,12 +83,12 @@ class Encoder:
     LogEntry = namedtuple("LogEntry", ["A", "B", "time", "count", "vel", "acc"])
 
     # State Variables
-    A        = 0
-    B        = 0
-    time     = getRunTime()
-    count    = 0
-    velocity = 0
-    acc      = 0
+    A     = 0
+    B     = 0
+    time  = getRunTime()
+    count = 0
+    vel   = 0
+    acc   = 0
 
     def __init__(self, pinA, pinB):
         self.pinA  = pinA
@@ -171,7 +171,7 @@ class Encoder:
         self.B        = newPinB
         self.time     = currentTime
         self.count   += direction
-        self.velocity = instantVelocity
+        self.vel = instantVelocity
         self.acc      = 0
 
         # # Log the current State Values
