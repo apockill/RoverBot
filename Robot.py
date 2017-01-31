@@ -177,7 +177,7 @@ class Encoder:
                                  count = self.count)
         self.log.append(newEntry)
 
-        print(str(round(self.time, 3)) + " " + self.count)
+        print(str(round(self.time, 3)) + " " + str(self.count))
         # print(str(self.A) + str(self.B) + " " + str(self.getVelocity()) + " \t")
 
     def getVelocity(self):
