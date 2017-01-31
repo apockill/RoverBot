@@ -185,8 +185,9 @@ class Encoder:
         if len(self.log) < sampleSize: return 0
 
         old         = self.log[-sampleSize]
+        ticks       = self.count - old.count
         elapsedTime = getRunTime() - old.time
-        timePerTick = elapsedTime / sampleSize
+        timePerTick = elapsedTime / ticks
         velocity    = self.distancePerTick / timePerTick
 
         return velocity
