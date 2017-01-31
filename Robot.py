@@ -167,12 +167,12 @@ class Encoder:
         instantVelocity = self.distancePerTick / elapsedTime
 
         # Update State Values
-        self.A        = newPinA
-        self.B        = newPinB
-        self.time     = currentTime
-        self.count   += direction
-        self.vel = instantVelocity
-        self.acc      = 0
+        self.A      = newPinA
+        self.B      = newPinB
+        self.time   = currentTime
+        self.count += direction
+        self.vel    = instantVelocity
+        self.acc    = 0
 
         # # Log the current State Values
         # newEntry = self.LogEntry(A     = self.A,
