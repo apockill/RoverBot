@@ -62,6 +62,10 @@ class RobotHandler:
 
 
 
+class Wheel:
+    def __init__(self):
+        pass
+
 
 class Encoder:
     """
@@ -132,7 +136,6 @@ class Encoder:
 
         self.addLogEntry(newPinA, newPinB)
 
-
     def addLogEntry(self, newPinA, newPinB):
         """
         Generates a log entry
@@ -174,7 +177,8 @@ class Encoder:
                                  count = self.count)
         self.log.append(newEntry)
 
-        print(str(self.A) + str(self.B) + " " + str(self.getVelocity()) + " \t")
+        print(str(round(self.time, 3)) + " " + self.count)
+        # print(str(self.A) + str(self.B) + " " + str(self.getVelocity()) + " \t")
 
     def getVelocity(self):
         sampleSize = 10
