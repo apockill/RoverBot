@@ -24,7 +24,7 @@ class RobotHandler:
         self.actionLock = RLock()
 
         self.LWheel = Encoder(15, 16)
-        self.RWheel = Encoder(29, 13)
+        self.RWheel = Encoder(13, 29)
 
         # Threading
         self.stopThread = False
