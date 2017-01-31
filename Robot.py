@@ -108,7 +108,7 @@ class Encoder:
                        (0, 1, 0, 0):  1,
                        (0, 0, 1, 0):  1,
                        (1, 0, 1, 1):  1}
-        self.mmPerTick = 4.85969387755  # mm
+        self.mmPerTick = 4.83308845108  # mm
 
         # Set up GPIO Pins
         GPIO.setup(self.pinA, GPIO.IN)
@@ -178,7 +178,7 @@ class Encoder:
                                  count = self.count)
         self.log.append(newEntry)
 
-        print(str(round(self.time, 3)) + " " + str(self.count))
+        print(str(round(self.count*self.mmPerTick, 3)) + " " + str(self.count))
         # print(str(self.A) + str(self.B) + " " + str(self.getVelocity()) + " \t")
 
     def getVelocity(self):
