@@ -163,7 +163,7 @@ class Encoder:
         currentTime = getRunTime()
 
         # Get the instantaneous velocity of the motor
-        elapsedTime     = currentTime - self.log[-1].time
+        elapsedTime     = currentTime - self.time
         instantVelocity = self.distancePerTick / elapsedTime
 
         # Update State Values
@@ -183,4 +183,4 @@ class Encoder:
         #                          acc   = self.acc)
         # self.log.append(newEntry)
 
-        print(str(newEntry.A) + str(newEntry.B) + " " + str(newEntry.vel) + " \t" + str(round(elapsedTime, 3)))
+        print(str(self.A) + str(self.B) + " " + str(self .vel) + " \t" + str(round(elapsedTime, 3)))
