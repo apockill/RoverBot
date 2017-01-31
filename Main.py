@@ -15,7 +15,7 @@ Goals:
 
 from Robot import RobotHandler
 from time import sleep
-import Video
+# import Video
 
 if __name__ == "__main__":
     robot = RobotHandler()
