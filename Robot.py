@@ -80,7 +80,7 @@ class Encoder:
         10
         11
     """
-    LogEntry = namedtuple("LogEntry", ["A", "B", "time", "count", "vel", "acc"])
+    LogEntry = namedtuple("LogEntry", ["A", "B", "time", "count"])
 
     # State Variables
     A     = 0
@@ -180,9 +180,8 @@ class Encoder:
         if len(self.log) < 5: return 0
 
 
-        old = self.log[-5]
-
-
+        old         = self.log[-5]
         elapsedTime = getRunTime() - old.time
-        instantVelocity = self.distancePerTick / elapsedTime
-        return instantVelocity
+        velocity    = self.distancePerTick / elapsedTime
+
+        return velocity
