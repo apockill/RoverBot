@@ -99,14 +99,14 @@ class Encoder:
 
         # This lookup table returns 1 if the motor is moving forward, 0 if backward, depending on pin logs
         #  (prev A, prev B, curr A, curc B)
-        self.getDir = {(1, 1, 1, 0):  1,  # Forward direction
-                       (1, 0, 0, 0):  1,
-                       (0, 0, 0, 1):  1,
-                       (0, 1, 1, 1):  1,
-                       (1, 1, 0, 1): -1,  # Backward direction
-                       (0, 1, 0, 0): -1,
-                       (0, 0, 1, 0): -1,
-                       (1, 0, 1, 1): -1}
+        self.getDir = {(1, 1, 1, 0): -1,  # Backward direction
+                       (1, 0, 0, 0): -1,
+                       (0, 0, 0, 1): -1,
+                       (0, 1, 1, 1): -1,
+                       (1, 1, 0, 1):  1,  # Forward direction
+                       (0, 1, 0, 0):  1,
+                       (0, 0, 1, 0):  1,
+                       (1, 0, 1, 1):  1}
         self.distancePerTick = .1  # CM
 
         # Set up GPIO Pins
