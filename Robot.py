@@ -183,7 +183,7 @@ class Encoder:
         old         = self.log[-sampleSize]
         elapsedTime = getRunTime() - old.time
         timePerTick = elapsedTime / sampleSize
-        velocity    = self.distancePerTick / elapsedTime
+        velocity    = self.distancePerTick / timePerTick
 
         return velocity
 
