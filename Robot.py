@@ -23,7 +23,8 @@ class RobotHandler:
 
         self.actionLock = RLock()
 
-        self.leftWheel = Encoder(15, 16)
+        self.LWheel = Encoder(15, 16)
+        self.RWheel = Encoder(29, 13)
 
         # Threading
         self.stopThread = False
@@ -107,7 +108,7 @@ class Encoder:
                        (0, 1, 0, 0):  1,
                        (0, 0, 1, 0):  1,
                        (1, 0, 1, 1):  1}
-        self.distancePerTick = .1  # CM
+        self.mmPerTick = 4.85969387755  # mm
 
         # Set up GPIO Pins
         GPIO.setup(self.pinA, GPIO.IN)
@@ -188,7 +189,7 @@ class Encoder:
         ticks       = self.count - old.count
         elapsedTime = getRunTime() - old.time
         timePerTick = elapsedTime / ticks
-        velocity    = self.distancePerTick / timePerTick
+        velocity    = self.mmPerTick / timePerTick
 
         return velocity
 
