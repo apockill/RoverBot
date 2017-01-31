@@ -126,8 +126,8 @@ class Encoder:
 
     def pinChangeEvent(self, pin):
         # Find the pin that has been flipped, then act accordingly
-        newPinA = self.log[-1].A
-        newPinB = self.log[-1].B
+        newPinA = self.A
+        newPinB = self.B
 
         if pin == self.pinA: newPinA = int(not newPinA)
             
