@@ -23,8 +23,8 @@ class RobotHandler:
 
         self.actionLock = RLock()
 
-        # self.LWheel = Encoder(15, 16)
-        self.RWheel = Encoder(13, 29)
+        self.LWheel = Encoder(15, 16)
+        self.RWheel = Encoder(13, 29, flipped=True)
 
         # Threading
         self.stopThread = False
@@ -63,11 +63,6 @@ class RobotHandler:
 
 
 
-class Wheel:
-    def __init__(self):
-        pass
-
-
 class Encoder:
     """
     When Speed is:
@@ -94,9 +89,10 @@ class Encoder:
     count = 0
 
 
-    def __init__(self, pinA, pinB):
-        self.pinA  = pinA
-        self.pinB  = pinB
+    def __init__(self, pinA, pinB, flipped=False):
+        self.pinA    = pinA
+        self.pinB    = pinB
+        self.flipped = flipped
 
         # This lookup table returns 1 if the motor is moving forward, 0 if backward, depending on pin logs
         #  (prev A, prev B, curr A, curc B)
@@ -157,6 +153,7 @@ class Encoder:
         lookup = (self.A, self.B, newPinA, newPinB)
         try:
             direction = self.getDir[lookup]
+            if self.flipped: direction *= -1
         except KeyError:
             print("Error: " + str(lookup))
             direction = 0
