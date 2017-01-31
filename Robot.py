@@ -143,7 +143,7 @@ class Encoder:
 
 
         # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
-        if newPinA == 0 or newPinB == 0: # not newPinA == newPinB:
+        if not newPinA == newPinB:
             self.A = newPinA
             self.B = newPinB
             return
@@ -177,11 +177,13 @@ class Encoder:
         print(str(self.A) + str(self.B) + " " + str(self.getVelocity()) + " \t")
 
     def getVelocity(self):
-        if len(self.log) < 5: return 0
+        sampleSize = 3
+        if len(self.log) < sampleSize: return 0
 
-
-        old         = self.log[-5]
+        old         = self.log[-sampleSize]
         elapsedTime = getRunTime() - old.time
+        timePerTick = elapsedTime / sampleSize
         velocity    = self.distancePerTick / elapsedTime
 
         return velocity
+
