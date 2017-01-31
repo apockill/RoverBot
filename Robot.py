@@ -82,6 +82,14 @@ class Encoder:
     """
     LogEntry = namedtuple("LogEntry", ["A", "B", "time", "count", "vel", "acc"])
 
+    # State Variables
+    A        = 0
+    B        = 0
+    time     = getRunTime()
+    count    = 0
+    velocity = 0
+    acc      = 0
+
     def __init__(self, pinA, pinB):
         self.pinA  = pinA
         self.pinB  = pinB
@@ -103,14 +111,14 @@ class Encoder:
         GPIO.setup(self.pinB, GPIO.IN)
 
         # Get current GPIO Values
-        self.log = []  # [(pA, pB), (pA, pB)]
-        firstEntry = self.LogEntry(A     = GPIO.input(self.pinA),
-                                   B     = GPIO.input(self.pinB),
-                                   time  = getRunTime(),
-                                   count = 0,
-                                   vel   = 0,
-                                   acc   = 0)
-        self.log.append(firstEntry)
+        # self.log = []  # [(pA, pB), (pA, pB)]
+        # firstEntry = self.LogEntry(A     = GPIO.input(self.pinA),
+        #                            B     = GPIO.input(self.pinB),
+        #                            time  = getRunTime(),
+        #                            count = 0,
+        #                            vel   = 0,
+        #                            acc   = 0)
+        # self.log.append(firstEntry)
 
         # Set up GPIO Events (after having gotten the values!)
         GPIO.add_event_detect(pinA, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=5)
@@ -135,10 +143,17 @@ class Encoder:
         :param newPinB: The new value of pin B
         :return: True if the operation was successful. False if there was an error (aka, encoder skipped a beat)
         """
-        lookup = (self.log[-1].A, self.log[-1].B, newPinA, newPinB)
+
+
+        # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
+        if newPinA != newPinB:
+            self.A = newPinA
+            self.B = newPinB
+            return
+
 
         # Get direction of turn
-
+        lookup = (self.A, self.B, newPinA, newPinB)
         try:
             direction = self.getDir[lookup]
         except KeyError:
@@ -151,12 +166,21 @@ class Encoder:
         elapsedTime     = currentTime - self.log[-1].time
         instantVelocity = self.distancePerTick / elapsedTime
 
-        newEntry = self.LogEntry(A     = newPinA,
-                                 B     = newPinB,
-                                 time  = currentTime,
-                                 count = self.log[-1].count + direction,
-                                 vel   = round(instantVelocity, 5),
-                                 acc   = 0)
-        self.log.append(newEntry)
+        # Update State Values
+        self.A        = newPinA
+        self.B        = newPinB
+        self.time     = currentTime
+        self.count   += direction
+        self.velocity = instantVelocity
+        self.acc      = 0
+
+        # # Log the current State Values
+        # newEntry = self.LogEntry(A     = self.A,
+        #                          B     = self.B,
+        #                          time  = self.time,
+        #                          count = self.count,
+        #                          vel   = self.velocity,
+        #                          acc   = self.acc)
+        # self.log.append(newEntry)
 
         print(str(newEntry.A) + str(newEntry.B) + " " + str(newEntry.vel) + " \t" + str(round(elapsedTime, 3)))
