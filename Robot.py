@@ -146,7 +146,7 @@ class Encoder:
 
 
         # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
-        if newPinA != newPinB:
+        if newPinA == 0 or newPinB == 0:
             self.A = newPinA
             self.B = newPinB
             return
