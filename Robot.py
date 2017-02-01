@@ -111,9 +111,7 @@ class Encoder:
         GPIO.setup(self.pinB, GPIO.IN)
 
         # DEBUG
-        self.A = GPIO.input(self.pinA)
-        self.B = GPIO.input(self.pinB)
-        sleep(.1)
+        sleep(.2)
 
         # Get current GPIO Values
         self.log = []  # [(pA, pB), (pA, pB)]
