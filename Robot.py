@@ -117,8 +117,8 @@ class Encoder:
 
         # Get current GPIO Values
         self.log = []  # [(pA, pB), (pA, pB)]
-        self.A = GPIO.input(self.pinA)
-        self.B = GPIO.input(self.pinB)
+        self.A = 0 # GPIO.input(self.pinA)
+        self.B = 0 # GPIO.input(self.pinB)
         firstEntry = self.LogEntry(A     = self.A,
                                    B     = self.B,
                                    time  = getRunTime(),
