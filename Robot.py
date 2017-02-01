@@ -125,8 +125,8 @@ class Encoder:
         self.log.append(firstEntry)
 
         # Set up GPIO Events (after having gotten the values!) High bouncetime causes issues.
-        GPIO.add_event_detect(pinA, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=0)
-        GPIO.add_event_detect(pinB, GPIO.BOTH, callback = self.pinChangeEvent, bouncetime=0)
+        GPIO.add_event_detect(pinA, GPIO.BOTH, callback = self.pinChangeEvent)
+        GPIO.add_event_detect(pinB, GPIO.BOTH, callback = self.pinChangeEvent)
 
     def pinChangeEvent(self, pin):
         # Find the pin that has been flipped, then act accordingly
