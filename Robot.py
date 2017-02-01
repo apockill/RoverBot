@@ -161,13 +161,10 @@ class Encoder:
             return
 
 
-        currentTime = getRunTime()
-
-
         # Update State Values
         self.A      = newPinA
         self.B      = newPinB
-        self.time   = currentTime
+        self.time   = getRunTime()
         self.count += direction
 
 
@@ -178,9 +175,8 @@ class Encoder:
                                  count = self.count)
         self.log.append(newEntry)
 
-        # print(round(self.getVelocity()), self.count, self)
-        # print(str(self) + " " + str(self.count))
-        # print(str(self.A) + str(self.B) + " " + str(self.count) + " \t")
+        print(round(self.getVelocity()), self.count, self)
+
 
     def getVelocity(self):
         sampleSize = 5
