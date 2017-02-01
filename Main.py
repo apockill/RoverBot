@@ -14,7 +14,7 @@ Goals:
 """
 
 from Robot import RobotHandler
-import RobotHat as hat
+
 from time import sleep
 # import Video
 
