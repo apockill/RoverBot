@@ -17,8 +17,8 @@ class Wheel:
     it on the fly.
     """
 
-    def __init__(self, pinA, pinB):
-        self.encoder = Encoder(pinA, pinB, self.onTickUpdate)
+    def __init__(self, encoderPinA, encoderPinB):
+        self.encoder = Encoder(encoderPinA, encoderPinB, self.onTickUpdate)
         self.speed = 0
 
     def setSpeed(self, speed):

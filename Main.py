@@ -14,14 +14,16 @@ Goals:
 """
 
 from Robot import RobotHandler
+import RobotHat as hat
 from time import sleep
 # import Video
 
 if __name__ == "__main__":
     robot = RobotHandler()
 
-    robot.setSpeed(100)
-    sleep(2)
+
+    # robot.setSpeed(100)
+    # sleep(2)
 
 
     robot.close()
