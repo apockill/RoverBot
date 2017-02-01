@@ -115,8 +115,8 @@ class Encoder:
 
         # Get current GPIO Values
         self.log = []  # [(pA, pB), (pA, pB)]
-        self.A = 0 # GPIO.input(self.pinA)
-        self.B = 0 # GPIO.input(self.pinB)
+        self.A = GPIO.input(self.pinA)
+        self.B = GPIO.input(self.pinB)
         firstEntry = self.LogEntry(A     = self.A,
                                    B     = self.B,
                                    time  = getRunTime(),
@@ -133,9 +133,8 @@ class Encoder:
         newPinA = self.A
         newPinB = self.B
 
-        if pin == self.pinA: newPinA = int(not newPinA)
-            
-        if pin == self.pinB: newPinB = int(not newPinB)
+        if pin == self.pinA: newPinA = GPIO.input(self.pinA)  # int(not newPinA)#
+        if pin == self.pinB: newPinB = GPIO.input(self.pinB)  # int(not newPinB)#
 
         self.addLogEntry(newPinA, newPinB)
 
