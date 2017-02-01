@@ -20,7 +20,7 @@ from time import sleep
 if __name__ == "__main__":
     robot = RobotHandler()
 
-    robot.setSpeed(21)
+    robot.setSpeed(100)
     sleep(2)
 
     robot.close()
