@@ -141,6 +141,13 @@ class Encoder:
         :return: True if the operation was successful. False if there was an error (aka, encoder skipped a beat)
         """
 
+        # Check validity and get direction of turn
+        lookup = (self.A, self.B, newPinA, newPinB)
+        try:
+            direction = self.getDir[lookup]
+        except KeyError:
+            print("Error: " + str(lookup))
+            direction = 0
 
         # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
         if not newPinA == newPinB:
@@ -148,14 +155,6 @@ class Encoder:
             self.B = newPinB
             return
 
-
-        # Get direction of turn
-        lookup = (self.A, self.B, newPinA, newPinB)
-        try:
-            direction = self.getDir[lookup]
-        except KeyError:
-            print("Error: " + str(lookup))
-            direction = 0
 
         currentTime = getRunTime()
 
