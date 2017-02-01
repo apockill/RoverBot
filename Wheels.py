@@ -17,9 +17,21 @@ class Wheel:
     it on the fly.
     """
 
-    def __init__(self, encoderPinA, encoderPinB):
+    def __init__(self, wheelPinA, wheelPinB, encoderPinA, encoderPinB):
+        self.pinA    = wheelPinA
+        self.pinB    = wheelPinB
+
         self.encoder = Encoder(encoderPinA, encoderPinB, self.onTickUpdate)
         self.speed = 0
+
+        # Set up wheel PWM's
+        GPIO.setup(self.pinA, GPIO.OUT)
+        self.A_PWM = GPIO.PWM(self.pinA, 20)
+        self.A_PWM.start(0)
+
+        GPIO.setup(self.pinB, GPIO.OUT)
+        self.B_PWM = GPIO.PWM(self.pinB, 20)
+        self.B_PWM.start(0)
 
     def setSpeed(self, speed):
         """
@@ -27,6 +39,26 @@ class Wheel:
         :param speed: Speed in mm/s
         """
         self.speed = speed
+
+    def setPower(self, power):
+        """
+        Set the power to the motor
+        :param power: A value from 0 to 100
+        """
+        if power > 0:
+            self.A_PWM.ChangeDutyCycle(power)
+            self.B_PWM.ChangeDutyCycle(0)
+            self.A_PWM.ChangeFrequency(power + 5)
+
+
+        if power < 0:
+            self.A_PWM.ChangeDutyCycle(0)
+            self.B_PWM.ChangeDutyCycle(power)
+            self.B_PWM.ChangeFrequency(power + 5)
+
+        if power == 0:
+            self.A_PWM.ChangeDutyCycle(0)
+            self.B_PWM.ChangeDutyCycle(0)
 
     def onTickUpdate(self):
         """

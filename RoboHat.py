@@ -110,13 +110,13 @@ def init():
     # b #R2
 
     # use pwm on inputs so motors don't go too fast
-    GPIO.setup(L1_Pin, GPIO.OUT)
-    L1_PWM = GPIO.PWM(L1_Pin, 20)
-    L1_PWM.start(0)
-
-    GPIO.setup(L2_Pin, GPIO.OUT)
-    L2_PWM = GPIO.PWM(L2_Pin, 20)
-    L2_PWM.start(0)
+    # GPIO.setup(L1_Pin, GPIO.OUT)
+    # L1_PWM = GPIO.PWM(L1_Pin, 20)
+    # L1_PWM.start(0)
+    #
+    # GPIO.setup(L2_Pin, GPIO.OUT)
+    # L2_PWM = GPIO.PWM(L2_Pin, 20)
+    # L2_PWM.start(0)
 
     GPIO.setup(R1_Pin, GPIO.OUT)
     R1_PWM = GPIO.PWM(R1_Pin, 20)
