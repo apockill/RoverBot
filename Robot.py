@@ -179,7 +179,7 @@ class Encoder:
 
     def getVelocity(self):
         sampleSize = 5
-        if len(self.log) < sampleSize: return 0
+        if len(self.log) < sampleSize: sampleSize = len(self.log)
 
         old         = self.log[-sampleSize]
         ticks       = self.count - old.count
