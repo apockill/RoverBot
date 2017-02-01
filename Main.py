@@ -21,14 +21,7 @@ if __name__ == "__main__":
     robot = RobotHandler()
 
     robot.setSpeed(100)
-    sleep(.1)
-    robot.setSpeed(-100)
-    sleep(.3)
-    robot.setSpeed(100)
-    sleep(.5)
-    robot.setSpeed(-100)
-    sleep(.3)
-    robot.setSpeed(100)
-    sleep(.1)
+    sleep(10)
+
 
     robot.close()
