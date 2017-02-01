@@ -64,10 +64,10 @@ import RPi.GPIO as GPIO, sys, threading, time, os, subprocess
 
 # Pins 35, 36 Left Motor
 # Pins 32, 33 Right Motor
-L1_Pin = 36
-L2_Pin = 35
-R1_Pin = 33
-R2_Pin = 32
+L1 = 36
+L2 = 35
+R1 = 33
+R2 = 32
 
 # Define obstacle sensors and line sensors
 # These can be on any input pins, but this library assumes the following layout
@@ -88,7 +88,7 @@ ServosActive = False
 #
 # init(). Initialises GPIO pins, switches motors and LEDs Off, etc
 def init():
-    global L1_PWM, L2_PWM, R1_PWM, R2_PWM
+    global p, q, a, b
 
     GPIO.setwarnings(False)
 
@@ -110,21 +110,21 @@ def init():
     # b #R2
 
     # use pwm on inputs so motors don't go too fast
-    # GPIO.setup(L1_Pin, GPIO.OUT)
-    # L1_PWM = GPIO.PWM(L1_Pin, 20)
-    # L1_PWM.start(0)
-    #
-    # GPIO.setup(L2_Pin, GPIO.OUT)
-    # L2_PWM = GPIO.PWM(L2_Pin, 20)
-    # L2_PWM.start(0)
+    GPIO.setup(L1, GPIO.OUT)
+    p = GPIO.PWM(L1, 20)
+    p.start(0)
 
-    GPIO.setup(R1_Pin, GPIO.OUT)
-    R1_PWM = GPIO.PWM(R1_Pin, 20)
-    R1_PWM.start(0)
+    GPIO.setup(L2, GPIO.OUT)
+    q = GPIO.PWM(L2, 20)
+    q.start(0)
 
-    GPIO.setup(R2_Pin, GPIO.OUT)
-    R2_PWM = GPIO.PWM(R2_Pin, 20)
-    R2_PWM.start(0)
+    GPIO.setup(R1, GPIO.OUT)
+    a = GPIO.PWM(R1, 20)
+    a.start(0)
+
+    GPIO.setup(R2, GPIO.OUT)
+    b = GPIO.PWM(R2, 20)
+    b.start(0)
 
     startServos()
 
@@ -150,70 +150,71 @@ def version():
 #
 # stop(): Stops both motors
 def stop():
-    L1_PWM.ChangeDutyCycle(0)
-    L2_PWM.ChangeDutyCycle(0)
-    R1_PWM.ChangeDutyCycle(0)
-    R2_PWM.ChangeDutyCycle(0)
+    p.ChangeDutyCycle(0)
+    q.ChangeDutyCycle(0)
+    a.ChangeDutyCycle(0)
+    b.ChangeDutyCycle(0)
+
 
 
 # forward(speed): Sets both motors to move forward at speed. 0 <= speed <= 100
 def forward(speed):
-    L1_PWM.ChangeDutyCycle(speed)
-    L2_PWM.ChangeDutyCycle(0)
-    R1_PWM.ChangeDutyCycle(speed)
-    R2_PWM.ChangeDutyCycle(0)
-    L1_PWM.ChangeFrequency(speed + 5)
-    R1_PWM.ChangeFrequency(speed + 5)
+    p.ChangeDutyCycle(speed)
+    q.ChangeDutyCycle(0)
+    a.ChangeDutyCycle(speed)
+    b.ChangeDutyCycle(0)
+    p.ChangeFrequency(speed + 5)
+    a.ChangeFrequency(speed + 5)
 
 
 # reverse(speed): Sets both motors to reverse at speed. 0 <= speed <= 100
 def reverse(speed):
-    L1_PWM.ChangeDutyCycle(0)
-    L2_PWM.ChangeDutyCycle(speed)
-    R1_PWM.ChangeDutyCycle(0)
-    R2_PWM.ChangeDutyCycle(speed)
-    L2_PWM.ChangeFrequency(speed + 5)
-    R2_PWM.ChangeFrequency(speed + 5)
+    p.ChangeDutyCycle(0)
+    q.ChangeDutyCycle(speed)
+    a.ChangeDutyCycle(0)
+    b.ChangeDutyCycle(speed)
+    q.ChangeFrequency(speed + 5)
+    b.ChangeFrequency(speed + 5)
 
 
 # spinLeft(speed): Sets motors to turn opposite directions at speed. 0 <= speed <= 100
 def spinLeft(speed):
-    L1_PWM.ChangeDutyCycle(0)
-    L2_PWM.ChangeDutyCycle(speed)
-    R1_PWM.ChangeDutyCycle(speed)
-    R2_PWM.ChangeDutyCycle(0)
-    L2_PWM.ChangeFrequency(speed + 5)
-    R1_PWM.ChangeFrequency(speed + 5)
+    p.ChangeDutyCycle(0)
+    q.ChangeDutyCycle(speed)
+    a.ChangeDutyCycle(speed)
+    b.ChangeDutyCycle(0)
+    q.ChangeFrequency(speed + 5)
+    a.ChangeFrequency(speed + 5)
 
 
 # spinRight(speed): Sets motors to turn opposite directions at speed. 0 <= speed <= 100
 def spinRight(speed):
-    L1_PWM.ChangeDutyCycle(speed)
-    L2_PWM.ChangeDutyCycle(0)
-    R1_PWM.ChangeDutyCycle(0)
-    R2_PWM.ChangeDutyCycle(speed)
-    L1_PWM.ChangeFrequency(speed + 5)
-    R2_PWM.ChangeFrequency(speed + 5)
+    p.ChangeDutyCycle(speed)
+    q.ChangeDutyCycle(0)
+    a.ChangeDutyCycle(0)
+    b.ChangeDutyCycle(speed)
+    p.ChangeFrequency(speed + 5)
+    b.ChangeFrequency(speed + 5)
 
 
 # turnForward(leftSpeed, rightSpeed): Moves forwards in an arc by setting different speeds. 0 <= leftSpeed,rightSpeed <= 100
 def turnForward(leftSpeed, rightSpeed):
-    L1_PWM.ChangeDutyCycle(leftSpeed)
-    L2_PWM.ChangeDutyCycle(0)
-    R1_PWM.ChangeDutyCycle(rightSpeed)
-    R2_PWM.ChangeDutyCycle(0)
-    L1_PWM.ChangeFrequency(leftSpeed + 5)
-    R1_PWM.ChangeFrequency(rightSpeed + 5)
+    p.ChangeDutyCycle(leftSpeed)
+    q.ChangeDutyCycle(0)
+    a.ChangeDutyCycle(rightSpeed)
+    b.ChangeDutyCycle(0)
+    p.ChangeFrequency(leftSpeed + 5)
+    a.ChangeFrequency(rightSpeed + 5)
 
 
 # turnReverse(leftSpeed, rightSpeed): Moves backwards in an arc by setting different speeds. 0 <= leftSpeed,rightSpeed <= 100
 def turnReverse(leftSpeed, rightSpeed):
-    L1_PWM.ChangeDutyCycle(0)
-    L2_PWM.ChangeDutyCycle(leftSpeed)
-    R1_PWM.ChangeDutyCycle(0)
-    R2_PWM.ChangeDutyCycle(rightSpeed)
-    L2_PWM.ChangeFrequency(leftSpeed + 5)
-    R2_PWM.ChangeFrequency(rightSpeed + 5)
+    p.ChangeDutyCycle(0)
+    q.ChangeDutyCycle(leftSpeed)
+    a.ChangeDutyCycle(0)
+    b.ChangeDutyCycle(rightSpeed)
+    q.ChangeFrequency(leftSpeed + 5)
+    b.ChangeFrequency(rightSpeed + 5)
 
 
 # End of Motor Functions

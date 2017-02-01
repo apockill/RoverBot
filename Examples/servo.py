@@ -16,14 +16,14 @@ gpio.setmode(gpio.BOARD)
 gpio.setup(servo, gpio.OUT)
 
 
-L1_PWM = gpio.PWM(servo, 200)   # frequency is 500Hz, so each pulse is 5ms wide
+p = gpio.PWM(servo, 200)   # frequency is 500Hz, so each pulse is 5ms wide
 # servos will be fully left at 0.5ms, centred at 1.5ms and fully right at 2.5ms
 
 left = 50/5
 right = 250/5
 centre = 150/5
 
-L1_PWM.start(centre) # start it at 50% - should be centre of servo
+p.start(centre) # start it at 50% - should be centre of servo
 #p.ChangeDutyCycle(100)
 
 print "Testing servo on pin", servo
@@ -32,16 +32,16 @@ print
 # main loop
 try:
     while True:
-        L1_PWM.ChangeDutyCycle(centre)
+        p.ChangeDutyCycle(centre)
         print 'Centre'
         time.sleep(2)
-        L1_PWM.ChangeDutyCycle(left)
+        p.ChangeDutyCycle(left)
         print 'Left'
         time.sleep(2)
-        L1_PWM.ChangeDutyCycle(centre)
+        p.ChangeDutyCycle(centre)
         print 'Centre'
         time.sleep(2)
-        L1_PWM.ChangeDutyCycle(right)
+        p.ChangeDutyCycle(right)
         print 'Right'
         time.sleep(2)
 
