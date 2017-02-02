@@ -79,7 +79,7 @@ class Wheel:
         This function runs whenever the encoder on the wheel has an updated tick
         :return:
         """
-
+        return
         kP = .1
 
         velocity = self.encoder.getVelocity()
@@ -88,7 +88,7 @@ class Wheel:
         P = kP * error
 
         power = P
-        # self.setPower(power)
+        self.setPower(power)
 
         # print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
 
@@ -200,6 +200,7 @@ class Encoder:
 
         # Run the Callback Function for the parent
         self.onPinUpdateParent()
+        self.getVelocity()
 
 
     def getVelocity(self): # 5
