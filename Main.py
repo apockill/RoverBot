@@ -22,7 +22,9 @@ if __name__ == "__main__":
     robot = RobotHandler()
 
 
-    robot.LWheel.setSpeed(300)
+    robot.LWheel.setPower(25)
+    sleep(2)
+    robot.LWheel.setPower(-25)
     sleep(2)
 
     robot.close()
