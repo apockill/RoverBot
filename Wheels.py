@@ -217,7 +217,7 @@ class Encoder:
         timePerTick = elapsedTime / ticks
         velocity    = self.mmPerTick / timePerTick
 
-        print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
+        # print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
 
         return velocity
 
