@@ -170,16 +170,6 @@ class Encoder:
         if pin == self.pinA: newPinA = GPIO.input(self.pinA)  # int(not newPinA)#
         if pin == self.pinB: newPinB = GPIO.input(self.pinB)  # int(not newPinB)#
 
-        self.addLogEntry(newPinA, newPinB)
-        self.onPinUpdate()
-
-    def addLogEntry(self, newPinA, newPinB):
-        """
-        Generates a log entry
-        :param newPinA: The  new value of pin A
-        :param newPinB: The new value of pin B
-        :return: True if the operation was successful. False if there was an error (aka, encoder skipped a beat)
-        """
 
         # Check validity and get direction of turn
         lookup = (self.A, self.B, newPinA, newPinB)
