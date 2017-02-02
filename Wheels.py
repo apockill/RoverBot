@@ -91,7 +91,7 @@ class Wheel:
 
         # Constants
         kP = .04
-        maxChange = clamp(self.power*.05, 2, 7)
+        maxChange = clamp(self.power*.05, 3, 7)
 
 
         # Get the change in power necessary
