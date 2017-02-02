@@ -88,9 +88,9 @@ class Wheel:
         P = kP * error
 
         power = P
-        self.setPower(power)
+        # self.setPower(power)
 
-        print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
+        # print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
 
 
 class Encoder:
@@ -199,12 +199,12 @@ class Encoder:
         self.log.append(newEntry)
 
         # Run the Callback Function for the parent
-        self.onPinUpdateParent() #t
+        self.onPinUpdateParent()
 
 
-    def getVelocity(self):
-        sampleSize = 2
-        if len(self.log) < sampleSize: sampleSize = len(self.log)
+    def getVelocity(self): # 5
+        sampleSize = 5
+        if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
 
         old = self.log[-sampleSize]
         ticks = self.count - old.count
@@ -216,7 +216,7 @@ class Encoder:
         timePerTick = elapsedTime / ticks
         velocity    = self.mmPerTick / timePerTick
 
-        # print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
+        print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
         # if velocity > 150: print(self.log[-10:])
         return velocity
 
