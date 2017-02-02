@@ -84,7 +84,7 @@ class Wheel:
 
 
         # PWM CONTROL TEST BED
-        kP = .1
+        kP = .05
 
         velocity = self.encoder.getVelocity()
         error = self.speed - velocity
