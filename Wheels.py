@@ -45,6 +45,11 @@ class Wheel:
         Set the power to the motor
         :param power: A value from 0 to 100
         """
+        # Sanitize power values
+        if power > 100: power = 100
+        if power < 0:   power = 0
+
+        # Set motor PWMs
         if power > 0:
             self.A_PWM.ChangeDutyCycle(power)
             self.B_PWM.ChangeDutyCycle(0)
@@ -64,10 +69,16 @@ class Wheel:
         This function runs whenever the encoder on the wheel has an updated tick
         :return:
         """
+        kP = 0.01
+        error = self.encoder.getVelocity() - self.speed
 
-        error = self.speed - self.encoder.getVelocity()
+        P = kP * error
 
-        print("Error: ", error)
+        power = P
+        self.setPower(power)
+
+
+        print("Error:", error, "  Power:", power)
 
 
 class Encoder:

@@ -26,7 +26,6 @@ class RobotHandler:
         self.mainThread.start()
 
     def mainLoop(self):
-
         while not self.stopThread:
             sleep(.1)
             # self.leftWheel.update()
