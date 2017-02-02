@@ -93,7 +93,7 @@ class Wheel:
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
         error  = self.speed - velocity
-        change = clamp(error, -1, 1)
+        change = clamp(error, -.5, .5)
 
         # Get the final power
         power  = clamp(self.power + change, -100, 100)
