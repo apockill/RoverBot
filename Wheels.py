@@ -23,6 +23,8 @@ class Wheel:
 
         self.encoder = Encoder(encoderPinA, encoderPinB, self.onTickUpdate)
         self.speed   = 0
+        self.power   = 0
+
 
         # Set up wheel PWM's
         GPIO.setup(self.pinA, GPIO.OUT)
@@ -80,18 +82,19 @@ class Wheel:
         :return:
         """
 
-        kP = 1
+
+        # PWM CONTROL TEST BED
+        kP = .01
 
         velocity = self.encoder.getVelocity()
         error = self.speed - velocity
 
         P = kP * error
 
-        power = P
+        power = self.power + P
         self.setPower(power)
 
         print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
-
 
 class Encoder:
     """
