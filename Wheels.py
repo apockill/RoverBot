@@ -199,7 +199,7 @@ class Encoder:
         self.log.append(newEntry)
 
         # Run the Callback Function for the parent
-        self.onPinUpdateParent()
+        self.onPinUpdateParent() #t
 
 
     def getVelocity(self):
