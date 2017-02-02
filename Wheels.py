@@ -84,7 +84,7 @@ class Wheel:
 
 
         # PWM CONTROL TEST BED
-        kP = .5
+        kP = .01
 
         velocity = self.encoder.getVelocity()
         error = self.speed - velocity
@@ -95,6 +95,8 @@ class Wheel:
         self.setPower(power)
 
         print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
+
+
 
 class Encoder:
     """
