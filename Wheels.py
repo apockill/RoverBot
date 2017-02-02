@@ -222,6 +222,7 @@ class Encoder:
         timePerTick = elapsedTime / ticks
         velocity    = self.mmPerTick / timePerTick
 
+        print(str(self.A)+str(self.B), self.count, round(self.time, 2), round(velocity, 2))
         # if velocity > 150: print(self.log[-10:])
         return velocity
 
