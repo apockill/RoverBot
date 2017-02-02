@@ -60,6 +60,7 @@ class Wheel:
             self.A_PWM.ChangeFrequency(power + 5)
 
         if power < 0:
+            power = abs(power)
             self.A_PWM.ChangeDutyCycle(0)
             self.B_PWM.ChangeDutyCycle(power)
             self.B_PWM.ChangeFrequency(power + 5)
