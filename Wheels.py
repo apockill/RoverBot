@@ -87,17 +87,15 @@ class Wheel:
         """
 
         # Constants
-        kP = .04
-        maxChange = 1
+        maxChange = .1
 
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
         error  = self.speed - velocity
-        change = clamp(error, -.5, .5)
+        change = clamp(error, -maxChange, maxChange)
 
         # Get the final power
         power  = clamp(self.power + change, -100, 100)
-
 
         # Set the power
         self.setPower(power)
