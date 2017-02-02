@@ -40,6 +40,10 @@ class Wheel:
         """
         self.speed = speed
 
+        minUnit = 20
+        if speed > 0: self.setPower(minUnit)
+        if speed < 0: self.setPower(-minUnit)
+
     def setPower(self, power):
         """
         Set the power to the motor
