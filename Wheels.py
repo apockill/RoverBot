@@ -94,15 +94,21 @@ class Wheel:
         maxChange = 5
 
 
-        # Other
+        # Get the change in power necessary
         velocity = self.encoder.getVelocity()
-        error = self.speed - velocity
-        P = kP * error
-        power = clamp(self.power + P, -100, 100)
+        error  = self.speed - velocity
+        change = kP * error
 
 
         # Limit the change in power by maxChange
-        if abs(power - self.power) > maxChange: power = self.power + sign(P) * maxChange
+        if abs(change) > maxChange: change = sign(change) * maxChange
+
+
+        # Get the final power
+        power  = clamp(self.power + change, -100, 100)
+
+
+
 
         # Set the power
         self.setPower(power)
