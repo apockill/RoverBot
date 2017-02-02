@@ -76,7 +76,7 @@ class Wheel:
         :return:
         """
 
-        kP = 0.1
+        kP = 1
         error = self.encoder.getVelocity() - self.speed
 
         P = kP * error
@@ -84,7 +84,6 @@ class Wheel:
         power = P
         # self.setPower(power)
 
-        print("Speed", self.speed)
         print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(self.encoder.getVelocity(), 3))
 
 
