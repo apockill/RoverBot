@@ -87,7 +87,7 @@ class Wheel:
         """
 
         # Constants
-        maxChange = .1
+        maxChange = .25
 
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
