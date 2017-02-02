@@ -22,7 +22,7 @@ class Wheel:
         self.pinB    = wheelPinB
 
         self.encoder = Encoder(encoderPinA, encoderPinB, self.onTickUpdate)
-        self.speed = 0
+        self.speed   = 0
 
         # Set up wheel PWM's
         GPIO.setup(self.pinA, GPIO.OUT)
@@ -49,6 +49,7 @@ class Wheel:
         Set the power to the motor
         :param power: A value from 0 to 100
         """
+
         # Sanitize power values
         if power >  100: power = 100
         if power < -100: power = -100
@@ -74,6 +75,7 @@ class Wheel:
         This function runs whenever the encoder on the wheel has an updated tick
         :return:
         """
+
         kP = 0.1
         error = self.encoder.getVelocity() - self.speed
 
@@ -82,7 +84,7 @@ class Wheel:
         power = P
         # self.setPower(power)
 
-
+        print("Speed", self.speed)
         print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(self.encoder.getVelocity(), 3))
 
 
