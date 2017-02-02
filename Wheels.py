@@ -73,7 +73,7 @@ class Wheel:
         This function runs whenever the encoder on the wheel has an updated tick
         :return:
         """
-        kP = 0.05
+        kP = 0.1
         error = self.encoder.getVelocity() - self.speed
 
         P = kP * error
