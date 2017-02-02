@@ -81,7 +81,7 @@ class Wheel:
         """
 
         kP = 8
-        error = self.encoder.getVelocity() - self.speed
+        error = self.speed - self.encoder.getVelocity()
 
         P = kP * error
 
