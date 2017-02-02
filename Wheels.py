@@ -40,9 +40,13 @@ class Wheel:
         """
         self.speed = speed
 
-        minUnit = 20
-        if speed > 0: self.setPower(minUnit)
-        if speed < 0: self.setPower(-minUnit)
+        print("Wheel| Set Speed to", speed)
+
+        # Kickstart the motor so that there's some velocity values and tick responses
+        self.onTickUpdate()
+        # minUnit = 20
+        # if speed > 0: self.setPower(minUnit)
+        # if speed < 0: self.setPower(-minUnit)
 
     def setPower(self, power):
         """
