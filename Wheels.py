@@ -1,6 +1,7 @@
-import RPi.GPIO as GPIO
+import RPi.GPIO  as GPIO
 from collections import namedtuple
-from time import time
+from time        import time
+from Utility     import clamp, sign
 
 # This is so that wheel logs have identicle time scales
 global startTime
@@ -87,14 +88,23 @@ class Wheel:
 
 
         # PWM CONTROL TEST BED
-        kP = .04
 
+        # Constants
+        kP = .04
+        maxChange = 5
+
+
+        # Other
         velocity = self.encoder.getVelocity()
         error = self.speed - velocity
-
         P = kP * error
+        power = clamp(self.power + P, -100, 100)
 
-        power = self.power + P
+
+        # Limit the change in power by maxChange
+        if abs(power - self.power) > maxChange: power = self.power + sign(P) * maxChange
+
+        # Set the power
         self.setPower(power)
 
         print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
