@@ -90,7 +90,7 @@ class Wheel:
         power = P
         self.setPower(power)
 
-        # print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
+        print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
 
 
 class Encoder:
