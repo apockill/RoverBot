@@ -65,7 +65,8 @@ class Wheel:
         This function runs whenever the encoder on the wheel has an updated tick
         :return:
         """
-        print("Got update")
+        print(self, "Got update")
+
 
 class Encoder:
     """
