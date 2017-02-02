@@ -86,33 +86,44 @@ class Wheel:
         :return:
         """
 
-
-        # PWM CONTROL TEST BED
-
         # Constants
         kP = .04
         maxChange = 1
 
+        # Get the change in power necessary
+        velocity = self.encoder.getVelocity()
+        error  = self.speed - velocity
+        change = clamp(error, -1, 1)
+
+        # Get the final power
+        power  = clamp(self.power + change, -100, 100)
+
+
+        # Set the power
+        self.setPower(power)
+
+
+        # PWM CONTROL TEST BED
+        """
+        # Constants
+        kP = .04
+        maxChange = 1
 
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
         error  = self.speed - velocity
         change = kP * error
 
-
         # Limit the change in power by maxChange
         if abs(change) > maxChange: change = sign(change) * maxChange
-
 
         # Get the final power
         power  = clamp(self.power + change, -100, 100)
 
 
-
-
         # Set the power
         self.setPower(power)
-
+        """
         print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
 
 
