@@ -47,7 +47,7 @@ class Wheel:
 
         # Kickstart the motor so that there's some velocity values and tick responses
 
-        minUnit = 20
+        minUnit = 5
         if speed > 0: self.setPower(minUnit)
         if speed < 0: self.setPower(-minUnit)
 
@@ -87,7 +87,7 @@ class Wheel:
         """
 
         # Constants
-        maxChange = .01
+        maxChange = .1
 
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
