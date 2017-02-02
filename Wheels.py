@@ -50,8 +50,8 @@ class Wheel:
         :param power: A value from 0 to 100
         """
         # Sanitize power values
-        if power > 100: power = 100
-        if power < 0:   power = 0
+        if power >  100: power = 100
+        if power < -100: power = -100
 
         # Set motor PWMs
         if power > 0:
