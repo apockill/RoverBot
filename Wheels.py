@@ -127,9 +127,9 @@ class Encoder:
         """
 
         # Set up basic globals
-        self.pinA        = pinA
-        self.pinB        = pinB
-        self.onPinUpdate = onPinUpdate
+        self.pinA = pinA
+        self.pinB = pinB
+        self.onPinUpdateParent = onPinUpdate
 
         # This lookup table returns 1 if the motor is moving forward, 0 if backward, depending on pin logs
         #  (prev A, prev B, curr A, curc B)
@@ -197,6 +197,9 @@ class Encoder:
                                  time=self.time,
                                  count=self.count)
         self.log.append(newEntry)
+
+        # Run the Callback Function for the parent
+        self.onPinUpdateParent
 
 
     def getVelocity(self):
