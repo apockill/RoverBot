@@ -50,7 +50,6 @@ class Wheel:
             self.B_PWM.ChangeDutyCycle(0)
             self.A_PWM.ChangeFrequency(power + 5)
 
-
         if power < 0:
             self.A_PWM.ChangeDutyCycle(0)
             self.B_PWM.ChangeDutyCycle(power)
@@ -65,7 +64,10 @@ class Wheel:
         This function runs whenever the encoder on the wheel has an updated tick
         :return:
         """
-        print(self, "Got update")
+
+        error = self.speed - self.encoder.getVelocity()
+
+        print("Error: ", error)
 
 
 class Encoder:
@@ -197,6 +199,6 @@ class Encoder:
         elapsedTime = getRunTime() - old.time
         timePerTick = elapsedTime / ticks
         velocity = self.mmPerTick / timePerTick
-
+        print(velocity)
         return velocity
 
