@@ -19,7 +19,7 @@ class RobotHandler:
 
 
         self.LWheel = Wheel(33, 32, 15, 16)
-        # self.RWheel = Wheel(36, 35, 13, 29)
+        self.RWheel = Wheel(36, 35, 13, 29)
 
         # Threading
         self.stopThread = False
