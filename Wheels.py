@@ -80,7 +80,7 @@ class Wheel:
         :return:
         """
 
-        kP = 1
+        kP = .1
         error = self.speed - self.encoder.getVelocity()
 
         P = kP * error
