@@ -91,7 +91,7 @@ class Wheel:
 
         # Constants
         kP = .04
-        maxChange = 5
+        maxChange = 1
 
 
         # Get the change in power necessary
