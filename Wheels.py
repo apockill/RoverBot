@@ -82,7 +82,7 @@ class Wheel:
         P = kP * error
 
         power = P
-        # self.setPower(power)
+        self.setPower(power)
 
         print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(self.encoder.getVelocity(), 3))
 
