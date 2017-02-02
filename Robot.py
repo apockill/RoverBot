@@ -18,7 +18,7 @@ class RobotHandler:
         self.actionLock = RLock()
 
         self.LWheel = Wheel(36, 35, 15, 16)
-        self.RWheel = Wheel(33, 32, 13, 29)
+        # self.RWheel = Wheel(33, 32, 13, 29)
 
         # Threading
         self.stopThread = False
@@ -39,7 +39,6 @@ class RobotHandler:
         with self.actionLock:
             self.LWheel.setPower(speed)
             self.RWheel.setPower(speed)
-
 
     def close(self):
         # Run this when ending the main python script
