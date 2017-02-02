@@ -81,14 +81,16 @@ class Wheel:
         """
 
         kP = .1
-        error = self.speed - self.encoder.getVelocity()
+
+        velocity = self.encoder.getVelocity()
+        error = self.speed - velocity
 
         P = kP * error
 
         power = P
         self.setPower(power)
 
-        print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(self.encoder.getVelocity(), 3))
+        print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
 
 
 class Encoder:
