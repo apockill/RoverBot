@@ -204,7 +204,7 @@ class Encoder:
 
 
     def getVelocity(self):
-        sampleSize = 2
+        sampleSize = 6
         if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
 
         old = self.log[-sampleSize]
