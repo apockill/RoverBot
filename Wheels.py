@@ -178,7 +178,7 @@ class Encoder:
         try:
             direction = self.getDir[lookup]
         except KeyError:
-            print("Error: " + str(lookup))
+            print("Encoder| ERROR during lookup: " + str(lookup))
             direction = 0
 
         # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
