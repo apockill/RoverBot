@@ -204,7 +204,7 @@ class Encoder:
 
     def getVelocity(self):
         sampleSize = 5
-        if len(self.log) < sampleSize: sampleSize = len(self.log)
+        if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
 
         old = self.log[-sampleSize]
         ticks = self.count - old.count
@@ -215,7 +215,7 @@ class Encoder:
         timePerTick = elapsedTime / ticks
         velocity    = self.mmPerTick / timePerTick
 
-        print("P", str(self.A)+str(self.B), "C", self.count, "T", round(self.time, 2), "V", round(velocity, 2), "SS", sampleSize)
+        print("P", str(self.A)+str(self.B), "C", self.count, "T", round(self.time, 2), "V", round(velocity, 2), "Old", old)
         # if velocity > 150: print(self.log[-10:])
         return velocity
 
