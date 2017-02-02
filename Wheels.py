@@ -211,11 +211,12 @@ class Encoder:
 
         if ticks == 0: return 0
 
-        elapsedTime = getRunTime() - old.time
+        time        = getRunTime()
+        elapsedTime = time - old.time
         timePerTick = elapsedTime / ticks
         velocity    = self.mmPerTick / timePerTick
 
-        print("P", str(self.A)+str(self.B), "C", self.count, "T", round(self.time, 2), "V", round(velocity, 2), "Old", old)
+        print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
         # if velocity > 150: print(self.log[-10:])
         return velocity
 
