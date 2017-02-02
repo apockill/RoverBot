@@ -55,6 +55,7 @@ class Wheel:
         Set the power to the motor
         :param power: A value from 0 to 100
         """
+        self.power += power
 
         # Sanitize power values
         if power >  100: power = 100
