@@ -17,8 +17,10 @@ class RobotHandler:
 
         self.actionLock = RLock()
 
-        self.LWheel = Wheel(36, 35, 15, 16)
+        # self.LWheel = Wheel(36, 35, 15, 16)
         # self.RWheel = Wheel(33, 32, 13, 29)
+        self.LWheel = Wheel(33, 32, 15, 16)
+        # self.RWheel = Wheel(36, 35, 13, 29)
 
         # Threading
         self.stopThread = False
