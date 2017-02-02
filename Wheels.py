@@ -200,7 +200,6 @@ class Encoder:
                                  count=self.count)
         self.log.append(newEntry)
 
-        print(round(self.getVelocity()), self.count, self)
 
     def getVelocity(self):
         sampleSize = 5
@@ -214,6 +213,5 @@ class Encoder:
         elapsedTime = getRunTime() - old.time
         timePerTick = elapsedTime / ticks
         velocity = self.mmPerTick / timePerTick
-        print(velocity)
         return velocity
 
