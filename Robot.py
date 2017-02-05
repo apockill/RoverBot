@@ -28,7 +28,7 @@ class RobotHandler:
 
     def mainLoop(self):
         while not self.stopThread:
-            sleep(.001)
+            sleep(.0001)
             self.LWheel.Update()
             # self.RWheel.Update()
 

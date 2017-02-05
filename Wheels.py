@@ -19,6 +19,9 @@ class HardwareLoop:
         self.delay = delay
         self.lastTime = 0
 
+        # Keep track of how long the delay ACTUALLY is
+        self.lastDelay = delay
+
     def isUpdate(self):
         """
         Check if it's time to update
@@ -26,12 +29,16 @@ class HardwareLoop:
         """
         now     = getRunTime()
         willRun = now > self.lastTime + self.delay
-        if willRun: self.lastTime = now
+
+        if willRun:
+            self.lastDelay = now - self.lastTime
+            self.lastTime  = now
 
         return willRun
 
 
     def Update(self):
+        # In case the child doesn't have this function
         pass
 
 
@@ -56,15 +63,12 @@ class Wheel(HardwareLoop):
         # Set up Wheel Hardware
         self.encoder = Encoder(encoderPinA, encoderPinB)
 
-        self.pinA = wheelPinA
-        self.pinB = wheelPinB
-
-        GPIO.setup(self.pinA, GPIO.OUT)
-        self.A_PWM = GPIO.PWM(self.pinA, 20)
+        GPIO.setup(wheelPinA, GPIO.OUT)
+        self.A_PWM = GPIO.PWM(wheelPinA, 20)
         self.A_PWM.start(0)
 
-        GPIO.setup(self.pinB, GPIO.OUT)
-        self.B_PWM = GPIO.PWM(self.pinB, 20)
+        GPIO.setup(wheelPinB, GPIO.OUT)
+        self.B_PWM = GPIO.PWM(wheelPinB, 20)
         self.B_PWM.start(0)
 
     def setSpeed(self, speed):
@@ -119,21 +123,23 @@ class Wheel(HardwareLoop):
         """
         if not self.isUpdate(): return
 
-        print(getRunTime())
-        # # Constants
-        # maxChange = .25
-        #
-        # # Get the change in power necessary
-        # velocity = self.encoder.getVelocity()
-        # error  = self.speed - velocity
-        # change = clamp(error, -maxChange, maxChange)
-        #
-        # # Get the final power
-        # power  = clamp(self.power + change, -100, 100)
-        #
-        # # Set the power
-        # self.setPower(power)
-        #
+        print(getRunTime(), "\tLast Delay: ", self.lastDelay)
+
+        return
+        # Constants
+        maxPowerAcc = .01
+
+        # Get the change in power necessary
+        velocity = self.encoder.getVelocity()
+        error    = self.speed - velocity
+        change   = clamp(error, -maxChange, maxChange)
+
+        # Get the final power
+        power  = clamp(self.power + change, -100, 100)
+
+        # Set the power
+        self.setPower(power)
+
         #
         # # PWM CONTROL TEST BED
         # """
