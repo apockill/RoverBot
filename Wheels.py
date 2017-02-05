@@ -257,7 +257,6 @@ class Encoder:
             direction = self.getDir[lookup]
         except KeyError:
             # print("Encoder| ERROR during lookup: " + str(lookup))
-            direction = 0
             return
 
 
@@ -284,7 +283,7 @@ class Encoder:
         self.getVelocity()
 
     def getVelocity(self):
-        sampleSize = 5
+        sampleSize = 10
         if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
         if sampleSize == 1: return 0
 
