@@ -50,7 +50,7 @@ class Wheel(HardwareLoop):
         self.power   = 0
 
         # Set up Wheel Hardware
-        self.encoder = Encoder(encoderPinA, encoderPinB, self.onTickUpdate)
+        self.encoder = Encoder(encoderPinA, encoderPinB)
 
         self.pinA = wheelPinA
         self.pinB = wheelPinB
