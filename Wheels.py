@@ -139,7 +139,7 @@ class Wheel(HardwareLoop):
 
         # Set the power
         self.setPower(power)
-        print(round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", change)
+        print(round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", change, "\tPwr: ", power)
         #
         # # PWM CONTROL TEST BED
         # """
@@ -251,7 +251,7 @@ class Encoder:
         try:
             direction = self.getDir[lookup]
         except KeyError:
-            print("Encoder| ERROR during lookup: " + str(lookup))
+            # print("Encoder| ERROR during lookup: " + str(lookup))
             direction = 0
 
         # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
