@@ -306,8 +306,8 @@ class Encoder:
             velocity    = self.mmPerTick / timePerTick
             velocitySum += velocity
 
-        if velocitySum / samples < 0:
-            print(samples, log)
+        if velocitySum / samples < 0: pass
+            # print(samples, log)
         return velocitySum / samples
         # old = self.log[-sampleSize]
         # ticks = self.count - old.count
