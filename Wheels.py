@@ -291,7 +291,7 @@ class Encoder:
         now         = getRunTime()
         samples     = 0
 
-        print(len(log), log)
+
         for i in range(0, len(log) - 1):
             samples += 1
 
