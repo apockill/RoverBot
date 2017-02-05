@@ -127,8 +127,8 @@ class Wheel(HardwareLoop):
 
 
         # Constants
-        maxPowerChange = 10 * self.delay  # Power Change / Seconds
-        kP = 0.5
+        maxPowerChange = 7 * self.delay  # Power Change / Seconds
+        kP = 0.01
         kD = 0.1
 
         # Get the change in power necessary
