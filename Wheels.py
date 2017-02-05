@@ -123,7 +123,7 @@ class Wheel(HardwareLoop):
         """
         if not self.isUpdate(): return
 
-        print(getRunTime(), "\tLast Delay: ", self.lastDelay)
+
 
 
         # Constants
@@ -139,7 +139,7 @@ class Wheel(HardwareLoop):
 
         # Set the power
         self.setPower(power)
-
+        print(round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", change)
         #
         # # PWM CONTROL TEST BED
         # """
