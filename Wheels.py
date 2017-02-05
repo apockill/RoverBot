@@ -285,15 +285,34 @@ class Encoder:
         sampleSize = 5
         if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
 
-        old = self.log[-sampleSize]
-        ticks = self.count - old.count
+        log         = self.log[-sampleSize:]
+        velocitySum = 0
+        now         = getRunTime()
+        samples     = 0
+        for i in range(0, len(log) - 1):
+            samples += 1
 
-        if ticks == 0: return 0
+            old   = log[i]
+            ticks = self.count - old.count
 
-        time        = getRunTime()
-        elapsedTime = time - old.time
-        timePerTick = elapsedTime / ticks
-        velocity    = self.mmPerTick / timePerTick
+            if ticks == 0: continue
+
+            time        = getRunTime()
+            elapsedTime = now - old.time
+            timePerTick = elapsedTime / ticks
+            velocity    = self.mmPerTick / timePerTick
+            velocitySum += velocity
+
+        return velocitySum / samples
+        # old = self.log[-sampleSize]
+        # ticks = self.count - old.count
+        #
+        # if ticks == 0: return 0
+        #
+        # time        = getRunTime()
+        # elapsedTime = time - old.time
+        # timePerTick = elapsedTime / ticks
+        # velocity    = self.mmPerTick / timePerTick
 
         # print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
 
