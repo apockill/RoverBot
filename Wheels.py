@@ -300,12 +300,13 @@ class Encoder:
 
             if ticks == 0: continue
 
-            time        = getRunTime()
             elapsedTime = now - old.time
             timePerTick = elapsedTime / ticks
             velocity    = self.mmPerTick / timePerTick
             velocitySum += velocity
 
+        if velocitySum / samples < 0:
+            print(samples, log)
         return velocitySum / samples
         # old = self.log[-sampleSize]
         # ticks = self.count - old.count
