@@ -57,8 +57,9 @@ class Wheel(HardwareLoop):
         super().__init__(delay=0.1)
 
         # Set up Wheel Controls
-        self.speed   = 0
-        self.power   = 0
+        self.speed = 0
+        self.power = 0
+        self.lastError = 0  # Last error
 
         # Set up Wheel Hardware
         self.encoder = Encoder(encoderPinA, encoderPinB)
@@ -95,8 +96,7 @@ class Wheel(HardwareLoop):
 
 
         # Sanitize power values
-        if power >  100: power = 100
-        if power < -100: power = -100
+        power = clamp(power, -100, 100)
 
         self.power = power
 
@@ -129,19 +129,20 @@ class Wheel(HardwareLoop):
         # Constants
         maxPowerChange = 10 * self.delay  # Power Change / Seconds
         kP = 0.1
+        kD = 0.1
 
         # Get the change in power necessary
-        velocity = self.encoder.getVelocity()
-        error    = self.speed - velocity
-        change   = kP * error
-        change   = clamp(change, -maxPowerChange, maxPowerChange)
+        velocity  = self.encoder.getVelocity()
+        error     = self.speed - velocity
+        errChange = error - self.lastError
 
-        # Get the final power
-        power  = clamp(self.power + change, -100, 100)
+        pwrChange = kP * error + kD * errChange
+        pwrChange = clamp(pwrChange, -maxPowerChange, maxPowerChange)
 
         # Set the power
-        self.setPower(power)
-        print("T: ", round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", change, "\tPwr: ", power, "\tVel: ", velocity)
+        self.setPower(self.power + pwrChange)
+        self.lastError = error
+        print("T: ", round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", pwrChange, "\tPwr: ", self.power, "\tVel: ", velocity, "\tkP: ", kP*error, "\tkD: ", kD*errChange)
 
         #
         # # PWM CONTROL TEST BED
