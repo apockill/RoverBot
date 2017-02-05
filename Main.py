@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     # robot.LWheel.setPower(25)
     robot.LWheel.setSpeed(250)
-    sleep(1)
+    sleep(7)
     # # robot.RWheel.setSpeed(100)
     # sleep(5)
     # robot.LWheel.setSpeed(400)
