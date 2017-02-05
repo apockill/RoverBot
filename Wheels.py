@@ -127,7 +127,7 @@ class Wheel(HardwareLoop):
 
 
         # Constants
-        maxPowerChange = 5 * self.delay  # Power Change / Seconds
+        maxPowerChange = 10 * self.delay  # Power Change / Seconds
 
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
@@ -139,7 +139,8 @@ class Wheel(HardwareLoop):
 
         # Set the power
         self.setPower(power)
-        print(round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", change, "\tPwr: ", power)
+        print("T: ", round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", change, "\tPwr: ", power, "\tVel: ", velocity)
+
         #
         # # PWM CONTROL TEST BED
         # """
