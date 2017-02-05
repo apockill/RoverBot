@@ -31,7 +31,7 @@ class HardwareLoop:
         pass
 
 
- class Wheel(HardwareLoop):
+class Wheel(HardwareLoop):
     """
     A wheel function holds an encoder object, but has the ability to
     adjust the 'speed' of the wheel. The Wheel should be run inside
