@@ -284,11 +284,14 @@ class Encoder:
     def getVelocity(self):
         sampleSize = 5
         if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
+        if sampleSize == 1: return 0
 
         log         = self.log[-sampleSize:]
         velocitySum = 0
         now         = getRunTime()
         samples     = 0
+
+        print(len(log), log)
         for i in range(0, len(log) - 1):
             samples += 1
 
