@@ -129,7 +129,7 @@ class Wheel(HardwareLoop):
         # Constants
         maxPowerChange = 7 * self.delay  # Power Change / Seconds
         kP = 0.01
-        kD = 0.1
+        kD = 0.05
 
         # Get the change in power necessary
         velocity  = self.encoder.getVelocity()
@@ -306,7 +306,7 @@ class Encoder:
             velocity    = self.mmPerTick / timePerTick
             velocitySum += velocity
 
-        if velocitySum / samples < 0: pass
+        # if velocitySum / samples < 0:
             # print(samples, log)
         return velocitySum / samples
         # old = self.log[-sampleSize]
