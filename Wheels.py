@@ -24,7 +24,11 @@ class HardwareLoop:
         Check if it's time to update
         :return: True if ready, False if wait
         """
-        return getRunTime() > self.lastTime + self.delay
+        now     = getRunTime()
+        willRun = now > self.lastTime + self.delay
+        if willRun: self.lastTime = now
+
+        return willRun
 
 
     def Update(self):
