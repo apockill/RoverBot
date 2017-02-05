@@ -127,9 +127,9 @@ class Wheel(HardwareLoop):
 
 
         # Constants
-        maxPowerChange = 7 * self.delay  # Power Change / Seconds
+        maxPowerChange = 15 * self.delay  # Power Change / Seconds
         kP = 0.01
-        kD = 0.05
+        kD = 0 # 0.05
 
         # Get the change in power necessary
         velocity  = self.encoder.getVelocity()
