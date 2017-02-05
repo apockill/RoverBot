@@ -320,7 +320,6 @@ class Encoder:
 
         # print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
 
-        return velocity
 
     def close(self):
         GPIO.remove_event_detect(self.pinA)
