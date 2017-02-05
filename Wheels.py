@@ -54,7 +54,7 @@ class Wheel(HardwareLoop):
 
 
     def __init__(self, wheelPinA, wheelPinB, encoderPinA, encoderPinB):
-        super().__init__(delay=0.1)
+        super().__init__(delay=0.05)
 
         # Set up Wheel Controls
         self.speed = 0
