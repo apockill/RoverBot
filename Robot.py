@@ -17,7 +17,7 @@ class RobotHandler:
 
         self.actionLock = RLock()
 
-
+        # Hardware
         self.LWheel = Wheel(33, 32, 15, 16)
         self.RWheel = Wheel(36, 35, 13, 29)
 
@@ -44,6 +44,11 @@ class RobotHandler:
     def close(self):
         # Run this when ending the main python script
         print("Robot| Closing Thread")
+
+        # Safely close hardware threads
+        self.LWheel.close()
+        self.RWheel.close()
+
         self.stopThread = True
         self.mainThread.join(2)
 

@@ -9,25 +9,52 @@ startTime  = time()
 getRunTime = lambda: time() - startTime
 
 
+class HardwareLoop:
+    """
+    This will help classes that are in some main loop that need an "update" function of some sort.
+    They can check if it's time to run or not.
+    """
 
-class Wheel:
+    def __init__(self, delay):
+        self.delay = delay
+        self.lastTime = 0
+
+    def isUpdate(self):
+        """
+        Check if it's time to update
+        :return: True if ready, False if wait
+        """
+        return getRunTime() > self.lastTime + self.delay
+
+
+    def Update(self):
+        pass
+
+
+ class Wheel(HardwareLoop):
     """
     A wheel function holds an encoder object, but has the ability to
-    adjust the 'speed' of the wheel whenever the encoder receives a
-    new tick. Thus you can keep track of the wheel speed and adjust
-    it on the fly.
+    adjust the 'speed' of the wheel. The Wheel should be run inside
+    a loop, where 'update' is called every so often.
+
+    The idea of this class is that you  can keep track of the wheel
+    speed and adjust it on the fly.
     """
 
-    def __init__(self, wheelPinA, wheelPinB, encoderPinA, encoderPinB):
-        self.pinA    = wheelPinA
-        self.pinB    = wheelPinB
 
-        self.encoder = Encoder(encoderPinA, encoderPinB, self.onTickUpdate)
+    def __init__(self, wheelPinA, wheelPinB, encoderPinA, encoderPinB):
+        super().__init__(delay=0.1)
+
+        # Set up Wheel Controls
         self.speed   = 0
         self.power   = 0
 
+        # Set up Wheel Hardware
+        self.encoder = Encoder(encoderPinA, encoderPinB, self.onTickUpdate)
 
-        # Set up wheel PWM's
+        self.pinA = wheelPinA
+        self.pinB = wheelPinB
+
         GPIO.setup(self.pinA, GPIO.OUT)
         self.A_PWM = GPIO.PWM(self.pinA, 20)
         self.A_PWM.start(0)
@@ -81,50 +108,55 @@ class Wheel:
             self.A_PWM.ChangeDutyCycle(0)
             self.B_PWM.ChangeDutyCycle(0)
 
-    def onTickUpdate(self):
+    def Update(self):
         """
         This function runs whenever the encoder on the wheel has an updated tick
         :return:
         """
+        if not self.isUpdate(): return
 
-        # Constants
-        maxChange = .25
+        print(getRunTime())
+        # # Constants
+        # maxChange = .25
+        #
+        # # Get the change in power necessary
+        # velocity = self.encoder.getVelocity()
+        # error  = self.speed - velocity
+        # change = clamp(error, -maxChange, maxChange)
+        #
+        # # Get the final power
+        # power  = clamp(self.power + change, -100, 100)
+        #
+        # # Set the power
+        # self.setPower(power)
+        #
+        #
+        # # PWM CONTROL TEST BED
+        # """
+        # # Constants
+        # kP = .04
+        # maxChange = 1
+        #
+        # # Get the change in power necessary
+        # velocity = self.encoder.getVelocity()
+        # error  = self.speed - velocity
+        # change = kP * error
+        #
+        # # Limit the change in power by maxChange
+        # if abs(change) > maxChange: change = sign(change) * maxChange
+        #
+        # # Get the final power
+        # power  = clamp(self.power + change, -100, 100)
+        #
+        #
+        # # Set the power
+        # self.setPower(power)
+        # """
+        # print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
 
-        # Get the change in power necessary
-        velocity = self.encoder.getVelocity()
-        error  = self.speed - velocity
-        change = clamp(error, -maxChange, maxChange)
-
-        # Get the final power
-        power  = clamp(self.power + change, -100, 100)
-
-        # Set the power
-        self.setPower(power)
-
-
-        # PWM CONTROL TEST BED
-        """
-        # Constants
-        kP = .04
-        maxChange = 1
-
-        # Get the change in power necessary
-        velocity = self.encoder.getVelocity()
-        error  = self.speed - velocity
-        change = kP * error
-
-        # Limit the change in power by maxChange
-        if abs(change) > maxChange: change = sign(change) * maxChange
-
-        # Get the final power
-        power  = clamp(self.power + change, -100, 100)
-
-
-        # Set the power
-        self.setPower(power)
-        """
-        print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
-
+    def close(self):
+        # Close main thread and close encoder events
+        self.encoder.close()
 
 
 class Encoder:
@@ -152,7 +184,7 @@ class Encoder:
     time = getRunTime()
     count = 0
 
-    def __init__(self, pinA, pinB, onPinUpdate):
+    def __init__(self, pinA, pinB):
         """
 
         :param pinA: GPIO Pin for Encoder
@@ -163,7 +195,6 @@ class Encoder:
         # Set up basic globals
         self.pinA = pinA
         self.pinB = pinB
-        self.onPinUpdateParent = onPinUpdate
 
         # This lookup table returns 1 if the motor is moving forward, 0 if backward, depending on pin logs
         #  (prev A, prev B, curr A, curc B)
@@ -233,9 +264,7 @@ class Encoder:
         self.log.append(newEntry)
 
         # Run the Callback Function for the parent
-        self.onPinUpdateParent()
         self.getVelocity()
-
 
     def getVelocity(self):
         sampleSize = 3
@@ -254,4 +283,8 @@ class Encoder:
         # print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
 
         return velocity
+
+    def close(self):
+        GPIO.remove_event_detect(self.pinA)
+        GPIO.remove_event_detect(self.pinB)
 
