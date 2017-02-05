@@ -128,11 +128,13 @@ class Wheel(HardwareLoop):
 
         # Constants
         maxPowerChange = 3 * self.delay  # Power Change / Seconds
+        kP = 0.1
 
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
         error    = self.speed - velocity
-        change   = clamp(error, -maxPowerChange, maxPowerChange)
+        change   = kP * error
+        change   = clamp(change, -maxPowerChange, maxPowerChange)
 
         # Get the final power
         power  = clamp(self.power + change, -100, 100)
