@@ -28,8 +28,9 @@ class RobotHandler:
 
     def mainLoop(self):
         while not self.stopThread:
-            sleep(.1)
-            # self.leftWheel.update()
+            sleep(.001)
+            self.LWheel.Update()
+            # self.RWheel.Update()
 
     def setSpeed(self, speed):
         """
