@@ -125,14 +125,14 @@ class Wheel(HardwareLoop):
 
         print(getRunTime(), "\tLast Delay: ", self.lastDelay)
 
-        return
+
         # Constants
-        maxPowerAcc = .01
+        maxPowerChange = .1 * self.delay  # Power Change / Seconds
 
         # Get the change in power necessary
         velocity = self.encoder.getVelocity()
         error    = self.speed - velocity
-        change   = clamp(error, -maxChange, maxChange)
+        change   = clamp(error, -maxPowerChange, maxPowerChange)
 
         # Get the final power
         power  = clamp(self.power + change, -100, 100)
