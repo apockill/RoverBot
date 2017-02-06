@@ -83,10 +83,11 @@ class Wheel(HardwareLoop):
 
         # Kickstart the motor so that there's some velocity values and tick responses
 
-        # if self.power == 0:
-        #     minUnit = 10
-        #     if speed > 0: self.setPower(minUnit)
-        #     if speed < 0: self.setPower(-minUnit)
+        minUnit = 10
+        if abs(self.power) < minUnit:
+
+            if speed > 0: self.setPower(minUnit)
+            if speed < 0: self.setPower(-minUnit)
 
     def setPower(self, power):
         """
