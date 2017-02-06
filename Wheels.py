@@ -130,7 +130,7 @@ class Wheel(HardwareLoop):
         # kP = 0.005
         # kD = 0.02
         kP = 0.01
-        kD = 0.025
+        kD = 0.04
 
         # Get the change in power necessary
         velocity  = self.encoder.getVelocity()
