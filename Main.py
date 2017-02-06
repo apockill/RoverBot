@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
 
 
-    robot.LWheel.setSpeed(400)
+    robot.LWheel.setSpeed(410)
     sleep(15)
     print("Final: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
     # # robot.RWheel.setSpeed(100)
