@@ -122,7 +122,7 @@ class Wheel(HardwareLoop):
         :return:
         """
         if not self.isUpdate(): return
-
+        print(self.encoder.getVelocity())
         return
 
 
