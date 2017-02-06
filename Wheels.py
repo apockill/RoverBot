@@ -123,14 +123,13 @@ class Wheel(HardwareLoop):
         """
         if not self.isUpdate(): return
 
-
         # Constants
         maxPowerChange = 15 * self.delay  # Power Change / Seconds
         # Works, but slow
         # kP = 0.005
         # kD = 0.02
         kP = 0.02
-        kD = 0.08
+        kD = 0.1
 
         # Get the change in power necessary
         velocity  = self.encoder.getVelocity()
