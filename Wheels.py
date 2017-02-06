@@ -123,7 +123,7 @@ class Wheel(HardwareLoop):
         """
         if not self.isUpdate(): return
 
-
+        return
 
 
         # Constants
