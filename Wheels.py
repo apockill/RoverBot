@@ -1,3 +1,4 @@
+import Constants
 import RPi.GPIO  as GPIO
 from collections import namedtuple
 from time        import time
@@ -72,17 +73,18 @@ class Wheel(HardwareLoop):
         self.B_PWM = GPIO.PWM(wheelPinB, 20)
         self.B_PWM.start(0)
 
-    def setSpeed(self, speed):
+    def setSpeed(self, speed, relative=False):
         """
         Set the speed goal of the wheel, in mm/s
         :param speed: Speed in mm/s
         """
-        self.speed = speed
+        if relative:
+            self.speed += speed
+        else:
+            self.speed = speed
 
-        print("Wheel| Set Speed to", speed)
 
         # Kickstart the motor so that there's some velocity values and tick responses
-
         minUnit = 10
         if abs(self.power) < minUnit:
 
@@ -144,32 +146,14 @@ class Wheel(HardwareLoop):
         # Set the power
         self.setPower(self.power + pwrChange)
         self.lastError = error
-        print("T: ", round(getRunTime(), 4), "\tLast Delay: ", round(self.lastDelay, 4), "\tChange: ", round(pwrChange, 1),
-              "\tPwr: ", round(self.power, 2), "\tVel: ", round(velocity, 0), "\tkP: ", round(kP*error, 3), "\tkD: ", round(kD*errChange, 3))
 
-        #
-        # # PWM CONTROL TEST BED
-        # """
-        # # Constants
-        # kP = .04
-        # maxChange = 1
-        #
-        # # Get the change in power necessary
-        # velocity = self.encoder.getVelocity()
-        # error  = self.speed - velocity
-        # change = kP * error
-        #
-        # # Limit the change in power by maxChange
-        # if abs(change) > maxChange: change = sign(change) * maxChange
-        #
-        # # Get the final power
-        # power  = clamp(self.power + change, -100, 100)
-        #
-        #
-        # # Set the power
-        # self.setPower(power)
-        # """
-        # print("Error:", round(error, 3), "  Power:", round(power, 3), "  Velocity:", round(velocity, 3))
+        # print("T: ", round(getRunTime(), 4),
+        #       "\tLast Delay: ", round(self.lastDelay, 4),
+        #       "\tChange: ",     round(pwrChange, 1),
+        #       "\tPwr: ",        round(self.power, 2),
+        #       "\tVel: ",        round(velocity, 0),
+        #       "\tkP: ",         round(kP*error, 3),
+        #       "\tkD: ",         round(kD*errChange, 3))
 
     def close(self):
         # Close main thread and close encoder events
@@ -223,7 +207,7 @@ class Encoder:
                        (0, 1, 0, 0): -1,
                        (0, 0, 1, 0): -1,
                        (1, 0, 1, 1): -1}
-        self.mmPerTick = 4.83308845108  # mm
+
 
         # Set up GPIO Pins
         GPIO.setup(self.pinA, GPIO.IN)
@@ -304,24 +288,10 @@ class Encoder:
 
             elapsedTime = now - old.time
             timePerTick = elapsedTime / ticks
-            velocity    = self.mmPerTick / timePerTick
+            velocity    = Constants.mmPerEncoderTick / timePerTick
             velocitySum += velocity
 
-        # if velocitySum / samples < 0:
-            # print(samples, log)
         return velocitySum / samples
-        # old = self.log[-sampleSize]
-        # ticks = self.count - old.count
-        #
-        # if ticks == 0: return 0
-        #
-        # time        = getRunTime()
-        # elapsedTime = time - old.time
-        # timePerTick = elapsedTime / ticks
-        # velocity    = self.mmPerTick / timePerTick
-
-        # print("P", str(self.A)+str(self.B), "C", self.count, "T", round(time, 2), "V", round(velocity, 2), "Old", old)
-
 
     def close(self):
         GPIO.remove_event_detect(self.pinA)

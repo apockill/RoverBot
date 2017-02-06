@@ -1,4 +1,6 @@
 import RoboHat
+import Constants
+from Utility     import clamp
 from threading   import Thread, RLock
 from time        import sleep, time
 from Wheels      import Wheel
@@ -29,32 +31,37 @@ class RobotHandler:
     def mainLoop(self):
         while not self.stopThread:
             sleep(.0001)
-            self.LWheel.Update()
-            self.RWheel.Update()
+            with self.actionLock:
+                self.LWheel.Update()
+                self.RWheel.Update()
 
-    def setSpeed(self, speed):
+    def setMoveRadius(self, speed, radius):
         """
         Sets both wheels
         :param speed: Positive means forward, negative means backwards, 0 means stop
         """
 
+        if radius ==0: return
+
+        vL = speed * (1 + Constants.distBetweenWheels / (2 * radius))
+        vR = speed * (1 - Constants.distBetweenWheels / (2 * radius))
+
         with self.actionLock:
-            self.LWheel.setPower(speed)
-            self.RWheel.setPower(speed)
+            self.LWheel.setPower(vL)
+            self.RWheel.setPower(vR)
 
     def close(self):
         # Run this when ending the main python script
         print("Robot| Closing Thread")
 
-        # Safely close hardware threads
-        self.LWheel.close()
-        self.RWheel.close()
-
+        # Safely close main threads
         self.stopThread = True
         self.mainThread.join(2)
 
         # In case the thread didn't close, use the lock when closing up
         with self.actionLock:
+            self.LWheel.close()
+            self.RWheel.close()
             RoboHat.cleanup()
 
 
