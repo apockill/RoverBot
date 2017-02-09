@@ -277,7 +277,7 @@ class Encoder:
         now         = getRunTime()
         samples     = 0
 
-        final = 0
+        weights = 0
         for i in range(0, len(log) - 1):
             samples += 1
 
@@ -289,11 +289,11 @@ class Encoder:
             elapsedTime = now - old.time
             timePerTick = elapsedTime / ticks
             velocity    = Constants.mmPerEncoderTick / timePerTick
-            final      += velocity / 2
-            # velocitySum += velocity
+            velocitySum += velocity * i
+            weights += i
 
         #return velocitySum / samples
-        return final
+        return velocitySum / weights
 
     def close(self):
         GPIO.remove_event_detect(self.pinA)
