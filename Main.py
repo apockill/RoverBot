@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # robot.setMoveRadius(200, 500)
     robot.LWheel.setSpeed(1000)
 
-    print("Final: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
-    sleep(10)
 
+    sleep(10)
+    print("Final: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
     robot.close()
