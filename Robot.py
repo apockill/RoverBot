@@ -47,6 +47,7 @@ class RobotHandler:
         vR = speed * (1 - Constants.distBetweenWheels / (2 * radius))
 
         print("vL ", vL, "\tvR", vR)
+
         with self.actionLock:
             self.LWheel.setSpeed(vL)
             self.RWheel.setSpeed(vR)
