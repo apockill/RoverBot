@@ -130,7 +130,7 @@ class Wheel(HardwareLoop):
         maxPowerChange = 25 * self.delay  # Power Change / Seconds
         # Works, but slow
         kP = 0.005
-        kD = 0.02
+        kD = 0.025
 
         # Other Options:
         # kP = 0.015
