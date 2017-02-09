@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
 
     # robot.setMoveRadius(200, 500)
-    robot.LWheel.setSpeed(100)
+    robot.LWheel.setSpeed(150)
 
 
     sleep(10)
