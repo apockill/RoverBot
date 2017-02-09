@@ -233,8 +233,8 @@ class Encoder:
         newPinA = self.A
         newPinB = self.B
 
-        if pin == self.pinA: newPinA = GPIO.input(self.pinA)  # int(not newPinA)#
-        if pin == self.pinB: newPinB = GPIO.input(self.pinB)  # int(not newPinB)#
+        if pin == self.pinA: newPinA = GPIO.input(self.pinA)
+        if pin == self.pinB: newPinB = GPIO.input(self.pinB)
 
 
         # Check validity and get direction of turn
@@ -246,7 +246,7 @@ class Encoder:
             return
 
 
-        # If it's not a full count (AKA 01 or 10, then skip updating the other info) then update A, B, and leave
+        # If it's not a full count (AKA 01 or 10 or 00, then skip updating the other info) then update A, B, and leave
         if not (newPinA == 1 and newPinB == 1):
             self.A = newPinA
             self.B = newPinB

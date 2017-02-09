@@ -7,5 +7,5 @@ distBetweenWheels = 135.5
 ###### WHEEL CONSTANTS
 
 # (MM/tick) Distance the wheel travels per tick of the encoder
-mmPerEncoderTick = 4.83308845108
+mmPerEncoderTick = 4.83308845108 * 2
 
