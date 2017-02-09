@@ -289,7 +289,7 @@ class Encoder:
             elapsedTime = now - old.time
             timePerTick = elapsedTime / ticks
             velocity    = Constants.mmPerEncoderTick / timePerTick
-            velocitySum += velocity * i
+            velocitySum += velocity * (len(log) - i)
             weights += i
 
         #return velocitySum / samples
