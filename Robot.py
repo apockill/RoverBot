@@ -47,8 +47,8 @@ class RobotHandler:
         vR = speed * (1 - Constants.distBetweenWheels / (2 * radius))
 
         with self.actionLock:
-            self.LWheel.setPower(vL)
-            self.RWheel.setPower(vR)
+            self.LWheel.setSpeed(vL)
+            self.RWheel.setSpeed(vR)
 
     def close(self):
         # Run this when ending the main python script
