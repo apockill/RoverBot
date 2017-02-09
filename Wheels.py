@@ -268,7 +268,7 @@ class Encoder:
         # Run the Callback Function for the parent
         self.getVelocity()
 
-    def getVelocity(self, sampleSize=2):
+    def getVelocity(self, sampleSize=5):
         if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
         if sampleSize == 1: return 0
 
@@ -289,11 +289,10 @@ class Encoder:
             elapsedTime = now - old.time
             timePerTick = elapsedTime / ticks
             velocity    = Constants.mmPerEncoderTick / timePerTick
-            velocitySum += velocity * (len(log) - i)
+            velocitySum += velocity
             weights += i
 
-        #return velocitySum / samples
-        return velocitySum / weights
+        return velocitySum / samples
 
     def close(self):
         GPIO.remove_event_detect(self.pinA)
