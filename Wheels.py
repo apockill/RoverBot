@@ -246,8 +246,8 @@ class Encoder:
             return
 
 
-        # If it's not a full count (AKA 01 or 10 or 00, then skip updating the other info) then update A, B, and leave
-        if not (newPinA == 1 and newPinB == 1):
+        # If it's not a full count (AKA 01 or 10 or 1, then skip updating the other info) then update A, B, and leave
+        if not (newPinA == 0 and newPinB == 0):
             self.A = newPinA
             self.B = newPinB
             return
@@ -277,7 +277,7 @@ class Encoder:
         now         = getRunTime()
         samples     = 0
 
-        weights = 0
+
         for i in range(0, len(log) - 1):
             samples += 1
 
@@ -290,7 +290,7 @@ class Encoder:
             timePerTick = elapsedTime / ticks
             velocity    = Constants.mmPerEncoderTick / timePerTick
             velocitySum += velocity
-            weights += i
+
 
         return velocitySum / samples
 
