@@ -33,7 +33,7 @@ class RobotHandler:
             sleep(.0001)
             with self.actionLock:
                 self.LWheel.Update()
-                # self.RWheel.Update()
+                self.RWheel.Update()
 
     def setMoveRadius(self, speed, radius):
         """
