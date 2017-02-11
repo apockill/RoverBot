@@ -127,7 +127,7 @@ class Wheel(HardwareLoop):
         if not self.isUpdate(): return
 
         # Constants
-        maxPowerChange = 18 * self.delay  # Power Change / Seconds
+        maxPowerChange = 50 * self.delay  # Power Change / Seconds
         # Works, but slow
         kP = 0.005
         kD = 0.025
