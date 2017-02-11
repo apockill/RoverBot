@@ -243,7 +243,7 @@ class Encoder:
         try:
             direction = self.getDir[lookup]
         except KeyError:
-            # print("Encoder| ERROR during lookup: " + str(lookup))
+            print("Encoder| ERROR during lookup: " + str(lookup))
             return
 
 
