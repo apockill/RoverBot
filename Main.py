@@ -20,11 +20,13 @@ import cv2
 
 if __name__ == "__main__":
     robot   = RobotHandler()
+
     vStream = PiVideoStream()
     vStream.start()
-    sleep(3)
+    sleep(1)
 
     cv2.imshow('frame', vStream.read())
+    cv2.waitKey(1)
     # robot.setMoveRadius(150, -150)
     # robot.setMoveRadius(200, 500)
     # robot.LWheel.setSpeed(250)
@@ -34,3 +36,4 @@ if __name__ == "__main__":
     # print("Final L: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
     # print("Final R: ", robot.RWheel.encoder.getVelocity(sampleSize=50))
     robot.close()
+    vStream.close()
