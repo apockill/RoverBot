@@ -69,7 +69,7 @@ class PanTiltPiCamera(PiVideoStream):
         # Set servos to the initial position
         self.panRot = -1
         self.tltRot = -1
-        self.setPose(pan = 0, tilt = 0)
+        self.setPose(pan = 0, tilt = -80)
 
     def setPose(self, pan=None, tilt=None):
         if pan is not None and pan != self.panRot:
