@@ -11,11 +11,10 @@ class FollowLine:
         pass
 
     def update(self):
-
         self.__findLines()
 
     def __findLines(self):
-        img   = self.camera.read()
+        img   = self.rover.camera.read()
         gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         edges = cv2.Canny(gray, 50, 150, apertureSize=3)
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
