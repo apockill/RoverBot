@@ -74,7 +74,7 @@ class PanTiltPiCamera(PiVideoStream):
             setServo(self.panPin, pan)
             self.panRot = pan
 
-        if tilt is not None and tilt != self.tiltRot:
+        if tilt is not None and tilt != self.tltRot:
             setServo(self.tltPin, tilt)
             self.tltRot = tilt
 
