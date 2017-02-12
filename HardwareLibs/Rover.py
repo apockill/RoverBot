@@ -32,7 +32,7 @@ class RoverHandler:
         self.camera = PanTiltPiCamera(Const.cameraPanPin, Const.cameraTiltPin)
 
         # Behaviors
-        self.behavior = FollowLine()
+        self.behavior = FollowLine(self)
 
         # Threading
         self.stopThread = False
