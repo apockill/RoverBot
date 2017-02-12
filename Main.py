@@ -11,7 +11,10 @@ if __name__ == "__main__":
     camera = PanTiltPiCamera(Const.cameraPanPin, Const.cameraTiltPin)
     camera.start()
     camera.setPose(0, 0)
-
+    sleep(1)
+    camera.setPose(90, 90)
+    sleep(1)
+    camera.setPose(0, 0)
     cv2.imshow('frame', camera.read())
     cv2.waitKey(1)
     # robot.setMoveRadius(150, -150)
