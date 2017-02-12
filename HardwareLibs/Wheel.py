@@ -1,10 +1,11 @@
 import Constants
-import RPi.GPIO  as GPIO
+import RPi.GPIO as GPIO
 from collections import namedtuple
-from time        import time
-from Utility     import clamp, sign
+from time import time
+from Utility import clamp, sign
 
-# This is so that wheel logs have identicle time scales
+
+# This is so that wheel logs have identical time scales
 global startTime
 startTime  = time()
 getRunTime = lambda: time() - startTime
@@ -296,6 +297,7 @@ class Encoder:
         return velocitySum / samples
 
     def close(self):
+        print("Encoder| Closing Pin Event Threads")
         GPIO.remove_event_detect(self.pinA)
         GPIO.remove_event_detect(self.pinB)
 

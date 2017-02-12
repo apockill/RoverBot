@@ -8,7 +8,9 @@
 # Run using: sudo python motorTest.py
 
 
-import RoboHat, time
+import time
+
+from HardwareLibs import RoboHat
 
 speed = 80
 print "Tests the motors at speed = 80%"

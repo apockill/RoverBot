@@ -1,5 +1,6 @@
 import time
-import RoboHat
+
+from HardwareLibs import RoboHat
 
 RoboHat.init()
 

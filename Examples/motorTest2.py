@@ -6,13 +6,10 @@
 # Run using: sudo python motorTest2.py
 
 
-import RoboHat, time
-
-#======================================================================
-# Reading single character by forcing stdin to raw mode
 import sys
 import tty
 import termios
+from HardwareLibs import RoboHat
 
 def readchar():
     fd = sys.stdin.fileno()

@@ -9,3 +9,17 @@ distBetweenWheels = 135.5
 # (MM/tick) Distance the wheel travels per tick of the encoder
 mmPerEncoderTick = 4.83308845108 * 2
 
+
+###### PIN CONSTANTS
+cameraPanPin     = 0
+cameraTiltPin    = 1
+
+leftWheelPinA    = 33
+leftWheelPinB    = 32
+rightWheelPinA   = 36
+rightWheelPinB   = 35
+
+leftEncoderPinA  = 15
+leftEncoderPinB  = 16
+rightEncoderPinA = 13
+rightEncoderPinB = 29

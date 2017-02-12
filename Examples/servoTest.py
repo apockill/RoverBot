@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # servoTest.py
 
-import RoboHat
+from HardwareLibs import RoboHat
 
 # Define pins for Pan/Tilt
 pan = 0

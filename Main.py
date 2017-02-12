@@ -1,31 +1,18 @@
-"""
-Project Brainstorming
+from time import sleep
 
-Hardware:
-    - PWM 
-
-Goals:
-    Track lines using vision and map the nodes as it moves along
-        - Move (Wheels)
-        - Measure Distance (encoders)
-        - Video Feed
-        - Computer Vision
-        -
-"""
-
-from Robot  import RobotHandler
-from Video  import PiVideoStream
-from time   import sleep
 import cv2
+import Constants as Const
+from HardwareLibs.Rover import RoverHandler
+from HardwareLibs.Camera import PanTiltPiCamera
 
 if __name__ == "__main__":
-    robot   = RobotHandler()
+    robot   = RoverHandler()
 
-    vStream = PiVideoStream()
-    vStream.start()
+    camera = PanTiltPiCamera(Const.cameraPanPin, Const.cameraTiltPin)
+    camera.start()
+    camera.setPose(90, 90)
 
-
-    cv2.imshow('frame', vStream.read())
+    cv2.imshow('frame', camera.read())
     cv2.waitKey(1)
     # robot.setMoveRadius(150, -150)
     # robot.setMoveRadius(200, 500)
