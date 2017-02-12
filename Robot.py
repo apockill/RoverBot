@@ -25,10 +25,10 @@ class RobotHandler:
 
         # Threading
         self.stopThread = False
-        self.mainThread = Thread(target=self.mainLoop)
+        self.mainThread = Thread(target=self.mainThread)
         self.mainThread.start()
 
-    def mainLoop(self):
+    def mainThread(self):
         while not self.stopThread:
             sleep(.0001)
             with self.actionLock:

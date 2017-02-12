@@ -13,21 +13,21 @@ Goals:
         -
 """
 
-from Robot import RobotHandler
-
-from time import sleep
+from Robot  import RobotHandler
+from Vision import Vision
+from time   import sleep
 # import Video
 
 if __name__ == "__main__":
     robot = RobotHandler()
 
-
-    robot.setMoveRadius(150, -150)
+    Vision()
+    # robot.setMoveRadius(150, -150)
     # robot.setMoveRadius(200, 500)
     # robot.LWheel.setSpeed(250)
     # test
 
     sleep(10)
-    print("Final L: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
-    print("Final R: ", robot.RWheel.encoder.getVelocity(sampleSize=50))
+    # print("Final L: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
+    # print("Final R: ", robot.RWheel.encoder.getVelocity(sampleSize=50))
     robot.close()
