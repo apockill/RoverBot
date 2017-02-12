@@ -22,7 +22,7 @@ if __name__ == "__main__":
     robot = RobotHandler()
 
 
-    robot.setMoveRadius(25, 250)
+    robot.setMoveRadius(25, 100)
     # robot.setMoveRadius(200, 500)
     # robot.LWheel.setSpeed(250)
 
