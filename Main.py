@@ -14,20 +14,23 @@ Goals:
 """
 
 from Robot  import RobotHandler
-from Vision import Vision
+from Video  import PiVideoStream
 from time   import sleep
-# import Video
+import cv2
 
 if __name__ == "__main__":
-    robot = RobotHandler()
+    robot   = RobotHandler()
+    vStream = PiVideoStream()
+    vStream.start()
+    sleep(.1)
 
-    Vision()
+    cv2.imshow('frame', vStream.read())
     # robot.setMoveRadius(150, -150)
     # robot.setMoveRadius(200, 500)
     # robot.LWheel.setSpeed(250)
     # test
 
-    sleep(10)
+    sleep(3)
     # print("Final L: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
     # print("Final R: ", robot.RWheel.encoder.getVelocity(sampleSize=50))
     robot.close()
