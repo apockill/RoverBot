@@ -22,7 +22,7 @@ if __name__ == "__main__":
     robot   = RobotHandler()
     vStream = PiVideoStream()
     vStream.start()
-    sleep(.1)
+    sleep(3)
 
     cv2.imshow('frame', vStream.read())
     # robot.setMoveRadius(150, -150)
