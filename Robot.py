@@ -32,9 +32,8 @@ class RobotHandler:
         while not self.stopThread:
             sleep(.0001)
             with self.actionLock:
-                pass
-                # self.LWheel.Update()
-                # self.RWheel.Update()
+                self.LWheel.Update()
+                self.RWheel.Update()
 
     def setMoveRadius(self, speed, radius):
         """
@@ -50,8 +49,8 @@ class RobotHandler:
         print("vL ", vL, "\tvR", vR)
 
         with self.actionLock:
-            self.LWheel.setPower(vL)
-            self.RWheel.setPower(vR)
+            self.LWheel.setSpeed(vL)
+            self.RWheel.setSpeed(vR)
 
     def close(self):
         # Run this when ending the main python script
