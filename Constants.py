@@ -11,8 +11,8 @@ mmPerEncoderTick = 4.83308845108 * 2
 
 
 ###### PIN CONSTANTS
-cameraPanPin     = 0
-cameraTiltPin    = 1
+cameraPanPin     = 1
+cameraTiltPin    = 0
 
 leftWheelPinA    = 33
 leftWheelPinB    = 32
