@@ -333,7 +333,7 @@ def startServod():
     os.system("sudo pkill -f servod")
     initString = "sudo " + SCRIPTPATH + '/servod --pcm --idle-timeout=20000 --p1pins="18,22" > /dev/null'
     os.system(initString)
-    ServosActive = True #
+    ServosActive = True
 
 
 def pinServod(pin, degrees):
