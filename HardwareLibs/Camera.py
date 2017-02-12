@@ -56,6 +56,7 @@ class PiVideoStream:
 
 class PanTiltPiCamera(PiVideoStream):
     def __init__(self, panPin, tiltPin):
+        super().__init__()
         self.panPin  = panPin
         self.tiltPin = tiltPin
         startServos()
