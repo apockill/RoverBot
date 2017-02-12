@@ -6,15 +6,11 @@ from HardwareLibs.Rover import RoverHandler
 from HardwareLibs.Camera import PanTiltPiCamera
 
 if __name__ == "__main__":
-    robot   = RoverHandler()
+    robot  = RoverHandler()
 
     camera = PanTiltPiCamera(Const.cameraPanPin, Const.cameraTiltPin)
-    camera.start()
-    camera.setPose(0, 0)
-    sleep(1)
-    camera.setPose(45, 45)
-    sleep(1)
-    camera.setPose(0, 0)
+
+    camera.setPose(pan=45, tilt=-45)
     cv2.imshow('frame', camera.read())
     cv2.waitKey(1)
     # robot.setMoveRadius(150, -150)
