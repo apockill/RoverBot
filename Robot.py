@@ -32,6 +32,7 @@ class RobotHandler:
         while not self.stopThread:
             sleep(.0001)
             with self.actionLock:
+                pass
                 # self.LWheel.Update()
                 # self.RWheel.Update()
 
