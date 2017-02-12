@@ -62,8 +62,8 @@ class PanTiltPiCamera(PiVideoStream):
         startServos()
 
     def setPose(self, pan, tilt):
-        self.setServo(self.panPin, pan)
-        self.setServo(self.tiltPin, tilt)
+        setServo(self.panPin, pan)
+        setServo(self.tiltPin, tilt)
 
     def close(self):
         super().close()
