@@ -332,7 +332,7 @@ def startServod():
     SCRIPTPATH = os.path.split(os.path.realpath(__file__))[0]
     os.system("sudo pkill -f servod")
     initString = "sudo " + SCRIPTPATH + '/servod --pcm --idle-timeout=20000 --p1pins="18,22" > /dev/null'
-    print("Doing ", initString)
+
     os.system(initString)
     ServosActive = True
 
