@@ -9,8 +9,8 @@ if __name__ == "__main__":
     robot  = RoverHandler()
 
     camera = PanTiltPiCamera(Const.cameraPanPin, Const.cameraTiltPin)
-
-    camera.setPose(pan=0, tilt=90)
+    sleep(.1)
+    # camera.setPose(pan=0, tilt=90)
     cv2.imshow('frame', camera.read())
     cv2.waitKey(1)
     # robot.setMoveRadius(150, -150)
