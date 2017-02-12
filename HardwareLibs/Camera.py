@@ -1,4 +1,4 @@
-from HardwareLibs.Robohat import setServo
+from HardwareLibs.Robohat import startServos, stopServos, setServos
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from threading import Thread
@@ -58,7 +58,13 @@ class PanTiltPiCamera(PiVideoStream):
     def __init__(self, panPin, tiltPin):
         self.panPin  = panPin
         self.tiltPin = tiltPin
+        startServos()
 
     def setPose(self, pan, tilt):
-        RoboHat.setServo(self.panPin, pVal)
-        RoboHat.setServo(self.tiltPin, tVal)
+        self..setServo(self.panPin, pan)
+        self..setServo(self.tiltPin, tilt)
+
+    def close(self):
+        super().close()
+        print("PanTiltPiCamera| Stopping Servos")
+        stopServos()

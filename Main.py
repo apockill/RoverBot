@@ -23,4 +23,4 @@ if __name__ == "__main__":
     # print("Final L: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
     # print("Final R: ", robot.RWheel.encoder.getVelocity(sampleSize=50))
     robot.close()
-    vStream.close()
+    camera.close()
