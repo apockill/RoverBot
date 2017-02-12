@@ -11,9 +11,9 @@ startTime  = time()
 getRunTime = lambda: time() - startTime
 
 
-class HardwareLoop:
+class TimedHardwareLoop:
     """
-    This will help classes that are in some main loop that need an "update" function of some sort.
+    This will help classes that are in some main loop that need an "update" function of some sort that depends on time.
     They can check if it's time to run or not.
     """
 
@@ -38,13 +38,12 @@ class HardwareLoop:
 
         return willRun
 
-
-    def Update(self):
+    def update(self):
         # In case the child doesn't have this function
         pass
 
 
-class Wheel(HardwareLoop):
+class Wheel(TimedHardwareLoop):
     """
     A wheel function holds an encoder object, but has the ability to
     adjust the 'speed' of the wheel. The Wheel should be run inside
@@ -120,7 +119,7 @@ class Wheel(HardwareLoop):
             self.A_PWM.ChangeDutyCycle(0)
             self.B_PWM.ChangeDutyCycle(0)
 
-    def Update(self):
+    def update(self):
         """
         This function runs whenever the encoder on the wheel has an updated tick
         :return:

@@ -17,6 +17,7 @@ class PiVideoStream:
 
         # Initialize the frame and the variable used to indicate if the thread should be stopped
         self.frame = None
+        self.frameID = 0
         self.stopped = False
 
     def start(self):
@@ -35,6 +36,7 @@ class PiVideoStream:
         for f in self.stream:
             # Grab the frame from the stream and clear the stream in preparation for the next frame
             self.frame = f.array
+            self.frameID += 1
             self.rawCapture.truncate(0)
 
             # If the thread indicator variable is set, stop the thread and resource camera resources
