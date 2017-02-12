@@ -41,7 +41,7 @@ class RobotHandler:
         :param speed: Positive means forward, negative means backwards, 0 means stop
         """
 
-        if radius ==0: return
+        if radius == 0: return
 
         vL = speed * (1 + Constants.distBetweenWheels / (2 * radius))
         vR = speed * (1 - Constants.distBetweenWheels / (2 * radius))
@@ -49,8 +49,8 @@ class RobotHandler:
         print("vL ", vL, "\tvR", vR)
 
         with self.actionLock:
-            self.LWheel.setSpeed(vL)
-            self.RWheel.setSpeed(vR)
+            self.LWheel.setPower(vL)
+            self.RWheel.setPower(vR)
 
     def close(self):
         # Run this when ending the main python script
