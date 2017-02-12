@@ -12,7 +12,7 @@ class Vision:
         self.camera = PiCamera()
         self.camera.resolution = (640, 480)
         self.camera.framerate = 32
-        self.rawCapture = PiRGBArray(camera, size=(640, 480))
+        self.rawCapture = PiRGBArray(self.camera, size=(640, 480))
 
         # Threading
         self.stopThread = False
