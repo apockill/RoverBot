@@ -21,6 +21,12 @@ class PiVideoStream:
     def start(self):
         # Start the thread to read frames from the video stream
         Thread(target=self.update, args=()).start()
+
+
+        # Wait until there is  frame loaded
+        from time import sleep
+        while self.frame is None: sleep(0.01)
+
         return self
 
     def update(self):

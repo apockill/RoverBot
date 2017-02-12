@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     vStream = PiVideoStream()
     vStream.start()
-    sleep(1)
+
 
     cv2.imshow('frame', vStream.read())
     cv2.waitKey(1)

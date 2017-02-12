@@ -8,7 +8,6 @@ from Wheels      import Wheel
 
 
 
-
 class RobotHandler:
     """
     Initializes and starts a thread where it loops over sensors and logs data as it comes in.
