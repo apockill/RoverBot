@@ -19,10 +19,12 @@ class FollowLine:
 
         img   = self.rover.camera.read()
         gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        edges = VisionUtils.autoCanny(gray, sigma=0.8)
+        edges = VisionUtils.autoCanny(gray, sigma=0.1)
+        cv2.imshow('LinedImage', edges)
+
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
 
-        cv2.imshow('LinedImage', edges)
+
         cv2.imshow('Unlined', gray)
 
         cv2.waitKey(500)
