@@ -41,7 +41,7 @@ class FollowLine:
             cv2.waitKey(3000)
             return
 
-        for line in lines:
+        for line in lines[:10]:
             for rho, theta in line:
                 a = np.cos(theta)
                 b = np.sin(theta)
