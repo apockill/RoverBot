@@ -21,6 +21,12 @@ class FollowLine:
 
         # gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         rImg = img[:,:,2]
+        gImg = img[:, :, 1]
+        bImg = img[:,:,0]
+
+        rImg = rImg - bImg - gImg
+        rImg = np.clip(rImg, 0, 255)
+
         ret, rThresh = cv2.threshold(rImg, 90, 255, cv2.THRESH_BINARY)
         edges = cv2.Canny(rThresh, 20, 35)
 
