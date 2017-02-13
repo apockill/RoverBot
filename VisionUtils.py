@@ -13,3 +13,19 @@ def autoCanny(image, sigma=0.33):
 
     # return the edged image
     return edged
+
+def isolateColor(img, lower, upper):
+    """
+
+    :param img: Image to isolate teh color of
+    :param lower: [lowerHue, lowerSat, lowerVal]
+    :param upper: [upperHue, upperSat, upperVal]
+    :return: Isolated image
+    """
+
+    # Isolate the red
+    hsv   = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    mask  = cv2.inRange(hsv, lower, upper)
+    final = cv2.bitwise_and(img, img, mask=mask)
+
+    return final
