@@ -22,14 +22,16 @@ class FollowLine:
 
         edges = cv2.Canny(gray, 25, 30)
 
-        cv2.imshow('Edge', edges)
-        cv2.imshow('Frame', gray)
-        cv2.waitKey(500)
+
 
 
 
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
-        if lines is None: return None
+        if lines is None:
+            cv2.imshow('Edge', edges)
+            # cv2.imshow('Frame', gray)
+            cv2.waitKey(500)
+
 
         for rho, theta in lines[0]:
             a = np.cos(theta)
@@ -41,7 +43,7 @@ class FollowLine:
             x2 = int(x0 - 1000 * (-b))
             y2 = int(y0 - 1000 * (a))
 
-            cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+            cv2.line(edges, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
 
         cv2.imshow('Line', img)
