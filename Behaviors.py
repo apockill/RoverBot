@@ -58,11 +58,13 @@ class FollowLine:
         # Horizontal lines
         horzLines = cv2.HoughLinesP(edges, 1, np.pi / 2, threshold=500, minLineLength=500, maxLineGap=1)[0].toList()
 
+        if vertLines is not None:
+            for x1, y1, x2, y2 in vertLines:
+                cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 1)
 
-        for x1, y1, x2, y2 in vertLines:
-            cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 1)
-        for x1, y1, x2, y2 in horzLines:
-            cv2.line(img, (x1, y1), (x2, y2), (255, 0, 0), 1)
+        if horzLines is not None:
+            for x1, y1, x2, y2 in horzLines:
+                cv2.line(img, (x1, y1), (x2, y2), (255, 0, 0), 1)
 
         # lines = vertLines + horzLines
 
