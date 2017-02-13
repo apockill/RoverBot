@@ -26,8 +26,8 @@ class FollowLine:
         edges = cv2.Canny(rThresh, 20, 40)
 
         # cv2.imshow('t', rThresh)
-        cv2.imshow('r', rThresh)
-        cv2.imshow('e', edges)
+        cv2.imshow('Thresh', rThresh)
+
 
 
         # # Test 1
@@ -54,7 +54,7 @@ class FollowLine:
         # Test 1
 
 
-        print("Doing thing!")
+
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
         lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=60, minLineLength=200, maxLineGap=100)
 
@@ -67,7 +67,7 @@ class FollowLine:
 
             # Debug
             print("Lines:", len(lines))
-            cv2.imshow('Edge', img)
+            cv2.imshow('Lines', img)
 
 
         # lines = vertLines + horzLines
