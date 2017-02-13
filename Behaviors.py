@@ -41,21 +41,19 @@ class FollowLine:
             cv2.waitKey(3000)
             return
 
-        a, b, c = lines.shape
-        for i in range(a):
-            cv2.line(img, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
 
 
-                # for line in lines[:10]:
-        #     for rho, theta in line:
-        #         a = np.cos(theta)
-        #         b = np.sin(theta)
-        #         x0 = a * rho
-        #         y0 = b * rho
-        #         x1 = int(x0 + 1000 * (-b))
-        #         y1 = int(y0 + 1000 * (a))
-        #         x2 = int(x0 - 1000 * (-b))
-        #         y2 = int(y0 - 1000 * (a))
+
+        for line in lines[:10]:
+            for rho, theta in line:
+                a = np.cos(theta)
+                b = np.sin(theta)
+                x0 = a * rho
+                y0 = b * rho
+                x1 = int(x0 + 1000 * (-b))
+                y1 = int(y0 + 1000 * (a))
+                x2 = int(x0 - 1000 * (-b))
+                y2 = int(y0 - 1000 * (a))
 
         #         cv2.line(rImg, (x1, y1), (x2, y2), (0, 0, 255), 2)
         print("Found lines: ", len(lines))
