@@ -20,7 +20,7 @@ class FollowLine:
         img   = self.rover.camera.read()
         gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        edges = cv2.Canny(gray, 25, 30)
+        edges = cv2.Canny(gray, 10, 30)
 
 
 
@@ -31,7 +31,7 @@ class FollowLine:
             cv2.imshow('Edge', edges)
             # cv2.imshow('Frame', gray)
             cv2.waitKey(500)
-
+            return
 
         for rho, theta in lines[0]:
             a = np.cos(theta)
