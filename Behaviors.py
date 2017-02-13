@@ -20,14 +20,16 @@ class FollowLine:
         img   = self.rover.camera.read()
 
         # gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        rImg = img[:,:,2]
-        gImg = img[:, :, 1]
-        bImg = img[:,:,0]
+        rCh = img[:,:,2]
+        gCh = img[:, :, 1]
+        bCh = img[:,:,0]
 
-        rImg = rImg - bImg - gImg
-        rImg = np.clip(rImg, 0, 255)
+        rImg = np.clip(rCh - gCh - bCh, 0, 255)
+        gImg = np.clip(rCh - gCh - bCh, 0, 255)
+        bImg = np.clip(rCh - gCh - bCh, 0, 255)
 
-        ret, rThresh = cv2.threshold(rImg, 90, 255, cv2.THRESH_BINARY)
+
+        ret, rThresh = cv2.threshold(rImg, 90, 255, cv2.THRESH_BINARY_INV)
         edges = cv2.Canny(rThresh, 20, 35)
 
 
