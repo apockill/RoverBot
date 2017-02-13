@@ -35,12 +35,12 @@ class RoverHandler:
         self.behavior = FollowLine(self)
 
         # Threading
-        # self.stopThread = False
+        self.stopped = False
         # self.mainThread = Thread(target=self.mainThread)
         # self.mainThread.start()
 
     def mainThread(self):
-        while not self.stopThread:
+        while not self.stopped:
             sleep(.0001)
             with self.actionLock:
                 # Do Hardware Updates
