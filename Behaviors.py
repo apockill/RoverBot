@@ -43,7 +43,7 @@ class FollowLine:
 
         a, b, c = lines.shape
         for i in range(a[:50]):
-            cv2.line(rImg, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
+            cv2.line(img, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
 
 
                 # for line in lines[:10]:
@@ -60,5 +60,5 @@ class FollowLine:
         #         cv2.line(rImg, (x1, y1), (x2, y2), (0, 0, 255), 2)
         print("Found lines: ", len(lines))
 
-        cv2.imshow('Edge', rImg)
+        cv2.imshow('Edge', img)
         cv2.waitKey(4500)
