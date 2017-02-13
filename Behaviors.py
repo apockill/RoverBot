@@ -18,8 +18,8 @@ class FollowLine:
         print("Doing thing!")
 
         img   = self.rover.camera.read()
-        gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
+        # gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        gray = img[:,:,0]
         edges = cv2.Canny(gray, 20, 35)
 
 
@@ -29,6 +29,7 @@ class FollowLine:
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
         if lines is None:
             cv2.imshow('Edge', edges)
+            cv2.imshow('Gray', gray)
             # cv2.imshow('Frame', gray)
             cv2.waitKey(500)
             return
