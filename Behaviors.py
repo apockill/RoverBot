@@ -33,7 +33,7 @@ class FollowLine:
         edges = cv2.Canny(rThresh, 20, 40)
 
         cv2.imshow('r', rThresh)
-        cv2.imshow('e', edges)
+        cv2.imshow('e', rImg)
 
         lines = cv2.HoughLines(image=edges, rho=1, theta=np.pi/180, threshold=100) # 1, np.pi / 180, 200)
         if lines is None:
