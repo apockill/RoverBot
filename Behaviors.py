@@ -44,7 +44,7 @@ class FollowLine:
             y2 = int(y0 - 1000 * (a))
 
             cv2.line(edges, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        print("Found lines: ", len(lines))
 
-
-        cv2.imshow('Line', img)
+        cv2.imshow('Edge', edges)
         cv2.waitKey(5000)
