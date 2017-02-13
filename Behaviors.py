@@ -56,7 +56,8 @@ class FollowLine:
         lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=50, minLineLength=100, maxLineGap=10)
 
         if lines is not None:
-            lines = lines[0].toList()
+            lines = lines[0].tolist()
+
             for x1, y1, x2, y2 in lines:
                 cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 1)
 
