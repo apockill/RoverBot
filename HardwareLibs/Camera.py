@@ -34,7 +34,7 @@ class PiVideoStream:
         from time import sleep
         while self.frame is None: sleep(0.01)
 
-        cv2.imshow(self.frame)
+        cv2.imshow('f', self.frame)
         cv2.waitKey(10000)
         return self
 
