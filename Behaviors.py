@@ -22,7 +22,7 @@ class FollowLine:
 
         edges = cv2.Canny(gray, 10, 20)
 
-        cv2.imshow('LinedImage', edges)
+        cv2.imshow('Edge', edges)
         cv2.imshow('Frame', gray)
         cv2.waitKey(500)
 
@@ -44,5 +44,5 @@ class FollowLine:
             cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
         print("Found: ", lines)
 
-        cv2.imshow('LinedImage', img)
+        cv2.imshow('Line', img)
         cv2.waitKey(5000)
