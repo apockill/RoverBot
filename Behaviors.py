@@ -56,7 +56,7 @@ class FollowLine:
 
         print("Doing thing!")
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
-        lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=50)
+        lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=25, minLineLength=50, maxLineGap=50)
 
         if lines is not None:
             lines = lines[0].tolist()
