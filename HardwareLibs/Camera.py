@@ -15,10 +15,15 @@ class PiVideoStream:
         self.rawCapture = PiRGBArray(self.camera, size=resolution)
         self.stream = self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True)
 
-        # Initialize the frame and the variable used to indicate if the thread should be stopped
-        self.frame = None
-        self.frameID = 0
+        # Threading variables
         self.stopped = False
+
+        # Frame variables
+        self.frame   = None
+        self.frameID = 0
+        self.height  = 0
+        self.width   = 0
+        self.center  = (0, 0)
 
     def start(self):
         # Start the thread to read frames from the video stream
@@ -29,13 +34,27 @@ class PiVideoStream:
         from time import sleep
         while self.frame is None: sleep(0.01)
 
+        cv2.imshow(self.frame)
+        cv2.waitKey(10000)
         return self
 
     def update(self):
-        # keep looping infinitely until the thread is stopped
-        for f in self.stream:
-            # Grab the frame from the stream and clear the stream in preparation for the next frame
-            self.frame = f.array
+        rotationMatrix = None
+
+        # Keep looping infinitely until the thread is stopped
+        for frame in self.stream:
+            frame = frame.array
+
+            # FIRST RUN ONLY: Get basic information about the frame, and the rotation matrix
+            if rotationMatrix is None:
+                self.height, self.width = frame.shape[:2]
+                self.center = (self.width / 2, self.height / 2)
+                rotationMatrix = cv2.getRotationMatrix2D(self.center, 180, 1.0)
+
+            # Rotate the picture so it's oriented correctly
+            frame = cv2.warpAffine(frame, rotationMatrix, (self.width, self.height))
+
+            self.frame = frame
             self.frameID += 1
             self.rawCapture.truncate(0)
 
