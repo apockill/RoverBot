@@ -19,14 +19,15 @@ class FollowLine:
 
         img   = self.rover.camera.read()
 
-        # gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        rCh = img[:,:,2]
-        gCh = img[:, :, 1]
-        bCh = img[:,:,0]
+        # Isolate the red
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        lowerRed = np.array([ 50,  50, 110])
+        upperRed = np.array([255, 255, 255])
+        mask = cv2.inRange(hsv, lowerRed, upperRed)
+        rImg = cv2.bitwise_and(img, img, mask=mask)
 
-        rImg = np.clip(rCh - gCh - bCh, 0, 255)
-        gImg = np.clip(gCh - rCh - bCh, 0, 255)
-        bImg = np.clip(bCh - gCh - rCh, 0, 255)
+
+
 
 
         ret, rThresh = cv2.threshold(rImg, 90, 255, cv2.THRESH_BINARY_INV)
@@ -60,3 +61,6 @@ class FollowLine:
 
         cv2.imshow('Edge', img)
         cv2.waitKey(4500)
+
+    def __prototypeFindLines(self):
+        # Unadvanced color thresholding
