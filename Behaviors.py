@@ -21,8 +21,8 @@ class FollowLine:
 
         # Isolate the red
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-        lowerRed = np.array([ 50,  50, 110])
-        upperRed = np.array([255, 255, 255])
+        lowerRed = np.array([  0,  50, 110])
+        upperRed = np.array([ 30, 255, 255])
         mask = cv2.inRange(hsv, lowerRed, upperRed)
         rImg = cv2.bitwise_and(img, img, mask=mask)
 
