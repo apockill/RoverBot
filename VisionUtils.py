@@ -26,6 +26,7 @@ def isolateColor(img, lower, upper):
     # If the HSV values wrap around:
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     if lower[0] > upper[0]:
+        print("Doing special")
         # [160, 50, 50] -> [180, 255, 255]
         upper1 = [180, upper[1], upper[2]]
         mask1  = cv2.inRange(hsv, np.array(lower), np.array(upper1))
