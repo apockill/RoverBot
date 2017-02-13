@@ -32,14 +32,11 @@ class FollowLine:
         # ret, rThresh = cv2.threshold(rImg, 90, 255, cv2.THRESH_BINARY_INV)
         edges = cv2.Canny(rImg, 20, 35)
 
-
-
-
+        cv2.imshow('r', rImg)
+        cv2.imshow('e', edges)
 
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
         if lines is None:
-            cv2.imshow('r', rImg)
-            cv2.imshow('e', edges)
             # cv2.imshow('Frame', gray)
             cv2.waitKey(3000)
             return
@@ -59,4 +56,4 @@ class FollowLine:
         print("Found lines: ", len(lines))
 
         cv2.imshow('Edge', img)
-        cv2.waitKey(1500)
+        cv2.waitKey(4500)
