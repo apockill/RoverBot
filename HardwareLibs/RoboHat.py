@@ -340,7 +340,6 @@ def startServod():
 def pinServod(pin, degrees):
     # print pin, degrees
     pinString = "echo " + str(pin) + "=" + str(50 + ((90 - degrees) * 200 / 180)) + " > /dev/servoblaster"
-    print(pinString)
     os.system(pinString)
 
 
