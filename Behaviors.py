@@ -25,8 +25,8 @@ class FollowLine:
         bCh = img[:,:,0]
 
         rImg = np.clip(rCh - gCh - bCh, 0, 255)
-        gImg = np.clip(rCh - gCh - bCh, 0, 255)
-        bImg = np.clip(rCh - gCh - bCh, 0, 255)
+        gImg = np.clip(gCh - rCh - bCh, 0, 255)
+        bImg = np.clip(bCh - gCh - rCh, 0, 255)
 
 
         ret, rThresh = cv2.threshold(rImg, 90, 255, cv2.THRESH_BINARY_INV)
