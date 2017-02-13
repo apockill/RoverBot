@@ -21,6 +21,8 @@ class FollowLine:
         edges = cv2.Canny(gray, 50, 150, apertureSize=3)
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
 
+        cv2.imshow('LinedImage', img)
+        cv2.waitKey(1)
         if lines is None: return None
 
         for rho, theta in lines[0]:
