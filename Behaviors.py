@@ -19,8 +19,8 @@ class FollowLine:
 
         img   = self.rover.camera.read()
         gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        edges = cv2.Laplacian(gray, cv2.CV_64F)
-        # edges = cv2.Canny(gray, 100, 300)
+
+        edges = cv2.Canny(gray, 1, 1000)
 
         cv2.imshow('LinedImage', edges)
         cv2.imshow('Frame', gray)
