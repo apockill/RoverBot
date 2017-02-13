@@ -50,7 +50,7 @@ class RoverHandler:
                 # Do Behavior Updates
                 self.behavior.update()
 
-            self.stopped = True
+
         self.close()
 
     def setMoveRadius(self, speed, radius):

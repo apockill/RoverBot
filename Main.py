@@ -6,6 +6,7 @@ from HardwareLibs.Rover import RoverHandler
 from HardwareLibs.Camera import PanTiltPiCamera
 
 if __name__ == "__main__":
+    print("\n\nStarting!\n")
     robot  = RoverHandler()
     robot.mainThread()
 
