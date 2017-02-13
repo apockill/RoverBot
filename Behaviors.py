@@ -47,4 +47,4 @@ class FollowLine:
         print("Found lines: ", len(lines))
 
         cv2.imshow('Edge', edges)
-        cv2.waitKey(5000)
+        cv2.waitKey(500)
