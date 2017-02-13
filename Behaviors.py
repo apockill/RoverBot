@@ -22,7 +22,7 @@ class FollowLine:
         rImg  = VisionUtils.isolateColor(img,   [150, 50, 50],  [30, 255, 255])
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
 
-        ret, rThresh = cv2.threshold(rGray, 90, 255, cv2.THRESH_BINARY)
+        ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
         edges = cv2.Canny(rThresh, 20, 40)
 
         # cv2.imshow('t', rThresh)
