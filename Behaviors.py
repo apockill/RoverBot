@@ -62,5 +62,3 @@ class FollowLine:
         cv2.imshow('Edge', img)
         cv2.waitKey(4500)
 
-    def __prototypeFindLines(self):
-        # Unadvanced color thresholding
