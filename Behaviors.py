@@ -19,7 +19,7 @@ class FollowLine:
 
         img   = self.rover.camera.read()
 
-        rImg  = VisionUtils.isolateColor(img,   [140, 50, 50],  [40, 255, 255])
+        rImg  = VisionUtils.isolateColor(img,   [150, 25, 25],  [30, 255, 255])
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
 
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
@@ -56,7 +56,7 @@ class FollowLine:
 
         print("Doing thing!")
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
-        lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=75, minLineLength=50, maxLineGap=100)
+        lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=100, minLineLength=200, maxLineGap=100)
 
         if lines is not None:
             # print(lines)
