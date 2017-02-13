@@ -49,6 +49,8 @@ class RoverHandler:
 
                 # Do Behavior Updates
                 self.behavior.update()
+                return
+        self.close()
 
     def setMoveRadius(self, speed, radius):
         """
