@@ -35,7 +35,7 @@ class FollowLine:
         cv2.imshow('r', rThresh)
         cv2.imshow('e', edges)
 
-        lines = cv2.HoughLines(rThresh, 1, np.pi / 180, 200)
+        lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
         if lines is None:
             # cv2.imshow('Frame', gray)
             cv2.waitKey(3000)
