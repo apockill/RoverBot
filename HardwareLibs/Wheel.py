@@ -2,7 +2,7 @@ import Constants
 import RPi.GPIO as GPIO
 from collections import namedtuple
 from time import time
-from Utility import clamp, sign
+from Utils import clamp, sign
 
 
 # This is so that wheel logs have identical time scales

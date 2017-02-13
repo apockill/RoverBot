@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import VisionUtils
 
 
 class FollowLine:
@@ -18,7 +19,7 @@ class FollowLine:
 
         img   = self.rover.camera.read()
         gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray, 50, 150, apertureSize=3)
+        edges = VisionUtils.autoCanny(gray)
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
 
         cv2.imshow('LinedImage', edges)
