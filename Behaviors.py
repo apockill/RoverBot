@@ -23,7 +23,7 @@ class FollowLine:
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
 
         cv2.imshow('LinedImage', edges)
-        cv2.imshow('Unlined', img)
+        cv2.imshow('Unlined', gray)
 
         cv2.waitKey(500)
         if lines is None: return None
