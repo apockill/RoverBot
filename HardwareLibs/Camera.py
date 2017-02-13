@@ -21,9 +21,9 @@ class PiVideoStream:
         # Frame variables
         self.frame   = None
         self.frameID = 0
-        self.height  = 0
-        self.width   = 0
-        self.center  = (0, 0)
+        self.h       = 0
+        self.w       = 0
+
 
     def start(self):
         # Start the thread to read frames from the video stream
@@ -34,8 +34,6 @@ class PiVideoStream:
         from time import sleep
         while self.frame is None: sleep(0.01)
 
-        cv2.imshow('f', self.frame)
-        cv2.waitKey(10000)
         return self
 
     def update(self):
@@ -47,12 +45,12 @@ class PiVideoStream:
 
             # FIRST RUN ONLY: Get basic information about the frame, and the rotation matrix
             if rotationMatrix is None:
-                self.height, self.width = frame.shape[:2]
-                self.center = (self.width / 2, self.height / 2)
-                rotationMatrix = cv2.getRotationMatrix2D(self.center, 180, 1.0)
+                self.h, self.w = frame.shape[:2]
+                center = (self.w / 2, self.h / 2)
+                rotationMatrix = cv2.getRotationMatrix2D(center, 180, 1.0)
 
             # Rotate the picture so it's oriented correctly
-            frame = cv2.warpAffine(frame, rotationMatrix, (self.width, self.height))
+            frame = cv2.warpAffine(frame, rotationMatrix, (self.w, self.h))
 
             self.frame = frame
             self.frameID += 1
