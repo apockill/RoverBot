@@ -19,7 +19,7 @@ class FollowLine:
 
         img   = self.rover.camera.read()
 
-        rImg  = VisionUtils.isolateColor(img,   [150, 25, 25],  [30, 255, 255])
+        rImg  = VisionUtils.isolateColor(img,   [150, 75, 75],  [30, 255, 255])
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
 
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
