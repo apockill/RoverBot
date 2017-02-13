@@ -20,9 +20,9 @@ class FollowLine:
         img   = self.rover.camera.read()
 
         # gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        rImg = img[:,:,0]
+        rImg = img[:,:,2]
         gImg = img[:, :, 1]
-        bImg = img[:,:,2]
+        bImg = img[:,:,0]
 
         rImg = rImg - bImg - gImg
         rImg = np.clip(rImg, 0, 255)
