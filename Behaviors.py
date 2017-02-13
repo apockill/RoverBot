@@ -30,7 +30,7 @@ class FollowLine:
 
 
         ret, rThresh = cv2.threshold(rImg, 90, 255, cv2.THRESH_BINARY_INV)
-        edges = cv2.Canny(rImg, 20, 35)
+        edges = cv2.Canny(rThresh, 20, 40)
 
         cv2.imshow('r', rThresh)
         cv2.imshow('e', edges)
