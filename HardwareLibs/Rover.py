@@ -35,9 +35,9 @@ class RoverHandler:
         self.behavior = FollowLine(self)
 
         # Threading
-        self.stopThread = False
-        self.mainThread = Thread(target=self.mainThread)
-        self.mainThread.start()
+        # self.stopThread = False
+        # self.mainThread = Thread(target=self.mainThread)
+        # self.mainThread.start()
 
     def mainThread(self):
         while not self.stopThread:
@@ -74,8 +74,8 @@ class RoverHandler:
         print("Robot| Closing Robot Thread")
 
         # Safely close main threads
-        self.stopThread = True
-        self.mainThread.join(2)
+        # self.stopThread = True
+        # self.mainThread.join(2)
 
 
         # In case the thread didn't close, use the lock when closing up
