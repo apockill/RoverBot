@@ -42,7 +42,7 @@ class FollowLine:
             return
 
         a, b, c = lines.shape
-        for i in range(a[:10]):
+        for i in range(a[:50]):
             cv2.line(rImg, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
 
 
