@@ -43,7 +43,7 @@ class FollowLine:
 
         a, b, c = lines.shape
         for i in range(a):
-            cv2.line(img, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
+            cv2.line(rImg, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
 
 
                 # for line in lines[:10]:
