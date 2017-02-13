@@ -20,7 +20,7 @@ class FollowLine:
         img   = self.rover.camera.read()
 
         # gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        rImg = img[:,:,0]
+        rImg = img[:,:,1]
         ret, rThresh = cv2.threshold(rImg, 127, 255, cv2.THRESH_BINARY)
         edges = cv2.Canny(rThresh, 20, 35)
 
