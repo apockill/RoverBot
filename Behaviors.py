@@ -21,8 +21,8 @@ class FollowLine:
         gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         edges = cv2.Canny(gray, 100, 300)
 
-        cv2.imshow('LinedImage', gray)
-        cv2.imshow('Frame', img)
+        cv2.imshow('LinedImage', edges)
+        cv2.imshow('Frame', gray)
         cv2.waitKey(500)
 
         lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
