@@ -49,7 +49,8 @@ class RoverHandler:
 
                 # Do Behavior Updates
                 self.behavior.update()
-                return
+
+            self.stopped = True
         self.close()
 
     def setMoveRadius(self, speed, radius):
@@ -74,7 +75,7 @@ class RoverHandler:
         print("Robot| Closing Robot Thread")
 
         # Safely close main threads
-        # self.stopThread = True
+        # self.stopped = True
         # self.mainThread.join(2)
 
 
