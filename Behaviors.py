@@ -53,16 +53,17 @@ class FollowLine:
         # Test 2
         # Test 1
 
-        vertLines = cv2.HoughLinesP(rThresh, 1, np.pi, threshold=100, minLineLength=100, maxLineGap=1)
+        vertLines = cv2.HoughLinesP(edges, 1, np.pi, threshold=100, minLineLength=100, maxLineGap=1)[0].toList()
 
         # Horizontal lines
-        horzLines = cv2.HoughLinesP(rThresh, 1, np.pi / 2, threshold=500, minLineLength=500, maxLineGap=1)
+        horzLines = cv2.HoughLinesP(edges, 1, np.pi / 2, threshold=500, minLineLength=500, maxLineGap=1)[0].toList()
 
 
         for x1, y1, x2, y2 in vertLines:
             cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 1)
         for x1, y1, x2, y2 in horzLines:
             cv2.line(img, (x1, y1), (x2, y2), (255, 0, 0), 1)
+
         # lines = vertLines + horzLines
 
         # if lines is None:
