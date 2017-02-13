@@ -4,7 +4,7 @@ import glob
 import cv2
 
 
-def autoCanny(image, sigma=0.33):
+def autoCanny(image, sigma=0.50):
     # compute the median of the single channel pixel intensities
     v = np.median(image)
 
