@@ -26,7 +26,7 @@ class FollowLine:
         cv2.imshow('Frame', gray)
         cv2.waitKey(500)
 
-        lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
+        lines = cv2.HoughLines(gray, 1, np.pi / 180, 200)
         if lines is None: return None
 
         for rho, theta in lines[0]:
