@@ -49,7 +49,7 @@ class FollowLine:
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
 
         # Test
-        # small = cv2.resize(rThresh, (9, 12), interpolation=cv2.INTER_AREA)
+        small = cv2.resize(rThresh, (64, 48), interpolation=cv2.INTER_AREA)
         # big = cv2.resize(small, (640, 480), interpolation=cv2.INTER_AREA)  # Delete- for debug only
         # ret, big = cv2.threshold(big, 10, 255, cv2.THRESH_BINARY)
 
@@ -60,7 +60,7 @@ class FollowLine:
 
         start = time()
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
-        lines = cv2.HoughLinesP(rThresh, 1, np.pi/50, threshold=100, minLineLength=200, maxLineGap=100)
+        lines = cv2.HoughLinesP(small, 1, np.pi/50, threshold=100, minLineLength=200, maxLineGap=100)
         print(time() - start)
         lines = [line[0] for line in lines]
         if lines is not None:
