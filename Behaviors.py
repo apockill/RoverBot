@@ -83,12 +83,12 @@ class FollowLine:
         unsortedLines = lines
 
         while len(unsortedLines) > 0:
-            checkLine = unsortedLines.pop(0).tolist()
+            checkLine = unsortedLines.pop(0)
 
             sorted = False
             for i, combo in enumerate(lineCombos):
                 if lineFits(checkLine, combo):
-                    lineCombos[i].append(checkLine)
+                    lineCombos[i].append(checkLine.tolist())
                     sorted = True
                     break
 
