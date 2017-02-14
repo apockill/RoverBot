@@ -73,11 +73,11 @@ class FollowLine:
 
             checkAngle = Utils.lineAngle(checkLine[:2], checkLine[2:])
             print(checkAngle)
-            if checkAngle > 180: checkAngle -= 180
+            if checkAngle < 0: checkAngle += 180
 
             for line in combo:
                 angle = Utils.lineAngle(line[:2], line[2:])
-                if angle > 180: angle -= 180
+                if angle < 0: angle += 180
 
                 if abs(checkAngle - angle) < maxAngle:
                     print("T", checkAngle, angle)
