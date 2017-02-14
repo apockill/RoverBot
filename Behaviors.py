@@ -69,7 +69,7 @@ class FollowLine:
         """ Combines similar lines into one large 'average' line """
         def lineFits(checkLine, combo):
 
-            checkAngle = Utils.angleBetween(checkLine[:2], checkLine[3:])
+            checkAngle = Utils.angleBetween(checkLine[:2], checkLine[2:])
 
             for line in combo:
                 angle = Utils.angleBetween(line[:2], line[2:])
