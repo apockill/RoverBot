@@ -79,8 +79,8 @@ class FollowLine:
                 angle = Utils.lineAngle(line[:2], line[2:])
                 # if angle < 0: angle += 180
                 difference = abs(checkAngle - angle)
-                if difference > 360: difference -= 360
-                if difference < maxAngle:
+                if difference > 180: difference -= 360
+                if abs(difference) < maxAngle:
                     print("T", checkAngle, angle)
                     return True
 
