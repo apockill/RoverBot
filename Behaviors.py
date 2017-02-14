@@ -58,7 +58,7 @@ class FollowLine:
             print("Length:", lines)
             for line in lines:
                 print(line)
-                x1, y1, x2, y2 = line
+                x1, y1, x2, y2 = line[0]
                 cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
             cv2.imshow('final', img)
