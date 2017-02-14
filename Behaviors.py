@@ -69,5 +69,6 @@ class FollowLine:
 
             cv2.imshow('final', img)
             cv2.waitKey(5000)
+        cv2.waitKey(1000)
         return lines
 
