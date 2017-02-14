@@ -51,10 +51,10 @@ class FollowLine:
         small = cv2.resize(rThresh, (9, 12), interpolation=cv2.INTER_AREA)
         big = cv2.resize(small, (640, 480), interpolation=cv2.INTER_AREA)  # Delete- for debug only
         ret, big = cv2.threshold(big, 10, 255, cv2.THRESH_BINARY)
-        edges = cv2.Canny(big, 20, 40)
+        # edges = cv2.Canny(big, 20, 40)
 
 
-        cv2.imshow('Thresh', edges)
+        cv2.imshow('Thresh', big)
 
 
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
