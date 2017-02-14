@@ -79,8 +79,9 @@ class FollowLine:
                 if angle > 180: angle -= 180
 
                 if abs(checkAngle - angle) < maxAngle:
-                    print(checkAngle, angle)
+                    print("T", checkAngle, angle)
                     return True
+            print("F", checkAngle)
             return False
 
 
