@@ -1,4 +1,12 @@
+import numpy as np
 
+
+def angleBetween(p1, p2):
+    # Get the angle between two points, clockwise
+
+    ang1 = np.arctan2(*p1[::-1])
+    ang2 = np.arctan2(*p2[::-1])
+    return np.rad2deg((ang1 - ang2) % (2 * np.pi))
 
 def clamp(val, low, max):
     # Clamp a value between a min and max
