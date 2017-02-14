@@ -51,7 +51,7 @@ class FollowLine:
         # Make the image small to reduce line-finding processing times
         small = cv2.resize(rThresh, (64, 48), interpolation=cv2.INTER_AREA)
 
-        cv2.imshow('Thresh', small)
+        cv2.imshow('Thresh', rThresh)
 
         start = time()
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
@@ -94,7 +94,7 @@ class FollowLine:
 
             if not sorted:
                 lineCombos.append([checkLine])
-        print("Sorted: ", )
+        print("Sorted: ",lineCombos)
 
         # # DELETE LATER, DEBUG ONLY
         # img = self.rover.camera.read()
