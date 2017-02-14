@@ -12,7 +12,7 @@ class FollowLine:
         pass
 
     def update(self):
-        self.__findLines()
+        self.__findLineDirections()
 
 
     def __findLineDirections(self):
