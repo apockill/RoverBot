@@ -96,6 +96,19 @@ class FollowLine:
                 lineCombos.append([checkLine.tolist()])
         print("Len:", len(lineCombos), "\nSorted:\n",lineCombos)
 
+
+        img = self.rover.camera.read()
+        for i, combo in enumerate(lineCombos):
+            for x1, y1, x2, y2 in combo:
+                x1 *= 10
+                y1 *= 10
+                x2 *= 10
+                y2 *= 10
+                # x1, y1, x2, y2 = line[0]
+                cv2.line(img, (x1, y1), (x2, y2), (0, 30*i, 0), 2)
+        cv2.imshow('final', img)
+        cv2.waitKey(5000)
+
         # # DELETE LATER, DEBUG ONLY
         # img = self.rover.camera.read()
         # for x1, y1, x2, y2 in lines:
