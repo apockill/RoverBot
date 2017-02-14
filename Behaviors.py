@@ -67,6 +67,8 @@ class FollowLine:
 
     def __combineLines(self, lines):
         """ Combines similar lines into one large 'average' line """
+        maxAngle = 30
+
         def lineFits(checkLine, combo):
 
             checkAngle = Utils.angleBetween(checkLine[:2], checkLine[2:])
@@ -76,7 +78,7 @@ class FollowLine:
                 angle = Utils.angleBetween(line[:2], line[2:])
                 if angle > 180: angle -= 180
 
-                if abs(checkAngle - angle) < 75: return True
+                if abs(checkAngle - angle) < maxAngle: return True
             return False
 
 
