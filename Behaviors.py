@@ -47,6 +47,7 @@ class FollowLine:
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
 
+        # Test
         small = cv2.resize(rThresh, (9, 12), interpolation=cv2.INTER_AREA)
         big = cv2.resize(small, (640, 480), interpolation=cv2.INTER_AREA)  # Delete- for debug only
 
@@ -57,7 +58,7 @@ class FollowLine:
 
 
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
-        lines = cv2.HoughLinesP(small, 1, np.pi/1000, threshold=40, minLineLength=1, maxLineGap=1)
+        lines = cv2.HoughLinesP(small, 1, np.pi/180, threshold=40, minLineLength=2, maxLineGap=1)
 
         if lines is not None:
             print("Length:", len(lines))
