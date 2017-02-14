@@ -48,7 +48,7 @@ class FollowLine:
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
         edges = cv2.Canny(rThresh, 20, 40)
 
-        # cv2.imshow('Thresh', rThresh)
+        cv2.imshow('Thresh', rThresh)
 
 
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
