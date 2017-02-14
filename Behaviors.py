@@ -31,7 +31,7 @@ class FollowLine:
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
 
 
-        small = cv2.resize(img, (9, 12), interpolation=cv2.INTER_AREA)
+        small = cv2.resize(rThresh, (9, 12), interpolation=cv2.INTER_AREA)
         big   = cv2.resize(small, (640, 480), interpolation=cv2.INTER_AREA)
 
         cv2.imshow(   'frame', big)
