@@ -83,7 +83,7 @@ class FollowLine:
         unsortedLines = lines
 
         while len(unsortedLines) > 0:
-            checkLine = unsortedLines.pop(0)
+            checkLine = unsortedLines.pop(0).tolist()
 
             sorted = False
             for i, combo in enumerate(lineCombos):
@@ -94,7 +94,7 @@ class FollowLine:
 
             if not sorted:
                 lineCombos.append([checkLine])
-        print("Sorted: ", lineCombos)
+        print("Sorted: ", )
 
         # # DELETE LATER, DEBUG ONLY
         # img = self.rover.camera.read()
