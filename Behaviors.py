@@ -57,6 +57,7 @@ class FollowLine:
         if lines is not None:
             print("Length:", lines)
             for line in lines:
+                print(line)
                 x1, y1, x2, y2 = line
                 cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
