@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import VisionUtils
 
+from time import time
 
 class FollowLine:
     def __init__(self, parent):
@@ -57,9 +58,10 @@ class FollowLine:
 
         cv2.imshow('Thresh', rThresh)
 
-
+        start = time()
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
         lines = cv2.HoughLinesP(rThresh, 1, np.pi/50, threshold=100, minLineLength=200, maxLineGap=100)
+        print(time() - start)
         lines = [line[0] for line in lines]
         if lines is not None:
             print("Length:", len(lines))
