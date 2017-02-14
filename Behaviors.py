@@ -67,7 +67,10 @@ class FollowLine:
             lines = [line[0] for line in lines]
             print("Length:", len(lines))
             for x1, y1, x2, y2 in lines:
-
+                x1 *= 10
+                y1 *= 10
+                x2 *= 10
+                y2 *= 10
                 # x1, y1, x2, y2 = line[0]
                 cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
