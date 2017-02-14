@@ -42,7 +42,7 @@ class FollowLine:
 
     def __findLines(self):
         img   = self.rover.camera.read()
-
+        print('doing')
         rImg  = VisionUtils.isolateColor(img,   [150, 75, 75],  [30, 255, 255])
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
@@ -55,7 +55,7 @@ class FollowLine:
 
 
         cv2.imshow('Thresh', edges)
-        print('doing')
+
 
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
         lines = cv2.HoughLinesP(small, 1, np.pi/180, threshold=40, minLineLength=2, maxLineGap=1)
