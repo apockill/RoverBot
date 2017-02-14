@@ -35,7 +35,7 @@ class FollowLine:
 
         # Debug
         big   = cv2.resize(  small, (640, 480), interpolation=cv2.INTER_AREA)  #Delete- for debug only
-        cv2.imshow(   'frame', big)
+        cv2.imshow('frame', big)
         cv2.waitKey(5000)
 
 
@@ -59,6 +59,7 @@ class FollowLine:
             for line in lines[0]:
                 x1, y1, x2, y2 = line
                 cv2.line(rThresh, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.imshow(rThresh)
+            cv2.imshow('final', rThresh)
+            cv2.waitKey(5000)
         return lines
 
