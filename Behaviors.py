@@ -38,7 +38,6 @@ class FollowLine:
         cv2.imshow(   'frame', big)
         cv2.waitKey(5000)
 
-    def __readRow(self):
 
 
     def __findLines(self):
