@@ -74,7 +74,7 @@ class FollowLine:
             for line in combo:
                 angle = Utils.angleBetween(line[:2], line[2:])
 
-                if abs(checkAngle - angle) < 50: return True
+                if abs(checkAngle - angle) < 75: return True
             return False
 
 
