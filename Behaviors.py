@@ -66,7 +66,7 @@ class FollowLine:
                 x1, y1, x2, y2 = line[0]
                 cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
-            cv2.imshow('final', big)
+            cv2.imshow('final', img)
             cv2.waitKey(5000)
         return lines
 
