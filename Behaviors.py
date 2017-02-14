@@ -58,8 +58,9 @@ class FollowLine:
             print("Length:", lines)
             for line in lines[0]:
                 x1, y1, x2, y2 = line
-                cv2.line(rThresh, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.imshow('final', rThresh)
+                cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+
+            cv2.imshow('final', img)
             cv2.waitKey(5000)
         return lines
 
