@@ -52,12 +52,12 @@ class FollowLine:
 
 
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
-        lines = cv2.HoughLinesP(edges, 1, np.pi/1000, threshold=40, minLineLength=100, maxLineGap=100)
+        lines = cv2.HoughLinesP(edges, 1, np.pi/1000, threshold=40, minLineLength=250, maxLineGap=100)
 
         if lines is not None:
-            print("Length:", lines)
+            print("Length:", len(lines))
             for line in lines:
-                print(line)
+
                 x1, y1, x2, y2 = line[0]
                 cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
