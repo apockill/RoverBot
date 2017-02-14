@@ -93,8 +93,8 @@ class FollowLine:
                     break
 
             if not sorted:
-                lineCombos.append([checkLine])
-        print("Sorted: ",lineCombos)
+                lineCombos.append([checkLine.toList()])
+        print("Len:", len(lineCombos), "\nSorted:\n",lineCombos)
 
         # # DELETE LATER, DEBUG ONLY
         # img = self.rover.camera.read()
