@@ -67,7 +67,7 @@ class FollowLine:
 
     def __combineLines(self, lines):
         """ Combines similar lines into one large 'average' line """
-        maxAngle = 15
+        maxAngle = 5
 
         def lineFits(checkLine, combo):
 
