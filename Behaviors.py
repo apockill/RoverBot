@@ -71,7 +71,7 @@ class FollowLine:
 
         def lineFits(checkLine, combo):
 
-            checkAngle = Utils.angleBetween(checkLine[:2], checkLine[2:])
+            checkAngle = Utils.lineAngle(checkLine[:2], checkLine[2:])
             print(checkAngle)
             if checkAngle > 180: checkAngle -= 180
 

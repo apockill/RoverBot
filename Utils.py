@@ -1,12 +1,10 @@
 import numpy as np
+import cmath
 
+def lineAngle(p1, p2):
+    # Get the angle between a line segment and the horizontal axis, clockwise
 
-def angleBetween(p1, p2):
-    # Get the angle between two points, clockwise
-
-    ang1 = np.arctan2(*p1[::-1])
-    ang2 = np.arctan2(*p2[::-1])
-    return np.rad2deg((ang1 - ang2) % (2 * np.pi))
+    return np.rad2deg(np.arctan2(p1[1] - p2[1], p1[0] - p2[0]))
 
 def clamp(val, low, max):
     # Clamp a value between a min and max
