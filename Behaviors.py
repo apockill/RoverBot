@@ -78,7 +78,9 @@ class FollowLine:
                 angle = Utils.angleBetween(line[:2], line[2:])
                 if angle > 180: angle -= 180
 
-                if abs(checkAngle - angle) < maxAngle: return True
+                if abs(checkAngle - angle) < maxAngle:
+                    print(checkAngle, angle)
+                    return True
             return False
 
 
