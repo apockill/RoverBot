@@ -14,6 +14,31 @@ class FollowLine:
     def update(self):
         self.__findLines()
 
+
+    def __findLineDirections(self):
+        # Inputs
+
+        # Possible Pairs (8,6) (9,12) (12,16)
+        gridW = 9
+        gridH = 12
+
+
+        # Processing
+        img = self.rover.camera.read()
+
+        rImg = VisionUtils.isolateColor(img, [150, 75, 75], [30, 255, 255])
+        rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
+        ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
+
+
+        small = cv2.resize(img, (9, 12), interpolation=cv2.INTER_AREA)
+        big   = cv2.resize(small, (640, 480), interpolation=cv2.INTER_AREA)
+
+        cv2.imshow(   'frame', big)
+        cv2.imshow('original', img)
+        cv2.waitkey(5000)
+
+
     def __findLines(self):
 
 
@@ -21,76 +46,14 @@ class FollowLine:
 
         rImg  = VisionUtils.isolateColor(img,   [150, 75, 75],  [30, 255, 255])
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
-
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
         edges = cv2.Canny(rThresh, 20, 40)
 
-        # cv2.imshow('t', rThresh)
         cv2.imshow('Thresh', rThresh)
-
-
-
-        # # Test 1
-        # lines = cv2.HoughLines(image=edges, rho=1, theta=np.pi/180, threshold=50) # 1, np.pi / 180, 200)
-        # if lines is None:
-        #     cv2.waitKey(3500)
-        #     return
-        #
-        # for line in lines[:10]:
-        #     for rho, theta in line:
-        #         a = np.cos(theta)
-        #         b = np.sin(theta)
-        #         x0 = a * rho
-        #         y0 = b * rho
-        #         x1 = int(x0 + 1000 * (-b))
-        #         y1 = int(y0 + 1000 * (a))
-        #         x2 = int(x0 - 1000 * (-b))
-        #         y2 = int(y0 - 1000 * (a))
-        #
-        #         cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
-        # print("Found lines: ", len(lines))
-
-        # Test 2
-        # Test 1
-
 
 
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
         lines = cv2.HoughLinesP(edges, 1, np.pi/500, threshold=50, minLineLength=100, maxLineGap=100)
 
-        if lines is not None:
-            # print(lines)
-
-            for line in lines:
-                x1, y1, x2, y2 = line[0]
-                cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 1)
-
-            # Debug
-            print("Lines:", len(lines))
-            cv2.imshow('Lines', img)
-
-
-        # lines = vertLines + horzLines
-
-        # if lines is None:
-        #     cv2.waitKey(3500)
-        #     return
-
-        # for line in lines[:10]:
-        #     for rho, theta in line:
-        #         a = np.cos(theta)
-        #         b = np.sin(theta)
-        #         x0 = a * rho
-        #         y0 = b * rho
-        #         x1 = int(x0 + 1000 * (-b))
-        #         y1 = int(y0 + 1000 * (a))
-        #         x2 = int(x0 - 1000 * (-b))
-        #         y2 = int(y0 - 1000 * (a))
-        #
-        #         cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
-
-
-
-
-        cv2.waitKey(5000)
+        return lines
 
