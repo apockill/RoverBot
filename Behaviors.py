@@ -12,7 +12,7 @@ class FollowLine:
         pass
 
     def update(self):
-        self.__findLineDirections()
+        self.__findLines()
 
 
     def __findLineDirections(self):
@@ -31,12 +31,13 @@ class FollowLine:
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
 
 
-        small = cv2.resize(rThresh, (9, 12), interpolation=cv2.INTER_AREA)
-        big   = cv2.resize(small, (640, 480), interpolation=cv2.INTER_AREA)
+        small = cv2.resize(rThresh,    (9, 12), interpolation=cv2.INTER_AREA)
+        big   = cv2.resize(  small, (640, 480), interpolation=cv2.INTER_AREA)  # TODO: Delete- for debug only
 
         cv2.imshow(   'frame', big)
-        cv2.imshow('original', img)
         cv2.waitKey(5000)
+
+    def __readRow(self):
 
 
     def __findLines(self):
