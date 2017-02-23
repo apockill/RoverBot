@@ -90,7 +90,7 @@ class FollowLine:
 
                 difference = abs(checkAngle - angle)
 
-                if abs(difference) < maxAngle:
+                if difference < maxAngle or 180 - difference < maxAngle:
                     # print("T", checkAngle, angle)
                     return True
 
