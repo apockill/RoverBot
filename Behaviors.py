@@ -118,7 +118,8 @@ class FollowLine:
                 avgLine = [avgLine[i] + line[i] for i in range(0, 3)]
             avgLine = [c / sampleSize for c in avgLine]
             combinedCombos.append(avgLine)
-        print(combinedCombos)
+        print(combinedCombos[0])
+
         # Draw Line Combos and Final Lines
         img = self.rover.camera.read()
         for i, combo in enumerate(lineCombos):
@@ -129,6 +130,7 @@ class FollowLine:
                 y2 *= 10
 
                 cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
+
         for x1, y1, x2, y2 in combinedCombos:
             x1 *= 10
             y1 *= 10
