@@ -68,7 +68,7 @@ class FollowLine:
 
     def __combineLines(self, lines):
         """ Combines similar lines into one large 'average' line """
-        maxAngle = 30
+        maxAngle = 45
 
         def getAngle(line):
             # Turn angle from -180:180 to just 0:180
