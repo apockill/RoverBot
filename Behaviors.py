@@ -4,6 +4,7 @@ import VisionUtils
 import Utils
 from time import time
 
+
 class FollowLine:
     def __init__(self, parent):
         self.rover = parent
@@ -67,19 +68,27 @@ class FollowLine:
 
     def __combineLines(self, lines):
         """ Combines similar lines into one large 'average' line """
-        maxAngle = 60
+        maxAngle = 30
+
+        def getAngle(line):
+            # Turn angle from -180:180 to just 0:180
+            angle = Utils.lineAngle(line[:2], line[2:])
+
+            if angle < 0: angle += 180
+            return angle
 
         def lineFits(checkLine, combo):
+            """ Check if the line fits within this group of combos by checking it's angle """
 
-            checkAngle = Utils.lineAngle(checkLine[:2], checkLine[2:])
+            checkAngle = getAngle(checkLine)
             print(checkAngle)
             # if checkAngle < 0: checkAngle += 180
 
             for line in combo:
-                angle = Utils.lineAngle(line[:2], line[2:])
-                # if angle < 0: angle += 180
+                angle = getAngle(line)
+
                 difference = abs(checkAngle - angle)
-                if difference > 180: difference -= 360
+
                 if abs(difference) < maxAngle:
                     print("T", checkAngle, angle)
                     return True
