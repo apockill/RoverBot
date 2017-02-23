@@ -79,22 +79,12 @@ class FollowLine:
 
         def lineFits(checkLine, combo):
             """ Check if the line fits within this group of combos by checking it's angle """
-
             checkAngle = getAngle(checkLine)
-            print(checkAngle)
-            # print(checkAngle)
-            # if checkAngle < 0: checkAngle += 180
-
             for line in combo:
                 angle = getAngle(line)
-
                 difference = abs(checkAngle - angle)
-
                 if difference < maxAngle or 180 - difference < maxAngle:
-                    # print("T", checkAngle, angle)
                     return True
-
-            # print("F", checkAngle)
             return False
 
 
@@ -102,6 +92,7 @@ class FollowLine:
         lineCombos    = []
         unsortedLines = lines
 
+        # Get Line Combos
         while len(unsortedLines) > 0:
             checkLine = unsortedLines.pop(0)
 
@@ -117,6 +108,18 @@ class FollowLine:
         print("Len:", len(lineCombos), "\nSorted:\n",lineCombos)
 
 
+        # Average Combo Groups
+        combinedCombos = []  # [L1, L2, L3]
+        for combo in lineCombos:
+            avgLine = [0, 0, 0, 0]  # Average start and end points
+            sampleSize = len(combo)
+
+            for line in combo:
+                avgLine = [avgLine[i] + line[i] for i in range(0, 3)]
+            avgLine = [c / sampleSize for c in avgLine]
+            combinedCombos.append(avgLine)
+
+        # Draw Line Combos and Final Lines
         img = self.rover.camera.read()
         for i, combo in enumerate(lineCombos):
             for x1, y1, x2, y2 in combo:
@@ -126,6 +129,13 @@ class FollowLine:
                 y2 *= 10
 
                 cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
+        for x1, y1, x2, y2 in combinedCombos:
+            x1 *= 10
+            y1 *= 10
+            x2 *= 10
+            y2 *= 10
+
+            cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
         cv2.imshow('final', img)
         cv2.waitKey(5000)
