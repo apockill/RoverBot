@@ -82,6 +82,7 @@ class FollowLine:
 
             checkAngle = getAngle(checkLine)
             print(checkAngle)
+            # print(checkAngle)
             # if checkAngle < 0: checkAngle += 180
 
             for line in combo:
@@ -90,10 +91,10 @@ class FollowLine:
                 difference = abs(checkAngle - angle)
 
                 if abs(difference) < maxAngle:
-                    print("T", checkAngle, angle)
+                    # print("T", checkAngle, angle)
                     return True
 
-            print("F", checkAngle)
+            # print("F", checkAngle)
             return False
 
 
