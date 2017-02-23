@@ -115,8 +115,8 @@ class FollowLine:
             sampleSize = len(combo)
 
             for line in combo:
-                avgLine = [avgLine[i] + line[i] for i in range(0, 3)]
-            avgLine = [c / sampleSize for c in avgLine]
+                avgLine = [avgLine[i] + line[i] for i in range(0, 4)]
+            avgLine = [int(c / sampleSize) for c in avgLine]
             combinedCombos.append(avgLine)
         print(combinedCombos)
 
