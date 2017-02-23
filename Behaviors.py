@@ -69,6 +69,7 @@ class FollowLine:
     def __combineLines(self, lines):
         """ Combines similar lines into one large 'average' line """
         maxAngle = 45
+        minLinesForCombo = 5
 
         def getAngle(line):
             # Turn angle from -180:180 to just 0:180
@@ -108,9 +109,11 @@ class FollowLine:
         print("Len:", len(lineCombos), "\nSorted:\n",lineCombos)
 
 
-        # Average Combo Groups
+        # Trim and Average Combo Groups
         combinedCombos = []  # [L1, L2, L3]
         for combo in lineCombos:
+            if len(combo) < minLinesForCombo: continue
+
             avgLine = [0, 0, 0, 0]  # Average start and end points
             sampleSize = len(combo)
 
