@@ -87,13 +87,19 @@ class FollowLine:
             if not isSorted:
                 lineCombos.append([checkLine.tolist()])
 
+        print("Len:", len(lineCombos), "\nSorted:\n", lineCombos)
         # Sort each line combo by length of line
-        lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True) for combo in lineCombos]
+        lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
+                      for combo in lineCombos]
+
+        # Limit each combo to just the minimum amount of samples required
+        lineCombo = [combo[:minLinesForCombo] for combo in lineCombos]
+
+
+
+
         print([[(c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2 for c in combo] for combo in lineCombos])
-
-
-        print("Len:", len(lineCombos), "\nSorted:\n",lineCombos)
-
+        print("limited: ", lineCombos)
 
         # Trim and Average Combo Groups
         combinedCombos = []  # [L1, L2, L3]
