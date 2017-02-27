@@ -25,7 +25,7 @@ class FollowLine:
 
     def __findLines(self, hueLow, hueHigh):
         img   = self.rover.camera.read()
-        print('doing')
+
         rImg  = VisionUtils.isolateColor(img,   hueLow,  hueHigh)
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
@@ -38,7 +38,7 @@ class FollowLine:
         start = time()
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
         lines = cv2.HoughLinesP(small, 1, np.pi/200, threshold=25, minLineLength=20, maxLineGap=10)
-        print(time() - start)
+
 
         if lines is not None:
             lines = [line[0] for line in lines]
@@ -70,7 +70,7 @@ class FollowLine:
         # Pre-process lines so that lines always point from 0 degrees to 180, and not over
         for i, line in enumerate(unsortedLines):
             angle = Utils.lineAngle(line[:2], line[2:])
-            if angle > 180:
+            if angle < 0:
                 line = line[2:] + line[:2]
                 unsortedLines[i] = line
                 new = Utils.lineAngle(line[:2], line[2:])
