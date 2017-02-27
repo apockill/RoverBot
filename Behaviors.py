@@ -88,7 +88,7 @@ class FollowLine:
                 lineCombos.append([checkLine.tolist()])
 
         # Sort each line combo by length of line
-        lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2) for combo in lineCombos]
+        lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True) for combo in lineCombos]
         print([[(c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2 for c in combo] for combo in lineCombos])
 
 
