@@ -74,9 +74,8 @@ class FollowLine:
 
                 line = np.concatenate((line[2:], line[:2]))
                 unsortedLines[i] = line
-                print(line)
-                # new = Utils.lineAngle(line[:2], line[2:])
-                # print("Curr: ", angle, "New", new)
+                new = Utils.lineAngle(line[:2], line[2:])
+                print("Curr: ", angle, "New", new)
 
 
         # Get Line Combos
