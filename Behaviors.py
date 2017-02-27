@@ -105,7 +105,7 @@ class FollowLine:
         combinedCombos = []  # [L1, L2, L3]
         for combo in lineCombos:
             print('c', combo)
-            avgLine = np.sum(combo, axis=0)
+            avgLine = np.sum(combo, axis=0) / len(combo)
             print('1', avgLine)
             if len(combo) < minLinesForCombo: continue
 
