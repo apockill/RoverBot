@@ -14,45 +14,26 @@ class FollowLine:
         pass
 
     def update(self):
-        self.__findLines()
+        lowRed  = [150, 75, 75]
+        highRed = [30, 255, 255]
 
-
-    def __findLineDirections(self):
-        # Inputs
-
-        # Possible Pairs (8,6) (9,12) (12,16)
-        gridW = 9
-        gridH = 12
-
-
-        # Processing
-        img = self.rover.camera.read()
-
-        rImg = VisionUtils.isolateColor(img, [150, 75, 75], [30, 255, 255])
-        rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
-        ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
-
-        # Resize
-        small = cv2.resize(rThresh,    (9, 12), interpolation=cv2.INTER_AREA)
-
-        # Debug
-        big   = cv2.resize(  small, (640, 480), interpolation=cv2.INTER_AREA)  #Delete- for debug only
-        cv2.imshow('frame', big)
-        cv2.waitKey(5000)
+        self.__findLines(lowRed, highRed)
 
 
 
-    def __findLines(self):
+
+
+    def __findLines(self, hueLow, hueHigh):
         img   = self.rover.camera.read()
         print('doing')
-        rImg  = VisionUtils.isolateColor(img,   [150, 75, 75],  [30, 255, 255])
+        rImg  = VisionUtils.isolateColor(img,   hueLow,  hueHigh)
         rGray = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
         ret, rThresh = cv2.threshold(rGray, 50, 255, cv2.THRESH_BINARY)
 
         # Make the image small to reduce line-finding processing times
         small = cv2.resize(rThresh, (64, 48), interpolation=cv2.INTER_AREA)
 
-        cv2.imshow('Thresh', rThresh)
+        # cv2.imshow('Thresh', rThresh)
 
         start = time()
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
@@ -63,7 +44,6 @@ class FollowLine:
             lines = [line[0] for line in lines]
             self.__combineLines(lines)
 
-        cv2.waitKey(1000)
         return lines
 
     def __combineLines(self, lines):
@@ -143,17 +123,4 @@ class FollowLine:
                 cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
         cv2.imshow('final', img)
-        cv2.waitKey(5000)
-
-        # # DELETE LATER, DEBUG ONLY
-        # img = self.rover.camera.read()
-        # for x1, y1, x2, y2 in lines:
-        #     x1 *= 10
-        #     y1 *= 10
-        #     x2 *= 10
-        #     y2 *= 10
-        #     # x1, y1, x2, y2 = line[0]
-        #     cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        #
-        # cv2.imshow('final', img)
-        # cv2.waitKey(5000)
+        cv2.waitKey(2500)
