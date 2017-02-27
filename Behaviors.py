@@ -93,7 +93,7 @@ class FollowLine:
                       for combo in lineCombos]
 
         # Limit each combo to just the minimum amount of samples required
-        lineCombo = [combo[:minLinesForCombo] for combo in lineCombos]
+        lineCombo = [[combo[:minLinesForCombo]] for combo in lineCombos]
 
 
 
