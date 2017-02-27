@@ -46,7 +46,7 @@ class FollowLine:
 
         return lines
 
-    def __combineLines(self, lines):
+    def __combineLines(self, unsortedLines):
         """ Combines similar lines into one large 'average' line """
         maxAngle = 45
         minLinesForCombo = 5
@@ -68,16 +68,15 @@ class FollowLine:
             return False
 
         # Pre-process lines so that lines always point from 0 degrees to 180, and not over
-        for i, line in enumerate(lines):
+        for i, line in enumerate(unsortedLines):
             angle = getAngle(line)
             if angle > 180:
                 line = line[3:] + line[:2]
-                lines[i] = line
+                unsortedLines[i] = line
 
 
         # Get Line Combos
         lineCombos = []  # Format: [[[l1, l2, l3], [l4, l5, l6]], [[line 1...], [line 2...]]]
-        unsortedLines = lines
 
         while len(unsortedLines) > 0:
             checkLine = unsortedLines.pop(0)
