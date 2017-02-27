@@ -105,7 +105,7 @@ class FollowLine:
         combinedCombos = []  # [L1, L2, L3]
         for combo in lineCombos:
 
-            avgLine = np.sum(combo, axis=0).astype(int) / len(combo)
+            avgLine = (np.sum(combo, axis=0) / len(combo)).astype(int)
 
             combinedCombos.append(avgLine)
 
