@@ -77,15 +77,21 @@ class FollowLine:
         while len(unsortedLines) > 0:
             checkLine = unsortedLines.pop(0)
 
-            sorted = False
+            isSorted = False
             for i, combo in enumerate(lineCombos):
                 if lineFits(checkLine, combo):
                     lineCombos[i].append(checkLine.tolist())
-                    sorted = True
+                    isSorted = True
                     break
 
-            if not sorted:
+            if not isSorted:
                 lineCombos.append([checkLine.tolist()])
+
+        # Sort each line combo by length of line
+        lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2) for combo in lineCombos]
+
+
+
         print("Len:", len(lineCombos), "\nSorted:\n",lineCombos)
 
 
@@ -101,7 +107,7 @@ class FollowLine:
                 avgLine = [avgLine[i] + line[i] for i in range(0, 4)]
             avgLine = [int(c / sampleSize) for c in avgLine]
             combinedCombos.append(avgLine)
-        print(combinedCombos)
+        # print(combinedCombos)
 
         # Draw Line Combos and Final Lines
         img = self.rover.camera.read()
