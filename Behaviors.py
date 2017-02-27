@@ -80,7 +80,7 @@ class FollowLine:
 
         # Get Line Combos
         lineCombos = []  # Format: [[[l1, l2, l3], [l4, l5, l6]], [[line 1...], [line 2...]]]
-
+        s = time()
         while len(unsortedLines) > 0:
             checkLine = unsortedLines.pop(0)
 
@@ -94,7 +94,7 @@ class FollowLine:
 
             if not isSorted:
                 lineCombos.append([checkLine.tolist()])
-
+        print("sort", time() - s)
 
         # # Limit each combo to minSamples, keeping only the longest lines
         # lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
