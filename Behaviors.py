@@ -69,9 +69,9 @@ class FollowLine:
 
         # Pre-process lines so that lines always point from 0 degrees to 180, and not over
         for i, line in enumerate(unsortedLines):
-            angle = getAngle(line)
+            angle = Utils.lineAngle(line[:2], line[2:])
             if angle > 180:
-                line = line[3:] + line[:2]
+                line = line[2:] + line[:2]
                 unsortedLines[i] = line
 
 
