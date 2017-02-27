@@ -86,7 +86,7 @@ class FollowLine:
 
             if not isSorted:
                 lineCombos.append([checkLine.tolist()])
-        lineCombos = lineCombos[0]
+
         print("Before", lineCombos)
         # Sort each line combo by length of line
         lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
