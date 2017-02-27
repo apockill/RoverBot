@@ -97,10 +97,10 @@ class FollowLine:
                 lineCombos.append([checkLine.tolist()])
 
 
-        # # Limit each combo to minSamples, keeping only the longest lines
-        # lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
-        #               for combo in lineCombos]
-        # lineCombos = [combo[:minLinesForCombo] for combo in lineCombos]
+        # Limit each combo to minSamples, keeping only the longest lines
+        lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
+                      for combo in lineCombos]
+        lineCombos = [combo[:minLinesForCombo] for combo in lineCombos]
 
 
         # Trim and Average Combo Groups
