@@ -49,6 +49,7 @@ class FollowLine:
 
     def __combineLines(self, unsortedLines):
         """ Combines similar lines into one large 'average' line """
+        print("len", len(unsortedLines))
         start = time()
         maxAngle = 45
         minLinesForCombo = 5
