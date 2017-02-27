@@ -104,6 +104,7 @@ class FollowLine:
         # Trim and Average Combo Groups
         combinedCombos = []  # [L1, L2, L3]
         for combo in lineCombos:
+            print('c', combo)
             avgLine = np.sum(combo, axis=0)
             print('1', avgLine)
             if len(combo) < minLinesForCombo: continue
