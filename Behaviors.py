@@ -73,6 +73,8 @@ class FollowLine:
             if angle > 180:
                 line = line[2:] + line[:2]
                 unsortedLines[i] = line
+                new = Utils.lineAngle(line[:2], line[2:])
+                print("Curr: ", angle, "New", new)
 
 
         # Get Line Combos
