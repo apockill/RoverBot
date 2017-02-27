@@ -104,15 +104,17 @@ class FollowLine:
         # Trim and Average Combo Groups
         combinedCombos = []  # [L1, L2, L3]
         for combo in lineCombos:
-            if len(combo) < minLinesForCombo: continue
-
-            avgLine = [0, 0, 0, 0]  # Average start and end points
-            sampleSize = len(combo)
-
-            for line in combo:
-                avgLine = [avgLine[i] + line[i] for i in range(0, 4)]
-            avgLine = [int(c / sampleSize) for c in avgLine]
+            avgLine = np.sum(combo, axis=0)
+            # if len(combo) < minLinesForCombo: continue
+            #
+            # avgLine = [0, 0, 0, 0]  # Average start and end points
+            # sampleSize = len(combo)
+            #
+            # for line in combo:
+            #     avgLine = [avgLine[i] + line[i] for i in range(0, 4)]
+            # avgLine = [int(c / sampleSize) for c in avgLine]
             combinedCombos.append(avgLine)
+
         print("T: ", time() - start)
 
         # Draw Line Combos and Final Lines
