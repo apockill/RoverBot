@@ -101,13 +101,13 @@ class FollowLine:
         # lineCombos = [combo[:minLinesForCombo] for combo in lineCombos]
 
 
-        # Trim and Average Combo Groups
-        combinedCombos = []  # [L1, L2, L3]
+        # Filter and Average Combo Groups Format: [L1, L2, L3]
+        averagedCombos = []
         for combo in lineCombos:
-
+            if len(combo) < minLinesForCombo: continue
+            
             avgLine = (np.sum(combo, axis=0) / len(combo)).astype(int)
-
-            combinedCombos.append(avgLine)
+            averagedCombos.append(avgLine)
 
         print("T: ", time() - start)
 
@@ -121,8 +121,8 @@ class FollowLine:
                 y2 *= 10
 
                 cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
-        if len(combinedCombos):
-            for x1, y1, x2, y2 in combinedCombos:
+        if len(averagedCombos):
+            for x1, y1, x2, y2 in averagedCombos:
                 x1 *= 10
                 y1 *= 10
                 x2 *= 10
