@@ -71,8 +71,8 @@ class FollowLine:
         for i, line in enumerate(unsortedLines):
             angle = Utils.lineAngle(line[:2], line[2:])
             if angle < 0:
-                print(type(line))
-                line = line[2:] + line[:2]
+
+                line = np.concatenate((line[2:], line[:2]))
                 unsortedLines[i] = line
                 print(line)
                 # new = Utils.lineAngle(line[:2], line[2:])
