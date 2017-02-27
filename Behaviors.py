@@ -42,14 +42,14 @@ class FollowLine:
 
         if lines is not None:
             lines = [line[0] for line in lines]
-            start = time()
+
             self.__combineLines(lines)
-            print("T: ", time() - start)
-            cv2.waitKey(5000)
+
         return lines
 
     def __combineLines(self, unsortedLines):
         """ Combines similar lines into one large 'average' line """
+        start = time()
         maxAngle = 45
         minLinesForCombo = 5
 
@@ -63,7 +63,7 @@ class FollowLine:
             """ Check if the line fits within this group of combos by checking it's angle """
             checkAngle = getAngle(checkLine)
             for line in combo:
-                angle = getAngle(line)
+                angle = Utils.lineAngle(line[:2], line[2:])
                 difference = abs(checkAngle - angle)
                 if difference < maxAngle or 180 - difference < maxAngle:
                     return True
@@ -73,11 +73,8 @@ class FollowLine:
         for i, line in enumerate(unsortedLines):
             angle = Utils.lineAngle(line[:2], line[2:])
             if angle < 0:
-
                 line = np.concatenate((line[2:], line[:2]))
                 unsortedLines[i] = line
-                new = Utils.lineAngle(line[:2], line[2:])
-                print("Curr: ", angle, "New", new)
 
 
         # Get Line Combos
@@ -116,7 +113,7 @@ class FollowLine:
                 avgLine = [avgLine[i] + line[i] for i in range(0, 4)]
             avgLine = [int(c / sampleSize) for c in avgLine]
             combinedCombos.append(avgLine)
-
+        print("T: ", time() - start)
 
         # Draw Line Combos and Final Lines
         img = self.rover.camera.read()
@@ -138,4 +135,4 @@ class FollowLine:
                 cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
         cv2.imshow('final', img)
-        # cv2.waitKey(2500)
+        cv2.waitKey(2500)
