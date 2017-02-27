@@ -54,7 +54,6 @@ class FollowLine:
         def getAngle(line):
             # Turn angle from -180:180 to just 0:180
             angle = Utils.lineAngle(line[:2], line[2:])
-
             if angle < 0: angle += 180
             return angle
 
@@ -68,18 +67,25 @@ class FollowLine:
                     return True
             return False
 
+        # Pre-process lines so that lines always point from 0 degrees to 180, and not over
+        for i, line in enumerate(lines):
+            angle = getAngle(line)
+            if angle > 180:
+                line = line[3:] + line[:2]
+                lines[i] = line
 
-        # [[l1, l2, l3], [l4, l5, l6]
-        lineCombos    = []
-        unsortedLines = lines
 
         # Get Line Combos
+        lineCombos = []  # Format: [[[l1, l2, l3], [l4, l5, l6]], [[line 1...], [line 2...]]]
+        unsortedLines = lines
+
         while len(unsortedLines) > 0:
             checkLine = unsortedLines.pop(0)
 
             isSorted = False
             for i, combo in enumerate(lineCombos):
                 if lineFits(checkLine, combo):
+                    # Process the line so that the [x1, y1, and x2, y2] are in the same positions as other combos
                     lineCombos[i].append(checkLine.tolist())
                     isSorted = True
                     break
@@ -87,19 +93,12 @@ class FollowLine:
             if not isSorted:
                 lineCombos.append([checkLine.tolist()])
 
-        print("Before", lineCombos)
-        # Sort each line combo by length of line
-        lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
-                      for combo in lineCombos]
 
-        print("Len:", len(lineCombos), "\nSorted:\n", lineCombos)
+        # # Limit each combo to minSamples, keeping only the longest lines
+        # lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
+        #               for combo in lineCombos]
+        # lineCombos = [combo[:minLinesForCombo] for combo in lineCombos]
 
-        # Limit each combo to just the minimum amount of samples required
-        lineCombos = [combo[:minLinesForCombo] for combo in lineCombos]
-
-
-        print([[(c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2 for c in combo] for combo in lineCombos])
-        print("limited: ", lineCombos)
 
         # Trim and Average Combo Groups
         combinedCombos = []  # [L1, L2, L3]
@@ -113,7 +112,7 @@ class FollowLine:
                 avgLine = [avgLine[i] + line[i] for i in range(0, 4)]
             avgLine = [int(c / sampleSize) for c in avgLine]
             combinedCombos.append(avgLine)
-        # print(combinedCombos)
+
 
         # Draw Line Combos and Final Lines
         img = self.rover.camera.read()
