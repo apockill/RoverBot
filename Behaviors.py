@@ -45,6 +45,7 @@ class FollowLine:
             start = time()
             self.__combineLines(lines)
             print("T: ", time() - start)
+            cv2.waitKey(5000)
         return lines
 
     def __combineLines(self, unsortedLines):
@@ -137,4 +138,4 @@ class FollowLine:
                 cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
         cv2.imshow('final', img)
-        cv2.waitKey(2500)
+        # cv2.waitKey(2500)
