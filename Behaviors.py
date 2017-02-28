@@ -66,9 +66,10 @@ class FollowLine:
             for line in combo:
                 angle = Utils.lineAngle(line[:2], line[2:])
                 difference = abs(checkAngle - angle)
+
                 if difference < maxAngle or 180 - difference < maxAngle:
                     return True
-                if difference > maxAngle * 2:
+                if difference > maxAngle * 2 or 180 - difference > maxAngle * 2:
                     return False
             return False
 
