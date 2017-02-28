@@ -69,8 +69,8 @@ class FollowLine:
 
                 if difference < maxAngle or 180 - difference < maxAngle:
                     return True
-                if difference > maxAngle * 2 or 180 - difference > maxAngle * 2:
-                    return False
+                # if difference > maxAngle * 2 or 180 - difference > maxAngle * 2:
+                #     return False
             return False
 
         # Pre-process lines so that lines always point from 0 degrees to 180, and not over
