@@ -12,8 +12,11 @@ class Line:
         self.p1 = tuple(p1)
         self.p2 = tuple(p2)
 
-        self.angle = Utils.lineAngle(self.p1, self.p2)
-        if self.angle < 0: self.angle += 180
+
+
+        # Angle is 130 if the line points approximately from the bottom right to top left
+        # Angle is 60 if the line points approximately from the bottom left to the top right
+        self.angle = 180 - Utils.lineAngle(self.p1, self.p2)
 
     def __str__(self):
         return "Angle: " + str(self.angle) + "  P1: " + str(self.p1) + "  P2: " + str(self.p2)
