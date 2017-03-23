@@ -87,12 +87,15 @@ class FollowLine:
 
         if lowerThresh <= line.angle <= upperThresh:
             print("Straight")
+            return
 
         if lowerThresh < line.angle:
             print("Left")
+            return
 
         if line.angle < lowerThresh:
             print("Right")
+            return
 
     # Line Identification Functions
     def __findLines(self, hueLow, hueHigh):
