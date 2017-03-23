@@ -9,18 +9,11 @@ class FollowLine:
     def __init__(self, parent):
         self.rover = parent
 
-
-    def isUpdate(self):
-        pass
-
     def update(self):
         lowRed  = [150, 75, 75]
         highRed = [30, 255, 255]
 
         self.__findLines(lowRed, highRed)
-
-
-
 
 
     def __findLines(self, hueLow, hueHigh):
@@ -109,7 +102,12 @@ class FollowLine:
         averagedCombos = []
         for combo in lineCombos:
             if len(combo) < minLinesForCombo: continue
-            
+            avgAngle  = 0
+            avgLen    = 0
+            avgCenter = [np.sum(combo[])]
+            for line in combo:
+                pass
+
             avgLine = (np.sum(combo, axis=0) / len(combo)).astype(int)
             averagedCombos.append(avgLine)
 
