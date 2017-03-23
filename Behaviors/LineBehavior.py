@@ -45,7 +45,7 @@ class Mapper:
         self.currentLine = self.history[-1][0]
 
     def getCurrentLine(self):
-        return self.currentLine.angle
+        return self.currentLine
 
 
 
