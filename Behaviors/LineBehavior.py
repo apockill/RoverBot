@@ -72,6 +72,7 @@ class FollowLine:
         self.map.addLineFrame(lines)
 
         line = self.map.getCurrentLine()  # Gets direction of the currently followed line
+        if line is None: return
         print(line)
         self.moveTowards(line)
 
