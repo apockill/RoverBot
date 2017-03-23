@@ -39,8 +39,8 @@ class Mapper:
 
         if len(lines) == 0: return
 
-        if len(self.history) == 0:
-            self.history.append(lines)
+
+        self.history.append(lines)
 
         self.currentLine = self.history[-1][0]
 
