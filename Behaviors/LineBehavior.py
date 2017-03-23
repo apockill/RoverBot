@@ -18,6 +18,9 @@ class Line:
     def __str__(self):
         return "Angle: " + str(self.angle) + "  P1: " + str(self.p1) + "  P2: " + str(self.p2)
 
+    def __iter__(self):
+        return self.p1, self.p2
+
 class Mapper:
     """
     This class keeps track of new lines and identifies if the newly recognized line is consistent with the last
@@ -169,12 +172,13 @@ class FollowLine:
                 y2 *= 10
 
                 cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
+
         if len(averagedCombos):
-            for x1, y1, x2, y2 in averagedCombos:
-                x1 *= 10
-                y1 *= 10
-                x2 *= 10
-                y2 *= 10
+            for p1, p2 in averagedCombos:
+                x1 *= p1[0]
+                y1 *= p1[1]
+                x2 *= p2[0]
+                y2 *= p2[1]
 
                 cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
