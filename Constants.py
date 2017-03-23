@@ -23,3 +23,7 @@ leftEncoderPinA  = 15
 leftEncoderPinB  = 16
 rightEncoderPinA = 13
 rightEncoderPinB = 29
+
+
+###### PAN/TILT CONSTANTS
+panOffset = 15  # Degree offset

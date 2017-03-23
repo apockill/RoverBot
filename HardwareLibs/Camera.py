@@ -2,6 +2,7 @@ from HardwareLibs.RoboHat import startServos, stopServos, setServo
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from threading import Thread
+from Constants import panOffset
 import cv2
 
 
@@ -91,6 +92,8 @@ class PanTiltPiCamera(PiVideoStream):
         self.setPose(pan = 0, tilt = -50)
 
     def setPose(self, pan=None, tilt=None):
+        pan += panOffset
+
         if pan is not None and pan != self.panRot:
             setServo(self.panPin, pan)
             self.panRot = pan
@@ -98,8 +101,6 @@ class PanTiltPiCamera(PiVideoStream):
         if tilt is not None and tilt != self.tltRot:
             setServo(self.tltPin, tilt)
             self.tltRot = tilt
-
-
 
 
     def close(self):
