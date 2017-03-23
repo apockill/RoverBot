@@ -3,7 +3,7 @@ import numpy as np
 import VisionUtils
 import Utils
 from collections import namedtuple
-from time import time
+from time import time, sleep
 
 
 class Line:
@@ -75,6 +75,7 @@ class FollowLine:
         if line is None: return
         print(line)
         self.moveTowards(line)
+        sleep(.5)
 
     # Robot Control Functions
     def moveTowards(self, line):
