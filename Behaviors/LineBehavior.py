@@ -63,6 +63,7 @@ class FollowLine:
         self.rover = parent
         self.map   = Mapper()
 
+
     def update(self):
         lowRed  = [150, 75, 75]
         highRed = [30, 255, 255]
@@ -72,8 +73,28 @@ class FollowLine:
 
         line = self.map.getCurrentLine()  # Gets direction of the currently followed line
         print(line)
+        self.moveTowards(line)
 
+    # Robot Control Functions
+    def moveTowards(self, line):
+        """
+        Move towards a Line
+        :param line: Line object
+        :return:
+        """
+        lowerThresh = 80
+        upperThresh = 100
 
+        if lowerThresh <= line.angle <= upperThresh:
+            print("Straight")
+
+        if lowerThresh < line.angle:
+            print("Left")
+
+        if line.angle < lowerThresh:
+            print("Right")
+
+    # Line Identification Functions
     def __findLines(self, hueLow, hueHigh):
         img   = self.rover.camera.read()
 
