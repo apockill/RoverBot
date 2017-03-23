@@ -19,7 +19,9 @@ class Line:
         return "Angle: " + str(self.angle) + "  P1: " + str(self.p1) + "  P2: " + str(self.p2)
 
     def __iter__(self):
-        return [self.p1, self.p2]
+        for point in [self.p1, self.p2]:
+            yield point
+
 
 class Mapper:
     """
