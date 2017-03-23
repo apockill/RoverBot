@@ -18,7 +18,7 @@ class Line:
     def __str__(self):
         return "Angle: " + str(self.angle) + "  P1: " + str(self.p1) + "  P2: " + str(self.p2)
 
-    def __iter__(self):
+    def __next__(self):
         return self.p1, self.p2
 
 class Mapper:
