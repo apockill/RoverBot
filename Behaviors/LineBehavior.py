@@ -2,18 +2,68 @@ import cv2
 import numpy as np
 import VisionUtils
 import Utils
+from collections import namedtuple
 from time import time
 
 
+class Line:
+    def __init__(self, p1, p2):
+        # Point: [x, y] or (x, y)
+        self.p1 = tuple(p1)
+        self.p2 = tuple(p2)
+
+        self.angle = Utils.lineAngle(self.p1, self.p2)
+        if self.angle < 0: self.angle += 180
+
+    def __str__(self):
+        return "Angle: " + str(self.angle) + "  P1: " + str(self.p1) + "  P2: " + str(self.p2)
+
+class Mapper:
+    """
+    This class keeps track of new lines and identifies if the newly recognized line is consistent with the last
+    few frames or if it's a mistake from bad line.
+
+    It also performs the important task of keeping track of the map, where junctions are, and attempting to localize
+    the robot within what it knows of the lines so far.
+    """
+
+    def __init__(self, p1, p2):
+        self.history = []  # A list of line lists [[L1, L2], [L1, L2, L3] from previous frames
+        self.currentLine = None
+
+    def addLineFrame(self, lines):
+        """
+        :param lines: A list of [Line, Line] that the camera thinks it has found
+        :return:
+        """
+
+        if len(lines) == 0: return
+
+        if len(self.history) == 0:
+            self.history.append(lines)
+
+        self.currentLine = self.history[-1][0]
+
+    def getCurrentLine(self):
+        return self.currentLine.angle
+
+
+
 class FollowLine:
+
     def __init__(self, parent):
         self.rover = parent
+        self.map   = Mapper()
 
     def update(self):
         lowRed  = [150, 75, 75]
         highRed = [30, 255, 255]
 
-        self.__findLines(lowRed, highRed)
+        lines = self.__findLines(lowRed, highRed)
+        self.map.addLineFrame(lines)
+
+        line = self.map.getCurrentLine()  # Gets direction of the currently followed line
+        print(line)
 
 
     def __findLines(self, hueLow, hueHigh):
@@ -33,17 +83,18 @@ class FollowLine:
         lines = cv2.HoughLinesP(small, 1, np.pi/200, threshold=25, minLineLength=20, maxLineGap=10)
 
 
-        if lines is not None:
-            lines = [line[0] for line in lines]
+        if lines is None: return []
 
-            self.__combineLines(lines)
+        # If lines were found, combine them until you have 1 average for each 'direction' of tape in the photo
+        lines = [line[0] for line in lines]
+        combinedLines = self.__combineLines(lines)
 
-        return lines
+
+        return combinedLines
 
     def __combineLines(self, unsortedLines):
         """ Combines similar lines into one large 'average' line """
         print("len", len(unsortedLines))
-        start = time()
         maxAngle = 45
         minLinesForCombo = 5
 
@@ -76,7 +127,7 @@ class FollowLine:
 
         # Get Line Combos
         lineCombos = []  # Format: [[[l1, l2, l3], [l4, l5, l6]], [[line 1...], [line 2...]]]
-        s = time()
+
         while len(unsortedLines) > 0:
             checkLine = unsortedLines.pop(0)
 
@@ -90,7 +141,7 @@ class FollowLine:
 
             if not isSorted:
                 lineCombos.append([checkLine.tolist()])
-        print("sort", time() - s)
+
 
         # # Limit each combo to minSamples, keeping only the longest lines
         # lineCombos = [sorted(combo, key= lambda c: (c[0] - c[2]) ** 2 + (c[1] - c[3]) ** 2, reverse=True)
@@ -98,39 +149,40 @@ class FollowLine:
         # lineCombos = [combo[:minLinesForCombo] for combo in lineCombos]
 
 
-        # Filter and Average Combo Groups Format: [L1, L2, L3]
+        # Filter and Average Combo Groups Format: [[L1], [L2], [L3]]
         averagedCombos = []
         for combo in lineCombos:
             if len(combo) < minLinesForCombo: continue
-            # avgAngle  = 0
-            # avgLen    = 0
-            # avgCenter = [np.sum(combo[])]
-            # for line in combo:
-            #     pass
 
             avgLine = (np.sum(combo, axis=0) / len(combo)).astype(int)
-            averagedCombos.append(avgLine)
+            averagedCombos.append(Line(avgLine[:2], avgLine[2:]))
 
-        print("T: ", time() - start)
+        return averagedCombos
 
         # Draw Line Combos and Final Lines
-        img = self.rover.camera.read()
-        for i, combo in enumerate(lineCombos):
-            for x1, y1, x2, y2 in combo:
-                x1 *= 10
-                y1 *= 10
-                x2 *= 10
-                y2 *= 10
+        # img = self.rover.camera.read()
+        # for i, combo in enumerate(lineCombos):
+        #     for x1, y1, x2, y2 in combo:
+        #         x1 *= 10
+        #         y1 *= 10
+        #         x2 *= 10
+        #         y2 *= 10
+        #
+        #         cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
+        # if len(averagedCombos):
+        #     for x1, y1, x2, y2 in averagedCombos:
+        #         x1 *= 10
+        #         y1 *= 10
+        #         x2 *= 10
+        #         y2 *= 10
+        #
+        #         cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
+        #
+        # cv2.imshow('final', img)
+        # cv2.waitKey(2500)
 
-                cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
-        if len(averagedCombos):
-            for x1, y1, x2, y2 in averagedCombos:
-                x1 *= 10
-                y1 *= 10
-                x2 *= 10
-                y2 *= 10
 
-                cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
-        cv2.imshow('final', img)
-        cv2.waitKey(2500)
+
+
+

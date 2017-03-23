@@ -2,7 +2,7 @@ from threading import Thread, RLock
 from time import sleep
 
 import Constants as Const
-from Behaviors import FollowLine
+from Behaviors.LineBehavior import FollowLine
 from HardwareLibs import RoboHat
 from HardwareLibs.Camera import PanTiltPiCamera
 from HardwareLibs.Wheel import Wheel
@@ -41,7 +41,8 @@ class RoverHandler:
 
     def mainThread(self):
         while not self.stopped:
-            sleep(.0001)
+            sleep(.0001)  # Let other threads do stuff
+
             with self.actionLock:
                 # Do Hardware Updates
                 self.LWheel.update()
