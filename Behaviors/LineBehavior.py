@@ -27,7 +27,7 @@ class Mapper:
     the robot within what it knows of the lines so far.
     """
 
-    def __init__(self, p1, p2):
+    def __init__(self):
         self.history = []  # A list of line lists [[L1, L2], [L1, L2, L3] from previous frames
         self.currentLine = None
 
