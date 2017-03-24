@@ -86,8 +86,8 @@ class FollowLine:
         :param line: Line object
         :return:
         """
-        lowerThresh = 85
-        upperThresh = 95
+        lowerThresh = 89
+        upperThresh = 91
         lWheel = self.rover.LWheel
         rWheel = self.rover.RWheel
 
@@ -105,14 +105,14 @@ class FollowLine:
 
         if lowerThresh < line.angle:
             print("Left")
-            lWheel.setPower(self.targetSpeed*.4)
+            lWheel.setPower(self.targetSpeed*.3)
             rWheel.setPower(self.targetSpeed)
             return
 
         if line.angle < lowerThresh:
             print("Right")
             lWheel.setPower(self.targetSpeed)
-            rWheel.setPower(self.targetSpeed*.4)
+            rWheel.setPower(self.targetSpeed*.3)
             return
 
     # Line Identification Functions
