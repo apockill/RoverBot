@@ -45,7 +45,9 @@ class Mapper:
         :return:
         """
 
-        if len(lines) == 0: return
+        if len(lines) == 0:
+            self.currentLine = None
+            return
 
 
         self.history.append(lines)
