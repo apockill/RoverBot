@@ -75,7 +75,7 @@ class FollowLine:
         if line is None: return
         print(line)
         self.moveTowards(line)
-        sleep(.5)
+
 
     # Robot Control Functions
     def moveTowards(self, line):
