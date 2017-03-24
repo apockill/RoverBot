@@ -72,7 +72,7 @@ class FollowLine:
         self.map.addLineFrame(lines)
 
         line = self.map.getCurrentLine()  # Gets direction of the currently followed line
-        if line is None: return
+
         print(line)
         self.moveTowards(line)
 
@@ -88,6 +88,11 @@ class FollowLine:
         upperThresh = 95
         lWheel = self.rover.LWheel
         rWheel = self.rover.RWheel
+
+        if line is None:
+            print("Stop")
+            lWheel.setSpeed(0)
+            rWheel.setSpeed(0)
 
         if lowerThresh <= line.angle <= upperThresh:
             print("Straight")
