@@ -93,6 +93,7 @@ class FollowLine:
             print("Stop")
             lWheel.setSpeed(0)
             rWheel.setSpeed(0)
+            return
 
         if lowerThresh <= line.angle <= upperThresh:
             print("Straight")
