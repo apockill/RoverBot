@@ -58,7 +58,7 @@ class Wheel(TimedHardwareLoop):
         super().__init__(delay=0.05)
 
         # Set up Wheel Controls
-        self.speed = 0
+        self.speed = None
         self.power = 0
         self.lastError = 0  # Last error
 
@@ -97,6 +97,7 @@ class Wheel(TimedHardwareLoop):
         :param power: A value from 0 to 100
         """
 
+        self.speed = None  # Set the mode to "power" and not "speed" This disables the self.update() function
 
         # Sanitize power values
         power = clamp(power, -100, 100)
@@ -126,6 +127,7 @@ class Wheel(TimedHardwareLoop):
         """
         if not self.isUpdate(): return
 
+        if self.speed is None: return
         # Constants
         maxPowerChange = 50 * self.delay  # Power Change / Seconds
         # Works, but slow

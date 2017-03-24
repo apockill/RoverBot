@@ -64,7 +64,7 @@ class FollowLine:
     def __init__(self, parent):
         self.rover = parent
         self.map   = Mapper()
-        self.targetSpeed = 200
+        self.targetSpeed = 50
 
     def update(self):
         lowRed  = [150, 75, 75]
@@ -93,26 +93,26 @@ class FollowLine:
 
         if line is None:
             print("Stop")
-            lWheel.setSpeed(0)
-            rWheel.setSpeed(0)
+            lWheel.setPower(0)
+            rWheel.setPower(0)
             return
 
         if lowerThresh <= line.angle <= upperThresh:
             print("Straight")
-            lWheel.setSpeed(self.targetSpeed)
-            rWheel.setSpeed(self.targetSpeed)
+            lWheel.setPower(self.targetSpeed)
+            rWheel.setPower(self.targetSpeed)
             return
 
         if lowerThresh < line.angle:
             print("Left")
-            lWheel.setSpeed(self.targetSpeed*.4)
-            rWheel.setSpeed(self.targetSpeed)
+            lWheel.setPower(self.targetSpeed*.4)
+            rWheel.setPower(self.targetSpeed)
             return
 
         if line.angle < lowerThresh:
             print("Right")
-            lWheel.setSpeed(self.targetSpeed)
-            rWheel.setSpeed(self.targetSpeed*.4)
+            lWheel.setPower(self.targetSpeed)
+            rWheel.setPower(self.targetSpeed*.4)
             return
 
     # Line Identification Functions
