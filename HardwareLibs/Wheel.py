@@ -84,6 +84,7 @@ class Wheel(TimedHardwareLoop):
             self.speed = speed
 
 
+
         # Kickstart the motor so that there's some velocity values and tick responses
         minUnit = 35
         if abs(self.power) < minUnit:
@@ -129,7 +130,7 @@ class Wheel(TimedHardwareLoop):
         if not self.isUpdate(): return
 
         # Constants
-        maxPowerChange = 50 * self.delay  # Power Change / Seconds
+        # maxPowerChange = 50 * self.delay  # Power Change / Seconds
         # Works, but slow
         kP = 0.005
         kD = 0.025
@@ -148,7 +149,7 @@ class Wheel(TimedHardwareLoop):
         errChange = error - self.lastError
 
         pwrChange = kP * error + kD * errChange
-        pwrChange = clamp(pwrChange, -maxPowerChange, maxPowerChange)
+        # pwrChange = clamp(pwrChange, -maxPowerChange, maxPowerChange)
 
         # Set the power
         self.setPower(self.power + pwrChange)
