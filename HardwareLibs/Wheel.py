@@ -58,7 +58,7 @@ class Wheel(TimedHardwareLoop):
         super().__init__(delay=0.05)
 
         # Set up Wheel Controls
-        self.speed = None
+        self.speed = 0
         self.power = 0
         self.lastError = 0  # Last error
 
@@ -100,7 +100,6 @@ class Wheel(TimedHardwareLoop):
         # Sanitize power values
         power = clamp(int(power), -100, 100)
 
-        self.speed = None  # Set the mode to "power" and not "speed" This disables the self.update() function
         if power == self.power: return  # Avoid repeat commands
 
 
@@ -129,7 +128,6 @@ class Wheel(TimedHardwareLoop):
         """
         if not self.isUpdate(): return
 
-        if self.speed is None: return
         # Constants
         maxPowerChange = 50 * self.delay  # Power Change / Seconds
         # Works, but slow
@@ -273,7 +271,7 @@ class Encoder:
         # Run the Callback Function for the parent
         self.getVelocity()
 
-    def getVelocity(self, sampleSize=10):
+    def getVelocity(self, sampleSize=5):
         if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
         if sampleSize == 1: return 0
 
