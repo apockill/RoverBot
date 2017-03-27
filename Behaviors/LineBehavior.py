@@ -64,7 +64,7 @@ class FollowLine:
     def __init__(self, parent):
         self.rover = parent
         self.map   = Mapper()
-        self.targetSpeed = 45
+        self.targetSpeed = 55
 
     def update(self):
         lowRed  = [150, 75, 75]
