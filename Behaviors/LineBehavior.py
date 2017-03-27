@@ -107,7 +107,7 @@ class FollowLine:
         # Left
         if lowerThresh < line.angle:
             print("Left")
-            lWheel.setPower(0)  # self.targetSpeed*.3)
+            lWheel.setPower(self.targetSpeed*.6)
             rWheel.setPower(self.targetSpeed)
             return
 
@@ -115,7 +115,7 @@ class FollowLine:
         if line.angle < lowerThresh:
             print("Right")
             lWheel.setPower(self.targetSpeed)
-            rWheel.setPower(0)  # self.targetSpeed*.3)
+            rWheel.setPower(self.targetSpeed*.6)
             return
 
     # Line Identification Functions
