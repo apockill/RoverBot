@@ -97,7 +97,9 @@ class Wheel(TimedHardwareLoop):
         :param power: A value from 0 to 100
         """
 
+
         self.speed = None  # Set the mode to "power" and not "speed" This disables the self.update() function
+        if power == self.power: return  # Avoid repeat commands
 
         # Sanitize power values
         power = clamp(power, -100, 100)
