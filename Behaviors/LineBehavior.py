@@ -105,7 +105,7 @@ class FollowLine:
             return
 
         # Left
-        if lowerThresh < line.angle:
+        if lowerThresh > line.angle:
             print("Left")
             lWheel.setSpeed(0)
             rWheel.setSpeed(self.targetSpeed)
