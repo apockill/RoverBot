@@ -275,7 +275,7 @@ class Encoder:
         # Run the Callback Function for the parent
         self.getVelocity()
 
-    def getVelocity(self, sampleSize=1):
+    def getVelocity(self, sampleSize=3):
         if len(self.log) < sampleSize + 1: sampleSize = len(self.log)
         if sampleSize == 1: return 0
 
