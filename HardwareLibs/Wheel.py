@@ -98,9 +98,9 @@ class Wheel(TimedHardwareLoop):
         """
 
         # Sanitize power values
-        power = clamp(int(power), -100, 100)
+        power = clamp(power, -100, 100)
 
-        if power == self.power: return  # Avoid repeat commands
+        if int(power) == self.power: return  # Avoid repeat commands
 
 
         self.power = power
