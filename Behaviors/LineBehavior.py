@@ -64,7 +64,7 @@ class FollowLine:
     def __init__(self, parent):
         self.rover = parent
         self.map   = Mapper()
-        self.targetSpeed = 35
+        self.targetSpeed = 45
 
     def update(self):
         lowRed  = [150, 75, 75]
@@ -105,7 +105,7 @@ class FollowLine:
 
         if lowerThresh < line.angle:
             print("Left")
-            lWheel.setPower(0) # self.targetSpeed*.3)
+            lWheel.setPower(0)  # self.targetSpeed*.3)
             rWheel.setPower(self.targetSpeed)
             return
 
