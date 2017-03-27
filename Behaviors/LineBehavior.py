@@ -93,22 +93,25 @@ class FollowLine:
 
         if line is None:
             print("Stop")
-            lWheel.setPower(lWheel.power*.7)
-            rWheel.setPower(rWheel.power*.7)
+            lWheel.setPower(lWheel.power - 5)
+            rWheel.setPower(rWheel.power - 5)
             return
 
+        # Straight
         if lowerThresh <= line.angle <= upperThresh:
             print("Straight")
             lWheel.setPower(self.targetSpeed)
             rWheel.setPower(self.targetSpeed)
             return
 
+        # Left
         if lowerThresh < line.angle:
             print("Left")
             lWheel.setPower(0)  # self.targetSpeed*.3)
             rWheel.setPower(self.targetSpeed)
             return
 
+        # Right
         if line.angle < lowerThresh:
             print("Right")
             lWheel.setPower(self.targetSpeed)
