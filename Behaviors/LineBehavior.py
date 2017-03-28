@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import VisionUtils
-import Utils
+from Utils import lineAngle, clamp
 from collections import namedtuple
 from time import time, sleep
 
@@ -16,7 +16,7 @@ class Line:
 
         # Angle is 130 if the line points approximately from the bottom right to top left
         # Angle is 60 if the line points approximately from the bottom left to the top right
-        self.angle = 180 - Utils.lineAngle(self.p1, self.p2)
+        self.angle = 180 - lineAngle(self.p1, self.p2)
 
     def __str__(self):
         return "Angle: " + str(self.angle) + "  P1: " + str(self.p1) + "  P2: " + str(self.p2)
@@ -106,10 +106,10 @@ class FollowLine:
         # X: difference between wheels
         # Y:
         # Speed: From targetSpeed*.5 to targetSpeed, where 0 y leads to .5 targetSpeed
-        speed = Utils.clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
+        speed = clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
 
-        left  = +speed*xMag  # Where -1 xmag will lower left turning speed
-        right = - speed*xMag  # Where -1 xmag will raise the right turning speed
+        left  = clamp(speed*xMag, 0, self.targetSpeed)  # Where -1 xmag will lower left turning speed
+        right = clamp(-speed*xMag, 0, self.targetSpeed)  # Where -1 xmag will raise the right turning speed
 
         lWheel.setSpeed(left)
         rWheel.setSpeed(right)
