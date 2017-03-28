@@ -7,8 +7,12 @@ from HardwareLibs.Camera import PanTiltPiCamera
 
 if __name__ == "__main__":
     print("\n\nStarting!\n")
-    robot  = RoverHandler()
-    robot.mainThread()
+    robot = RoverHandler()
+
+    try:
+        robot.mainThread()
+    except (KeyboardInterrupt, SystemExit):
+        robot.close()
 
     # print("Final L: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
     # print("Final R: ", robot.RWheel.encoder.getVelocity(sampleSize=50))
