@@ -99,6 +99,7 @@ class FollowLine:
         # Get the highest point of the line
         highestPoint = sorted(line, key= lambda l: l[1])[0]
         print(line, highestPoint)
+        if highestPoint[0] <
         """
         lowerThresh = 89
         upperThresh = 91
@@ -214,6 +215,7 @@ class FollowLine:
             if len(combo) < minLinesForCombo: continue
 
             avgLine = (np.sum(combo, axis=0) / len(combo)).astype(int)
+            avgLine *= 10  # Rescale to screen size
             averagedCombos.append(Line(avgLine[:2], avgLine[2:]))
 
 
@@ -231,10 +233,10 @@ class FollowLine:
 
         if len(averagedCombos):
             for p1, p2 in averagedCombos:
-                x1 *= p1[0]
-                y1 *= p1[1]
-                x2 *= p2[0]
-                y2 *= p2[1]
+                x1 = p1[0]
+                y1 = p1[1]
+                x2 = p2[0]
+                y2 = p2[1]
 
                 cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
