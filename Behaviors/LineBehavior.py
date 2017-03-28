@@ -114,7 +114,7 @@ class FollowLine:
         lWheel.setSpeed(left)
         rWheel.setSpeed(right)
 
-        print("Left: ", left, "\tRight: ", right)
+        print("Left: ", left, "\tRight: ", right, "\txMag", xMag, "\tyMag", yMag)
 
         # if point[0] < horzMiddle:
         #     print("Left")
