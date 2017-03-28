@@ -75,44 +75,58 @@ class FollowLine:
 
         line = self.map.getCurrentLine()  # Gets direction of the currently followed line
 
+        if line is None:
+            self.rover.LWheel.setSpeed(0)
+            self.rover.RWheel.setSpeed(0)
+            return
 
-        self.moveTowards(line)
+        # Pick the point to move towards
+        highestPoint = sorted(line, key=lambda l: l[1])[0]
+        print(line, highestPoint)
+        self.moveTowards(highestPoint)
 
 
     # Robot Control Functions
-    def moveTowards(self, line):
+    def moveTowards(self, point):
         """
         Move towards a Line
-        :param line: Line object
+        :param point: [x, y]
         :return:
         """
 
         lWheel = self.rover.LWheel
         rWheel = self.rover.RWheel
 
-        if line is None:
-            print("Stop")
-            lWheel.setSpeed(0)
-            rWheel.setSpeed(0)
-            return
-
         # Get the highest point of the line
         horzMiddle = self.rover.camera.resolution[0] / 2
-        highestPoint = sorted(line, key= lambda l: l[1])[0]
+        vertMiddle = self.rover.camera.resolution[1] / 2
+        xMag   =  (point[0] - horzMiddle) / horzMiddle     # -1 to 1, where -1 is left and 1 is right
+        yMag   = self.rover.camera.resolution[1]/point[1]  # 0 to 1, where 1 is toop and 0 is bottom
 
-        print(line, highestPoint)
+        # X: difference between wheels
+        # Y:
+        # Speed: From targetSpeed*.5 to targetSpeed, where 0 y leads to .5 targetSpeed
+        speed = Utils.clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
+        ratio = xMag
+        left  = speed + speed*xMag  # Where -1 xmag will lower left turning speed
+        right = speed - speed*xMag  # Where -1 xmag will raise the right turning speed
 
-        if highestPoint[0] < horzMiddle:
-            print("Left")
-            lWheel.setSpeed(0)
-            rWheel.setSpeed(self.targetSpeed)
-            return
+        # lWheel.setSpeed(left)
+        # rWheel.setSpeed(right)
 
-        if highestPoint[0] > horzMiddle:
-            print("Right")
-            lWheel.setSpeed(self.targetSpeed)
-            rWheel.setSpeed(0)
-            return
+        print("Left: ", int(left), "Right: ", int(right))
+
+        # if point[0] < horzMiddle:
+        #     print("Left")
+        #     lWheel.setSpeed(0)
+        #     rWheel.setSpeed(self.targetSpeed)
+        #     return
+        #
+        # if point[0] > horzMiddle:
+        #     print("Right")
+        #     lWheel.setSpeed(self.targetSpeed)
+        #     rWheel.setSpeed(0)
+        #     return
 
         """
         lowerThresh = 89
