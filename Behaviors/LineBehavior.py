@@ -75,7 +75,7 @@ class FollowLine:
 
         line = self.map.getCurrentLine()  # Gets direction of the currently followed line
 
-        print(line)
+
         self.moveTowards(line)
 
 
