@@ -49,7 +49,7 @@ class RoverHandler:
                 self.RWheel.update()
 
                 # Do Behavior Updates
-                # self.behavior.update()
+                self.behavior.update()
 
 
         self.close()

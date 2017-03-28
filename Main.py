@@ -8,7 +8,6 @@ from HardwareLibs.Camera import PanTiltPiCamera
 if __name__ == "__main__":
     print("\n\nStarting!\n")
     robot  = RoverHandler()
-    robot.LWheel.setSpeed(250)
     robot.mainThread()
 
     # print("Final L: ", robot.LWheel.encoder.getVelocity(sampleSize=50))
