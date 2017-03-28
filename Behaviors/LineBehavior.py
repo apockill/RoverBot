@@ -99,8 +99,9 @@ class FollowLine:
 
         # Get the highest point of the line
         horzMiddle = self.rover.camera.resolution[0] / 2
+        vertMax = self.rover.camera.resolution[1]
         xMag   = (point[0] - horzMiddle) / horzMiddle     # -1 to 1, where -1 is left and 1 is right
-        yMag   = self.rover.camera.resolution[1]/(point[1] + 1)  # 0 to 1, where 1 is toop and 0 is bottom
+        yMag   = (vertMax - point[0]) / vertMax           # 0 to 1, where 1 is toop and 0 is bottom
 
         # X: difference between wheels
         # Y:
