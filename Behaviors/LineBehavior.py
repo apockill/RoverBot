@@ -110,7 +110,8 @@ class FollowLine:
 
         left  = self.targetSpeed*.5 + speed * xMag  # Where -1 xmag will lower left turning speed
         right = self.targetSpeed*.5 - speed * xMag  # Where -1 xmag will raise the right turning speed
-
+        left  = int(left)
+        right = int(right)
         lWheel.setSpeed(left)
         rWheel.setSpeed(right)
 
