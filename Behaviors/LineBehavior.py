@@ -97,9 +97,15 @@ class FollowLine:
             return
 
         # Get the highest point of the line
+        horzMiddle = self.rover.camera.resolution[0] / 2
         highestPoint = sorted(line, key= lambda l: l[1])[0]
         print(line, highestPoint)
-        if highestPoint[0] <
+        if highestPoint[0] < horzMiddle:
+            print("Left")
+
+        if highestPoint[0] > horzMiddle:
+            print("Right")
+
         """
         lowerThresh = 89
         upperThresh = 91
