@@ -104,14 +104,14 @@ class FollowLine:
 
         if highestPoint[0] < horzMiddle:
             print("Left")
-            lWheel.setSpeed(self.targetSpeed * .5)
+            lWheel.setSpeed(self.targetSpeed * .2)
             rWheel.setSpeed(self.targetSpeed)
             return
 
         if highestPoint[0] > horzMiddle:
             print("Right")
             lWheel.setSpeed(self.targetSpeed)
-            rWheel.setSpeed(self.targetSpeed * .5)
+            rWheel.setSpeed(self.targetSpeed * .2)
             return
 
         """
