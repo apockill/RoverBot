@@ -107,7 +107,7 @@ class FollowLine:
         # Y:
         # Speed: From targetSpeed*.5 to targetSpeed, where 0 y leads to .5 targetSpeed
         speed = Utils.clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
-        ratio = xMag
+
         left  = speed + speed*xMag  # Where -1 xmag will lower left turning speed
         right = speed - speed*xMag  # Where -1 xmag will raise the right turning speed
 

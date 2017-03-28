@@ -155,13 +155,13 @@ class Wheel(TimedHardwareLoop):
         self.setPower(self.power + pwrChange)
         self.lastError = error
 
-        print("T: ", round(getRunTime(), 4),
-              "\tLast Delay: ", round(self.lastDelay, 4),
-              "\tChange: ",     round(pwrChange, 1),
-              "\tPwr: ",        round(self.power, 2),
-              "\tVel: ",        round(velocity, 0),
-              "\tkP: ",         round(kP*error, 3),
-              "\tkD: ",         round(kD*errChange, 3))
+        # print("T: ", round(getRunTime(), 4),
+        #       "\tLast Delay: ", round(self.lastDelay, 4),
+        #       "\tChange: ",     round(pwrChange, 1),
+        #       "\tPwr: ",        round(self.power, 2),
+        #       "\tVel: ",        round(velocity, 0),
+        #       "\tkP: ",         round(kP*error, 3),
+        #       "\tkD: ",         round(kD*errChange, 3))
 
     def close(self):
         # Close main thread and close encoder events
