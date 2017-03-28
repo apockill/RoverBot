@@ -99,7 +99,9 @@ class FollowLine:
         # Get the highest point of the line
         horzMiddle = self.rover.camera.resolution[0] / 2
         highestPoint = sorted(line, key= lambda l: l[1])[0]
+
         print(line, highestPoint)
+
         if highestPoint[0] < horzMiddle:
             print("Left")
 
