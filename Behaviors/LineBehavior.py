@@ -239,7 +239,7 @@ class FollowLineBehaviour:
                 cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
 
         cv2.imshow('final', img)
-        # cv2.waitKey(2500)
+        cv2.waitKey(2500)
 
         return averagedCombos
 
