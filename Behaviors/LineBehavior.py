@@ -188,7 +188,7 @@ class FollowLine:
 
         def getAngle(line):
             # Turn angle from -180:180 to just 0:180
-            angle = Utils.lineAngle(line[:2], line[2:])
+            angle = lineAngle(line[:2], line[2:])
             if angle < 0: angle += 180
             return angle
 
@@ -196,7 +196,7 @@ class FollowLine:
             """ Check if the line fits within this group of combos by checking it's angle """
             checkAngle = getAngle(checkLine)
             for line in combo:
-                angle = Utils.lineAngle(line[:2], line[2:])
+                angle = lineAngle(line[:2], line[2:])
                 difference = abs(checkAngle - angle)
 
                 if difference < maxAngle or 180 - difference < maxAngle:
@@ -207,7 +207,7 @@ class FollowLine:
 
         # Pre-process lines so that lines always point from 0 degrees to 180, and not over
         for i, line in enumerate(unsortedLines):
-            angle = Utils.lineAngle(line[:2], line[2:])
+            angle = lineAngle(line[:2], line[2:])
             if angle < 0:
                 line = np.concatenate((line[2:], line[:2]))
                 unsortedLines[i] = line
