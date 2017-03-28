@@ -59,7 +59,7 @@ class Mapper:
 
 
 
-class FollowLine:
+class FollowLineBehaviour:
 
     def __init__(self, parent):
         self.rover = parent
@@ -86,8 +86,7 @@ class FollowLine:
         :param line: Line object
         :return:
         """
-        lowerThresh = 89
-        upperThresh = 91
+
         lWheel = self.rover.LWheel
         rWheel = self.rover.RWheel
 
@@ -97,6 +96,12 @@ class FollowLine:
             rWheel.setSpeed(0)
             return
 
+        # Get the highest point of the line
+        highestPoint = sorted(line, key= lambda l: l[1])[0]
+        print(line, highestPoint)
+        """
+        lowerThresh = 89
+        upperThresh = 91
         # Straight
         if lowerThresh <= line.angle <= upperThresh:
             print("Straight")
@@ -117,6 +122,7 @@ class FollowLine:
             lWheel.setSpeed(self.targetSpeed)
             rWheel.setSpeed(self.targetSpeed*.5)
             return
+        """
 
     # Line Identification Functions
     def __findLines(self, hueLow, hueHigh):
@@ -129,7 +135,7 @@ class FollowLine:
         # Make the image small to reduce line-finding processing times
         small = cv2.resize(rThresh, (64, 48), interpolation=cv2.INTER_AREA)
 
-        # cv2.imshow('Thresh', rThresh)
+
 
 
         # lines = cv2.HoughLinesP(edges, 1, np.pi, threshold=25, minLineLength=50, maxLineGap=10)
@@ -212,27 +218,27 @@ class FollowLine:
 
 
 
-        # # Draw Line Combos and Final Lines
-        # img = self.rover.camera.read()
-        # for i, combo in enumerate(lineCombos):
-        #     for x1, y1, x2, y2 in combo:
-        #         x1 *= 10
-        #         y1 *= 10
-        #         x2 *= 10
-        #         y2 *= 10
-        #
-        #         cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
-        #
-        # if len(averagedCombos):
-        #     for p1, p2 in averagedCombos:
-        #         x1 *= p1[0]
-        #         y1 *= p1[1]
-        #         x2 *= p2[0]
-        #         y2 *= p2[1]
-        #
-        #         cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
-        #
-        # cv2.imshow('final', img)
+        # Draw Line Combos and Final Lines
+        img = self.rover.camera.read()
+        for i, combo in enumerate(lineCombos):
+            for x1, y1, x2, y2 in combo:
+                x1 *= 10
+                y1 *= 10
+                x2 *= 10
+                y2 *= 10
+
+                cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
+
+        if len(averagedCombos):
+            for p1, p2 in averagedCombos:
+                x1 *= p1[0]
+                y1 *= p1[1]
+                x2 *= p2[0]
+                y2 *= p2[1]
+
+                cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
+
+        cv2.imshow('final', img)
         # cv2.waitKey(2500)
 
         return averagedCombos
