@@ -14,15 +14,15 @@ mmPerEncoderTick = 4.83308845108 * 2
 cameraPanPin     = 1
 cameraTiltPin    = 0
 
-leftWheelPinA    = 33
-leftWheelPinB    = 32
-rightWheelPinA   = 36
-rightWheelPinB   = 35
+leftWheelPinA    = 36
+leftWheelPinB    = 35
+rightWheelPinA   = 33
+rightWheelPinB   = 32
 
-leftEncoderPinA  = 15
-leftEncoderPinB  = 16
-rightEncoderPinA = 13
-rightEncoderPinB = 29
+leftEncoderPinA  = 13
+leftEncoderPinB  = 29
+rightEncoderPinA = 15
+rightEncoderPinB = 16
 
 
 ###### PAN/TILT CONSTANTS
