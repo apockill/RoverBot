@@ -59,7 +59,7 @@ class Mapper:
 
 
 
-class FollowLineBehaviour:
+class FollowLine:
 
     def __init__(self, parent):
         self.rover = parent
