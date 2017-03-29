@@ -81,7 +81,6 @@ class FollowLine:
             if self.framesSinceLine > 50:
                 self.rover.LWheel.setSpeed(0)
                 self.rover.RWheel.setSpeed(0)
-
             return
 
         self.framesSinceLine = 0
