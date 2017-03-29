@@ -66,6 +66,7 @@ class FollowLine:
         self.map   = Mapper()
         self.targetSpeed = 250
 
+        self.framesSinceLine = 0  # How many frames since the line was seen
     def update(self):
         lowRed  = [150, 75, 75]
         highRed = [30, 255, 255]
@@ -76,10 +77,14 @@ class FollowLine:
         line = self.map.getCurrentLine()  # Gets direction of the currently followed line
 
         if line is None:
-            self.rover.LWheel.setSpeed(0)
-            self.rover.RWheel.setSpeed(0)
+            self.framesSinceLine += 1
+            if self.framesSinceLine > 50:
+                self.rover.LWheel.setSpeed(0)
+                self.rover.RWheel.setSpeed(0)
+
             return
 
+        self.framesSinceLine = 0
         # Pick the point to move towards
         highestPoint = sorted(line, key=lambda l: l[1])[0]
         print(line, highestPoint)
@@ -106,15 +111,17 @@ class FollowLine:
         # X: difference between wheels
         # Y:
         # Speed: From targetSpeed*.5 to targetSpeed, where 0 y leads to .5 targetSpeed
-        speed = (self.targetSpeed * .7) * yMag  # clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
-        left  = self.targetSpeed*.5 + (speed) * xMag  # Where -1 xmag will lower left turning speed
-        right = self.targetSpeed*.5 - (speed) * xMag  # Where -1 xmag will raise the right turning speed
-        left  = int(left)
-        right = int(right)
-        lWheel.setSpeed(left)
-        rWheel.setSpeed(right)
+        speed  = (self.targetSpeed * .7) * yMag  # clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
+        lSpeed = self.targetSpeed*.5 + (speed) * xMag  # Where -1 xmag will lower left turning speed
+        rSpeed = self.targetSpeed*.5 - (speed) * xMag  # Where -1 xmag will raise the right turning speed
+        lSpeed = int(lSpeed)
+        rSpeed = int(rSpeed)
 
-        print("Left: ", left, "\tRight: ", right, "\txMag", xMag, "\tyMag", yMag)
+
+        lWheel.setSpeed(lSpeed)
+        rWheel.setSpeed(rSpeed)
+
+        print("Left: ", lSpeed, "\tRight: ", rSpeed, "\txMag", xMag, "\tyMag", yMag)
 
         # if point[0] < horzMiddle:
         #     print("Left")
