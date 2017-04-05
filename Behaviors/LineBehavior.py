@@ -111,8 +111,8 @@ class FollowLine:
         # Y:
         # Speed: From targetSpeed*.5 to targetSpeed, where 0 y leads to .5 targetSpeed
         speed  = (self.targetSpeed * .4) * yMag  # clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
-        lSpeed = self.targetSpeed*.7 + speed * xMag  # Where -1 xmag will lower left turning speed
-        rSpeed = self.targetSpeed*.7 - speed * xMag  # Where -1 xmag will raise the right turning speed
+        lSpeed = self.targetSpeed + speed * xMag  # Where -1 xmag will lower left turning speed
+        rSpeed = self.targetSpeed - speed * xMag  # Where -1 xmag will raise the right turning speed
         lSpeed = clamp(int(lSpeed), self.targetSpeed * .1, self.targetSpeed*2)
         rSpeed = clamp(int(rSpeed), self.targetSpeed * .1, self.targetSpeed*2)
 
