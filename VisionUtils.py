@@ -42,3 +42,4 @@ def isolateColor(img, lower, upper):
 
     final = cv2.bitwise_and(img, img, mask=mask)
     return final
+

@@ -13,7 +13,6 @@ class Line:
         self.p2 = tuple(p2)
 
 
-
         # Angle is 130 if the line points approximately from the bottom right to top left
         # Angle is 60 if the line points approximately from the bottom left to the top right
         self.angle = 180 - lineAngle(self.p1, self.p2)
@@ -52,11 +51,18 @@ class Mapper:
 
         self.history.append(lines)
 
-        self.currentLine = self.history[-1][0]
+        # Find the highest 'y' of any line
+        highestY = (0, 0)  # [0] is the line index, [1] is the highest y value
+        for index, line in enumerate(self.history[-1]):
+            if line.p1[1] > highestY[1]:
+                highestY = (index, line.p1[1])
+            elif line.p2[1] > highestY[1]:
+                highestY = (index, line.p2[1])
+        print(highestY[0])
+        self.currentLine = highestY[0]
 
     def getCurrentLine(self):
         return self.currentLine
-
 
 
 class FollowLine:
@@ -67,6 +73,8 @@ class FollowLine:
         self.targetSpeed = 300
 
         self.framesSinceLine = 0  # How many frames since the line was seen
+
+
     def update(self):
         lowRed  = [150, 75, 75]
         highRed = [30, 255, 255]
@@ -84,6 +92,7 @@ class FollowLine:
             return
 
         self.framesSinceLine = 0
+
         # Pick the point to move towards
         highestPoint = sorted(line, key=lambda l: l[1])[0]
         print(line, highestPoint)
