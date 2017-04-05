@@ -122,6 +122,9 @@ class Wheel(TimedHardwareLoop):
             self.A_PWM.ChangeDutyCycle(0)
             self.B_PWM.ChangeDutyCycle(0)
 
+    def getSpeed(self):
+        return self.encoder.getVelocity()
+
     def update(self):
         """
         This function runs whenever the encoder on the wheel has an updated tick
