@@ -113,8 +113,8 @@ class FollowLine:
         turnSpeed  = (self.targetSpeed * .5) * xMag  # clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
         lSpeed = self.targetSpeed*.4 + turnSpeed  # Where -1 xmag will lower left turning speed
         rSpeed = self.targetSpeed*.4 - turnSpeed  # Where -1 xmag will raise the right turning speed
-        lSpeed = clamp(int(lSpeed), -self.targetSpeed * .1, self.targetSpeed*1)
-        rSpeed = clamp(int(rSpeed), -self.targetSpeed * .1, self.targetSpeed*1)
+        lSpeed = clamp(int(lSpeed), -self.targetSpeed * .1, self.targetSpeed*.8)
+        rSpeed = clamp(int(rSpeed), -self.targetSpeed * .1, self.targetSpeed*.8)
 
 
         lWheel.setSpeed(lSpeed)
