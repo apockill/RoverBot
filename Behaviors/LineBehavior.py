@@ -55,11 +55,11 @@ class Mapper:
         highestY = (0, 0)  # [0] is the line index, [1] is the highest y value
         for index, line in enumerate(self.history[-1]):
             if line.p1[1] > highestY[1]:
-                highestY = (line, line.p1[1])
+                highestY = (index, line.p1[1])
             elif line.p2[1] > highestY[1]:
-                highestY = (line, line.p2[1])
+                highestY = (index, line.p2[1])
         print(highestY[0])
-        self.currentLine = highestY[0]
+        self.currentLine = self.history[-1][highestY[0]]
 
     def getCurrentLine(self):
         return self.currentLine
