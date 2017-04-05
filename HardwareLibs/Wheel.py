@@ -86,7 +86,7 @@ class Wheel(TimedHardwareLoop):
 
 
         # Kickstart the motor so that there's some velocity values and tick responses
-        minUnit = 35
+        minUnit = 50
         if abs(self.power) < minUnit:
 
             if speed > 0: self.setPower(minUnit)
