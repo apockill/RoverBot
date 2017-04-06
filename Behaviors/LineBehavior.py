@@ -116,7 +116,7 @@ class FollowLine:
         yMag   = (vertMax - point[1]) / vertMax           # 0 to 1, where 1 is toop and 0 is bottom
 
 
-        turnSpeed  = (self.targetSpeed * 2) * xMag # * yMag # clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
+        turnSpeed  = (self.targetSpeed * .4) * xMag # * yMag # clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
         lSpeed = self.targetSpeed*.6 + turnSpeed  # Where -1 xmag will lower left turning speed
         rSpeed = self.targetSpeed*.6 - turnSpeed  # Where -1 xmag will raise the right turning speed
         lSpeed = clamp(int(lSpeed), -self.targetSpeed * .1, self.targetSpeed)
