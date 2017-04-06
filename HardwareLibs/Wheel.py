@@ -144,10 +144,7 @@ class Wheel(TimedHardwareLoop):
         kD = 0.05
 
         # Fast Options:
-        kP = 0.1
-        kD = 0.05
-
-        kP = 0.1
+        kP = 0.5
         kD = 0.05
 
         # Get the change in power necessary
