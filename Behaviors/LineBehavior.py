@@ -69,7 +69,7 @@ class FollowLine:
     def __init__(self, parent):
         self.rover = parent
         self.map   = Mapper()
-        self.targetSpeed = 80
+        self.targetSpeed = 300
 
         self.framesSinceLine = 0  # How many frames since the line was seen
 

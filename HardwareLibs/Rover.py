@@ -41,7 +41,7 @@ class RoverHandler:
 
     def mainThread(self):
         while not self.stopped:
-            sleep(.0001)  # Let other threads do stuff
+            sleep(.001)  # Let other threads do stuff
 
             with self.actionLock:
                 # Do Hardware Updates
