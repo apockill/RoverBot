@@ -144,7 +144,7 @@ class Wheel(TimedHardwareLoop):
         kD = 0.05
 
         # Fast Options:
-        kP = 0.02
+        kP = 0.1
         kD = 0.05
 
         kP = 0.05
