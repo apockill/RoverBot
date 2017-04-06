@@ -128,8 +128,8 @@ class FollowLine:
             lSpeed -= amountOver / 2
             rSpeed -= amountOver / 2
 
-        lWheel.setPower(lSpeed)
-        rWheel.setPower(rSpeed)
+        lWheel.setSpeed(lSpeed)
+        rWheel.setSpeed(rSpeed)
 
         print("Left: ", lSpeed, "\tRight: ", rSpeed, "\txMag", xMag, "\tyMag", yMag)
 
