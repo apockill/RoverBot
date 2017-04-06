@@ -69,7 +69,7 @@ class FollowLine:
     def __init__(self, parent):
         self.rover = parent
         self.map   = Mapper()
-        self.targetSpeed = 300
+        self.targetSpeed = 80
 
         self.framesSinceLine = 0  # How many frames since the line was seen
 
@@ -128,8 +128,8 @@ class FollowLine:
             lSpeed -= amountOver / 2
             rSpeed -= amountOver / 2
 
-        lWheel.setSpeed(lSpeed)
-        rWheel.setSpeed(rSpeed)
+        lWheel.setPower(lSpeed)
+        rWheel.setPower(rSpeed)
 
         print("Left: ", lSpeed, "\tRight: ", rSpeed, "\txMag", xMag, "\tyMag", yMag)
 
