@@ -58,7 +58,6 @@ class Mapper:
                 highestY = (index, line.p1[1])
             elif line.p2[1] > highestY[1]:
                 highestY = (index, line.p2[1])
-        print(highestY[0])
         self.currentLine = self.history[-1][highestY[0]]
 
     def getCurrentLine(self):
@@ -116,14 +115,12 @@ class FollowLine:
         xMag   = (point[0] - horzMiddle) / horzMiddle     # -1 to 1, where -1 is left and 1 is right
         yMag   = (vertMax - point[1]) / vertMax           # 0 to 1, where 1 is toop and 0 is bottom
 
-        # X: difference between wheels
-        # Y:
-        # Speed: From targetSpeed*.5 to targetSpeed, where 0 y leads to .5 targetSpeed
+
         turnSpeed  = (self.targetSpeed * 2) * xMag # * yMag # clamp(self.targetSpeed * yMag, self.targetSpeed*.5, self.targetSpeed)
         lSpeed = self.targetSpeed*.6 + turnSpeed  # Where -1 xmag will lower left turning speed
         rSpeed = self.targetSpeed*.6 - turnSpeed  # Where -1 xmag will raise the right turning speed
-        lSpeed = clamp(int(lSpeed), -self.targetSpeed * .1, self.targetSpeed*1.5)
-        rSpeed = clamp(int(rSpeed), -self.targetSpeed * .1, self.targetSpeed*1.5)
+        lSpeed = clamp(int(lSpeed), -self.targetSpeed * .1, self.targetSpeed)
+        rSpeed = clamp(int(rSpeed), -self.targetSpeed * .1, self.targetSpeed)
 
         # Make sure stuff doesn't get too fast!
         if lSpeed + rSpeed >= self.targetSpeed * 2:
