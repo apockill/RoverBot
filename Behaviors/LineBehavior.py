@@ -95,7 +95,7 @@ class FollowLine:
         # Pick the point to move towards
         highestPoint = sorted(line, key=lambda l: l[1])[0]
         print(line, highestPoint)
-        self.moveTowards(highestPoint)
+        # self.moveTowards(highestPoint)
 
 
     # Robot Control Functions
