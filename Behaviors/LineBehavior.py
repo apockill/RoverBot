@@ -95,7 +95,7 @@ class FollowLine:
         # Pick the point to move towards
         highestPoint = sorted(line, key=lambda l: l[1])[0]
         print(line, highestPoint)
-        # self.moveTowards(highestPoint)
+        self.moveTowards(highestPoint)
 
 
     # Robot Control Functions
@@ -264,28 +264,28 @@ class FollowLine:
             averagedCombos.append(Line(avgLine[:2], avgLine[2:]))
 
 
-        # Draw Line Combos and Final Lines
-        img = self.rover.camera.read()
-        for i, combo in enumerate(lineCombos):
-            for x1, y1, x2, y2 in combo:
-                x1 *= 10
-                y1 *= 10
-                x2 *= 10
-                y2 *= 10
-
-                cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
-
-        if len(averagedCombos):
-            for p1, p2 in averagedCombos:
-                x1 = p1[0]
-                y1 = p1[1]
-                x2 = p2[0]
-                y2 = p2[1]
-
-                cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
-
-        cv2.imshow('final', img)
-        cv2.waitKey(2500)
+        # # Draw Line Combos and Final Lines
+        # img = self.rover.camera.read()
+        # for i, combo in enumerate(lineCombos):
+        #     for x1, y1, x2, y2 in combo:
+        #         x1 *= 10
+        #         y1 *= 10
+        #         x2 *= 10
+        #         y2 *= 10
+        #
+        #         cv2.line(img, (x1, y1), (x2, y2), (80*i, 80*i, 80*i), 2)
+        #
+        # if len(averagedCombos):
+        #     for p1, p2 in averagedCombos:
+        #         x1 = p1[0]
+        #         y1 = p1[1]
+        #         x2 = p2[0]
+        #         y2 = p2[1]
+        #
+        #         cv2.line(img, (x1, y1), (x2, y2), (80, 80, 80), 8)
+        #
+        # cv2.imshow('final', img)
+        # cv2.waitKey(2500)
 
         return averagedCombos
 
