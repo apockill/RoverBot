@@ -190,6 +190,9 @@ class FollowLine:
 
         if lines is None: return []
 
+        cv2.imshow('final', rImg)
+        cv2.waitKey(2500)
+
         # If lines were found, combine them until you have 1 average for each 'direction' of tape in the photo
         lines = [line[0] for line in lines]
         combinedLines = self.__combineLines(lines)
